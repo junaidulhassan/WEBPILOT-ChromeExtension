@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="popup.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+    <div id="header-container">
+        <div class="dropdown">
+            <button id="model-dropdown-btn" title="Change model">
+                <img id="model-dropdown-btn-icon" src="Images/logo10.jpg" alt="Custom Logo" style="width: 20px; height: 20px;">
+                <span id="model-dropdown-btn-text">Web Pilot</span> 
+            </button>
+            <div id="model-dropdown-content" class="dropdown-content">
+                <a id="mistral" class="model-dropdown-btn">Mistral-7B-Instrcut</a>
+                <a id="llama_3" class="model-dropdown-btn">LLama 3</a>
+                <a id="llama_2" class="model-dropdown-btn">Llama 2</a>
+            </div>
+        </div>
+        <div id="action-btn-container">
+            <button id="clear-chat-btn" title="Clear chat">
+                <i class="fa fa-trash"></i>
+            </button>
+            <div class="dropdown">
+                <button id="settings-btn" title="Settings">
+                    <i class="fa fa-cog"></i>
+                </button>
+                <div id="settings-dropdown-content" class="dropdown-content">
+                    <a id="dark-theme" class ="settings-dropdown-btn">Dark Theme</a>
+                    <a id="new-chat" class="settings-dropdown-btn">New Chat</a>
+                    <a id="chat-history" class="settings-dropdown-btn">Chat History</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div id="chat-container">
+        <div id="chat-messages"></div>
+    </div>
+    <div class="input-container">
+        <textarea id="user-input" placeholder="Ask me anything..." rows="1"></textarea>
+        <button id="send-btn" title="Send message">
+            <i class="fa fa-paper-plane"></i>
+        </button>
+    </div>
+
+    <script src="popup.js"></script>
+
+   </body>
+
+</html>
+

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dropdown Menu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        .dropdown-content a:active {
+            animation: clickAnimation 0.3s forwards;
+        }
+        @keyframes clickAnimation {
+            0% { background-color: #f1f1f1; }
+            100% { background-color: #e0e0e0; }
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="dropdown">
+    <button onclick="toggleDropdown()">Menu</button>
+    <div id="dropdownContent" class="dropdown-content">
+        <a href="#" onclick="applyTheme('dark')">Dark Theme</a>
+        <a href="#" onclick="newChat()">New Chat</a>
+        <a href="#" onclick="showHelp()">Help</a>
+    </div>
+</div>
+
+<script>
+    function toggleDropdown() {
+        document.getElementById("dropdownContent").classList.toggle("show");
+    }
+
+    function applyTheme(theme) {
+        alert("Applying " + theme + " theme.");
+    }
+
+    function newChat() {
+        alert("Starting a new chat.");
+    }
+
+    function showHelp() {
+        alert("Showing help.");
+    }
+</script>
+
+</body>
+</html>
