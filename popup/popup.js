@@ -4,12 +4,14 @@ document.getElementById('user-input').addEventListener('keypress', checkEnter);
 document.getElementById('clear-chat-btn').addEventListener('click', clearChatHistory);
 document.getElementById('dark-theme').addEventListener('click', toggleDarkTheme);
 
+
 async function processURL() {
     // Get the current tab's URL
     const [tab] = await chrome.tabs.query({
          active: true, currentWindow: true 
     });
     const url = tab.url;
+    document.getElementById('url-link').textContent = url;
 
     // Send the URL to the Flask server to process it
     await fetch('http://127.0.0.1:5000/process_url', {
@@ -35,6 +37,10 @@ async function sendMessage() {
     userMessageElement.classList.add("message", "user");
     chatMessages.appendChild(userMessageElement);
 
+
+    // clear input field
+    document.getElementById("user-input").value = "";
+
     // Send the user's message to the Flask server for a response
     const response = await fetch('http://127.0.0.1:5000/generate_response', {
         method: 'POST',
@@ -54,8 +60,6 @@ async function sendMessage() {
     botMessageElement.classList.add("message", "assistant");
     chatMessages.appendChild(botMessageElement);
 
-    // Clear the input field
-    document.getElementById("user-input").value = "";
 
     // Scroll to the bottom of the chat messages
     chatMessages.scrollTop = chatMessages.scrollHeight;
