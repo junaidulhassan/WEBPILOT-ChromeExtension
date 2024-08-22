@@ -2,8 +2,21 @@ from flask import Flask, request, jsonify
 from RAG_QnA import RAG_Model
 from scrap import Scraper
 import requests
+import re
+import json
 
 app = Flask(__name__)
+
+def is_valid_url(url):
+    regex = re.compile(
+        r'^(?:http|ftp)s?://'  # http:// or https://
+        r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|'  # domain...
+        r'localhost|'  # localhost...
+        r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|'  # ...or ipv4
+        r'\[?[A-F0-9]*:[A-F0-9:]+\]?)'  # ...or ipv6
+        r'(?::\d+)?'  # optional port
+        r'(?:/?|[/?]\S+)$', re.IGNORECASE)
+    return re.match(regex, url) is not None
 
 def is_pdf_url(url):
     if url.lower().endswith('.pdf'):
@@ -22,6 +35,13 @@ def is_pdf_url(url):
         print(f"Request failed: {e}")
         return False
 
+def is_youtube_url(url):
+    youtube_regex = re.compile(
+        r'(https?://)?(www\.)?(youtube|youtu|youtube-nocookie)\.(com|be)/.+',
+        re.IGNORECASE
+    )
+    return re.match(youtube_regex, url) is not None
+
 
 
 # Initialize models
@@ -32,7 +52,9 @@ rag = RAG_Model()
 @app.route('/process_url', methods=['POST'])
 def process_url():
     try:
-        flag=False
+        flag1=False
+        flag2 = False
+        
         data = request.json
         url = data.get('url')
         print(url)
@@ -43,12 +65,19 @@ def process_url():
             }), 400
         
         if is_pdf_url(url=url):
-            flag=True
+            flag1=True
+        elif is_youtube_url(url=url):
+            flag2=True
             
-        if flag:
+        if flag1:
             rag.load_Database(
                 is_pdf=True,
                 pdf_url=url
+            )
+        elif flag2:
+            rag.load_Database(
+                is_youtube_url=True,
+                youtube_url=url
             )
         else:
             scrp.scrape_website(url=url)

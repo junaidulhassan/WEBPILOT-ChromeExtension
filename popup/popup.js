@@ -11,7 +11,7 @@ async function processURL() {
          active: true, currentWindow: true 
     });
     const url = tab.url;
-    document.getElementById('url-link').textContent = url;
+    document.getElementById('web-link').textContent = url;
 
     // Send the URL to the Flask server to process it
     await fetch('http://127.0.0.1:5000/process_url', {
@@ -56,7 +56,7 @@ async function sendMessage() {
 
     // Display the response from the server
     var botMessageElement = document.createElement("div");
-    botMessageElement.textContent = result.response || "Error: Unable to get response";
+    botMessageElement.textContent = result.response || "Please Check your URL link or Internet Connection";
     botMessageElement.classList.add("message", "assistant");
     chatMessages.appendChild(botMessageElement);
 

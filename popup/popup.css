@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    width: 500px;
+    width: 550px;
     font-size: 14px;
     background-color: #464545;
 }
@@ -257,7 +257,7 @@ a {
 
 .code-block {
     background-color: #474747;
-    color: white;
+    color: rgb(255, 255, 255);
     padding: 10px;
     border-radius: 12px;
     overflow: scroll;
@@ -310,6 +310,7 @@ a {
 #model-dropdown-btn {
     background-color: #444444;
     color: rgb(255, 255, 255);
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     border: none;
     padding: 10px;
     font-size: 16px;
@@ -357,8 +358,9 @@ a {
 /* General Markdown Styling */
 .message.assistant {
     padding: 10px;
-    background-color: #f1f1f1;
-    border-radius: 5px;
+    color: rgb(255, 255, 255);
+    background-color: #303030;
+    border-radius: 7px;
     margin: 5px 0;
     white-space: pre-wrap; /* Preserves formatting */
 }
@@ -385,19 +387,40 @@ a {
     padding-left: 20px;
 }
 
-/* Code Block Styles */
+/* Code Block Styles
 .message.assistant pre {
     background-color: #272822;
     color: #f8f8f2;
     padding: 10px;
     border-radius: 5px;
     overflow-x: auto;
-}
+} */
 
-/* Inline Code Styles */
+/* Inline Code Styles
 .message.assistant code {
     background-color: #f5f2f0;
     color: #c7254e;
     padding: 2px 4px;
     border-radius: 3px;
+} */
+
+
+#url-link{
+    text-decoration: none;
+    text-align: center;
+    margin-top: 1%;
+    font-size: 10px;
+    color: #ffffff;
+}
+
+#title{
+    margin-top: 10%;
+    text-align: center;
+    color: #ffffff;
+}
+#title i{
+    font-size: 60px;
+    color:#ffffff;
+    display:block;
+    margin: 0 auto;
 }
