@@ -35,11 +35,8 @@ async function sendMessage() {
     // Clear input field
     document.getElementById("user-input").value = "";
 
-    // Show spinner and blur background
-    document.getElementById("spinner").classList.remove("hidden");
-    document.getElementById("chat-container").classList.add("blur");
-    document.getElementById("header-container").classList.add("blur");
-    document.querySelector(".input-container").classList.add("blur");
+    // Show spinner in place of Conversify AI icon
+    showSpinner();
 
     try {
         // Send the user's message to the Flask server for a response
@@ -52,18 +49,10 @@ async function sendMessage() {
         const result = await response.json();
         const botResponse = result.response || "Please check your URL link or Internet connection";
 
-
-
         // Create a container for the bot's response
         var botMessageElement = document.createElement("div");
         botMessageElement.classList.add("message", "assistant");
         chatMessages.appendChild(botMessageElement);
-
-        // Hide spinner and remove blur
-        document.getElementById("spinner").classList.add("hidden");
-        document.getElementById("chat-container").classList.remove("blur");
-        document.getElementById("header-container").classList.remove("blur");
-        document.querySelector(".input-container").classList.remove("blur");
 
         // Function to display text character by character in the botMessageElement
         await displayTextCharacterByCharacter(botResponse, botMessageElement);
@@ -74,6 +63,9 @@ async function sendMessage() {
         botMessageElement.classList.add("message", "assistant");
         chatMessages.appendChild(botMessageElement);
     } finally {
+        // Remove spinner and restore Conversify AI icon
+        hideSpinner();
+
         // Scroll to the bottom of the chat messages
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
@@ -96,6 +88,22 @@ function clearChatHistory() {
 
 function toggleDarkTheme() {
     console.log("Your message is received");
+}
+
+// Function to show the spinner in place of the Conversify AI icon
+function showSpinner() {
+    const modelDropdownBtn = document.getElementById("model-dropdown-btn");
+    const icon = modelDropdownBtn.querySelector("i");
+    icon.classList.add("fa-spinner", "fa-spin");
+    icon.classList.remove("fa-atom");
+}
+
+// Function to hide the spinner and restore the Conversify AI icon
+function hideSpinner() {
+    const modelDropdownBtn = document.getElementById("model-dropdown-btn");
+    const icon = modelDropdownBtn.querySelector("i");
+    icon.classList.remove("fa-spinner", "fa-spin");
+    icon.classList.add("fa-atom");
 }
 
 // Function to display bot's response character by character
