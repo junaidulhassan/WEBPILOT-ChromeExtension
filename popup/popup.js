@@ -1,10 +1,10 @@
-document.addEventListener('DOMContentLoaded', processURL);
+document.addEventListener('DOMContentLoaded', processPage);
 document.getElementById('send-btn').addEventListener('click', sendMessage);
 document.getElementById('user-input').addEventListener('keypress', checkEnter);
 document.getElementById('clear-chat-btn').addEventListener('click', clearChatHistory);
 document.getElementById('dark-theme').addEventListener('click', toggleDarkTheme);
 
-async function processURL() {
+async function processPage() {
     // Get the current tab's URL
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     const url = tab.url;
@@ -16,18 +16,35 @@ async function processURL() {
         return; // Exit if the tab is irrelevant
     }
 
-    // Re-enable input if valid tab
-    disableChatInput(false);
+    // Inject script to fetch the page's text content
+    const [result] = await chrome.scripting.executeScript({
+        target: { tabId: tab.id },
+        func: fetchPageText
+    });
 
-    // Send the URL to the Flask server to process it
-    await fetch('http://127.0.0.1:5000/process_url', {
+    const pageText = result.result;
+
+    // Combine URL and page text into a single payload
+    const payload = {
+        url: url,
+        text: pageText
+    };
+
+    // Send the data (URL + page text) to the Flask server
+    await fetch('http://127.0.0.1:5000/process_page', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ url: url })
+        body: JSON.stringify(payload)
     });
 }
+
+// Function to fetch all visible text from the page
+function fetchPageText() {
+    return document.body.innerText;
+}
+
 
 function isIrrelevantTab(url) {
     // Check if the URL matches any irrelevant patterns

@@ -8,14 +8,14 @@ class Scraper:
         self.previous_url = None
         
     
-    def __write_txt_file(self, text, string):
+    def __write_txt_file(self, text):
         # Define the file path
-        file_path = "/media/junaid-ul-hassan/248ac48e-ccd4-4707-a28b-33cb7a46e6dc/LLMs Projects/Web_pilot/text_file.txt/text_file.txt"
+        file_path = "/media/junaid-ul-hassan/248ac48e-ccd4-4707-a28b-33cb7a46e6dc/WEB-Programming/WEBPILOT-ChromeExtension/Scraped_data/data.txt"
         line_length = 20
         
         # Format the text
         words = text.split()
-        formatted_text = re.sub(r'\s+', ' ', string)
+        # formatted_text = re.sub(r'\s+', ' ', string)
 
         # Open the file in write mode to clear its content and write new data
         with open(file_path, 'w') as file:

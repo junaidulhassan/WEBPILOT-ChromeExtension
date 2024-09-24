@@ -20,7 +20,7 @@ class Retrieval_Augmented_Generation:
     
     # Define the path for the database
     __DB_path = "/Docs/Chroma"
-    __store_text_file ="/media/junaid-ul-hassan/248ac48e-ccd4-4707-a28b-33cb7a46e6dc/LLMs Projects/Web_pilot/text_file.txt/text_file.txt"
+    __store_text_file ="/media/junaid-ul-hassan/248ac48e-ccd4-4707-a28b-33cb7a46e6dc/WEB-Programming/WEBPILOT-ChromeExtension/Scraped_data/data.txt"
     
     def __init__(self):
         # Initialize the embedding model

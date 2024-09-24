@@ -7,6 +7,7 @@ import json
 
 app = Flask(__name__)
 
+# Utility functions to validate URLs
 def is_valid_url(url):
     regex = re.compile(
         r'^(?:http|ftp)s?://'  # http:// or https://
@@ -28,7 +29,7 @@ def is_pdf_url(url):
         )
         content_type = response.headers.get('Content-Type', '')
         is_doc = content_type.lower() == 'application/pdf'
-        print("Is Doc: ",is_doc)
+        print("Is Doc: ", is_doc)
         return is_doc
 
     except requests.RequestException as e:
@@ -42,55 +43,42 @@ def is_youtube_url(url):
     )
     return re.match(youtube_regex, url) is not None
 
-
-
 # Initialize models
 scrp = Scraper()
 rag = RAG_Model()
 
-
-@app.route('/process_url', methods=['POST'])
-def process_url():
+@app.route('/process_page', methods=['POST'])
+def process_page():
     try:
-        flag1=False
-        flag2 = False
-        
+        # Fetch URL and text from the request
         data = request.json
         url = data.get('url')
-        print(url)
+        text = data.get('text')
         
         if not url:
-            return jsonify({
-                'error': 'Missing URL'
-            }), 400
+            return jsonify({'error': 'Missing URL'}), 400
         
-        if is_pdf_url(url=url):
-            flag1=True
-        elif is_youtube_url(url=url):
-            flag2=True
-            
-        if flag1:
-            rag.load_Database(
-                is_pdf=True,
-                pdf_url=url
-            )
-        elif flag2:
-            rag.load_Database(
-                is_youtube_url=True,
-                youtube_url=url
-            )
+        if not text:
+            return jsonify({'error': 'Missing text'}), 400
+        
+        print(f"URL: {url}")
+
+        # Check if the URL is a PDF or a YouTube link
+        if is_pdf_url(url):
+            # Process PDF
+            rag.load_Database(is_pdf=True, pdf_url=url)
+        elif is_youtube_url(url):
+            # Process YouTube video
+            rag.load_Database(is_youtube_url=True, youtube_url=url)
         else:
-            scrp.scrape_website(url=url)
+            # Process standard web page text
+            scrp.Tab_data(text=text)
             rag.load_Database()
 
-        return jsonify({
-            'message': 'URL processed successfully'
-        }), 200
+        return jsonify({'message': 'Page processed successfully'}), 200
 
     except Exception as e:
-        return jsonify({
-            'error': str(e)
-        }), 500
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/generate_response', methods=['POST'])
 def generate_response():
@@ -99,9 +87,7 @@ def generate_response():
         user_input = data.get('message')
 
         if not user_input:
-            return jsonify({
-                'error': 'Missing message'
-            }), 400
+            return jsonify({'error': 'Missing message'}), 400
 
         # Generate response based on user input
         response = rag.generateResponse(user_input)
