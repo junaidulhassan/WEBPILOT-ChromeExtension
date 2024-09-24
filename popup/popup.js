@@ -10,6 +10,15 @@ async function processURL() {
     const url = tab.url;
     document.getElementById('web-link').textContent = url;
 
+    // Check for irrelevant URLs
+    if (isIrrelevantTab(url)) {
+        showError("This is an irrelevant tab. Please open a valid website.");
+        return; // Exit if the tab is irrelevant
+    }
+
+    // Re-enable input if valid tab
+    disableChatInput(false);
+
     // Send the URL to the Flask server to process it
     await fetch('http://127.0.0.1:5000/process_url', {
         method: 'POST',
@@ -18,6 +27,56 @@ async function processURL() {
         },
         body: JSON.stringify({ url: url })
     });
+}
+
+function isIrrelevantTab(url) {
+    // Check if the URL matches any irrelevant patterns
+    return /^(chrome:\/\/|brave:\/\/|about:|data:|file:|extensions:)/.test(url);
+}
+
+function showError(message) {
+    var chatMessages = document.getElementById("chat-messages");
+
+    // Clear previous error messages, if any
+    var existingError = document.querySelector('.message.error');
+    if (existingError) {
+        existingError.remove();
+    }
+
+    // Create error message element
+    var errorMessageElement = document.createElement("div");
+    errorMessageElement.classList.add("message", "error");
+
+    // // Add custom styling and content
+    // errorMessageElement.innerHTML = `
+    //     <div class="error-container">
+    //         <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+    //         <span class="error-text">${message}</span>
+    //     </div>
+    // `;
+    chatMessages.appendChild(errorMessageElement);
+
+    // Scroll to the bottom of the chat messages
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    // Disable user input
+    disableChatInput(true);
+}
+
+function disableChatInput(disable) {
+    var inputField = document.getElementById("user-input");
+    var sendButton = document.getElementById("send-btn");
+
+    inputField.disabled = disable;
+    sendButton.disabled = disable;
+
+    if (disable) {
+        inputField.placeholder = "Chat disabled due to irrelevant tab.";
+        sendButton.classList.add("disabled");
+    } else {
+        inputField.placeholder = "Type your message here...";
+        sendButton.classList.remove("disabled");
+    }
 }
 
 async function sendMessage() {

@@ -92,3 +92,9 @@ class Scraper:
         
         return response.status_code
     
+    
+    def Tab_data(self, text):
+        # Create a new file and save data into new file.
+        self.__write_txt_file(
+            text=text
+        )
