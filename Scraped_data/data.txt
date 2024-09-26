@@ -1,559 +1,195 @@
-National University of Sciences & Technology
-Students Alumni Sustainability Giving to NUST Jobs Downloads 
-ABOUT
- 
-INSTITUTIONS
- 
-ADMISSIONS
- 
-ACADEMICS
- 
-RESEARCH & INNOVATION
- 
-INTERNATIONAL
- 
-CAMPUS LIFE
- English
- Admissions Masters Programs  ELIGIBILITY CRITERIA
-ELIGIBILITY CRITERIA
- 
- 
- 
-
-NUST is offering Masters (MS) Programmes in Engineering (IT), Natural Sciences, Applied Biosciences, Management & Social Sciences, Architecture and Interdisciplinary Engineering & Sciences. Eligibility Criteria for each is given below:
-
-1. Engineering IT
- General Eligibility:
-Sixteen years of schooling or 4 years education after HSSC/A’ Level in relevant discipline with minimum CGPA of 2.0 out of 4.0 OR 55% marks (percentage will only be considered if CGPA is not mentioned on the transcript).
-GAT (General) conducted on or after 1st May 2022 till 31st May 2024 by NTS with at least 50 accumulative test score or
-Graduate NUST Entry Test (GNET) conducted by NUST on or after 1st June 2023 till 31st June 2024  with at least 50 accumulative test score or
-Higher Education Aptitude Test (HAT) conducted by HEC on or after 1st May 2022 till 31st May 2024 with at least 50 accumulative test score or
-GRE (General) conducted by ETS, USA, with following minimum score separately in each section:-
-Description	Scale
-Quantitative	151/170​
-Verbal​	146/170​
-Analytical Writing	3.5/6.0​
-Bachelors/Masters degree must be accredited by PEC/HEC (as applicable) in relevant disciplines as mentioned below:-
-Aerospace Engineering
-
-BE in Aerospace / Mechanical / Mechatronics / Industrial / Manufacturing / Electrical.
-
-Artificial Intelligence
-
-Bachelors in Software Engg / Electrical Engg / Mechanical Engg / Aerospace Engg / Computer Engg / Avionics Engg / Mechatronics Engg / Electronics Engg / Civil Engg / Telecom Engg / Chemical Engg / Computer Sys Engg / Mgmt Info System / Maritime Sciences / Computer Science / CS & Engg / Geo-informatics / Statistics  / Mathematics / MSc Mathematics / Bioinformatics / Bio Sciences / Information Tech / Information Security / Artificial Intelligence / Data Science / Physics / Applied Physics / MSc in Statistics / Equivalent qualification in relevant discipline
-
-Candidates with relevant degrees having cleared following deficient courses, before getting confirmed admission in MS AI Degree Program, will be given preference::
-1. Object Oriented Programming (Programming Core Course)
-2. Data Structures & Algorithms OR Design & Analysis of Algorithms
-3. Database Systems
-
-Aviation Management
-
-BS (4 years) in Aviation Management / Aviation Logistic Management / Aviation Sciences / Supply Chain Management
-
-OR
-
-Bachelors in any Engineering discipline
-
-OR
-
-Bachelors in any Pure Sciences Subject
-
-Avionics Engineering
-
-BE in Electrical / Electronics / Avionics / Computer / Software/ Aerospace.
-
-Biomedical Engineering
-
-Bachelors in Biomedical Engg / Chemical Engg / Electrical Engg / Electronics Engg / Industrial Engg / Mechanical Engg / Agriculture Engg / Manufacturing Engg / Mechatronics Engg / Computer Engg / Material Engg / Telecom Engg / Software Engg / Electronics / Robotics / Data Sciences / Computer Science / Information Technology / Artificial Intelligence / An equivalent qualification in relevant discipline
-
-Bioinformatics
-
-B​S  in Bioinformatics / Biosciences / Molecular Biology / Biotechnology / MBBS.
-
-OR
-
-MSc in Molecular Biology / Biotechnology / Computer Science.
-
-Chemical Engineering
-
-BE/BS/BSc (16 years engineering education) in Chemical / Petroleum / Mining / Materials / Metallurgy / Environmental / Polymer/ Industrial/ Energy/ Textile / Food / Biochemical
-OR
-MSc Energetic Materials
-
-Civil Engineering
-
-Bachelor’s Degree in Civil Engineering / Environmental Engineering / Architecture / City and Regional Planning / Mining Engineering / Geological Engineering  from  PEC/HEC recognized institution.
-
-Computer Engineering
-
-Bachelors in Electronic Engg / Computer Sys Engg / Electrical Engg / Electrical & Com Engg / Telecom Engg / Avionics Engg / Industrial Electronics / Mechatronics Engg / Biomedical Engg / CS Engg / System Engg /Computer Software / Equivalent qualification in relevant discipline
-
-Computer Science / Information Technology 
-
-Bachelors in Any Engg degree / Information Technology / Computer Science / Data Science / Artificial Intelligence / Cyber Security / Computer Information Systems / Game Development and Animation / Information Security / Geographical Information System / MSc Computer / MSc Statistics / MSc Physics / MSc Applied Physics / MSc Mathematics / BCS / BIT / Electronics with BIT / BCS (2-3 years) / MCS / MIT / Equivalent qualification in relevant discipline
-
-Computational Science & Engineering (Modelling & Simulation)
-
-Masers/Bachelors in any discipline of Engineering, Natural Sciences, Computer Science / Geology / Biosciences/ Electronics / Statistics / Pharmacy and Public Health.
-
-Construction Engineering and Management
-
-Bachelors in Civil Engg / Architectural Engg / Construction Engg / Transportation Engg / Architecture / Equivalent qualification in relevant Science discipline
-
-Cyber Security
-
-BE in Electrical / Telecommunication / Computer Software / Computer System/ Electronics / Industrial Electronics / Electrical & Communication / Avionics / Communication Technologies OR MCS / MIT / BCS (04 years) / BIT (04 years) / BS (MIS) (04 years) OR MSc in (Statistics / Physics / Applied Physics / Mathematics / Electronics)
-
-Data Science
-
-Bachelors in Computer Science /  Computer Engg / Electrical Engg / Electronics Engg / Civil Engg /  Mechanical Engg / Software Engg / Computer Sys Engg / Aerospace Engg / Avionics Engg / Mechatronics Engg /Telecom Engg / Chemical Engg / CS & Engg / Information Tech / Information Security / Artificial Intelligence / Data Science / Bioinformatics / Bio Sciences / Statistics / Geo-informatics / Mathematics / Accounting / Economics / Mathematics /Equivalent qualification in relevant discipline
-
-Candidates must have studied following courses:
-Object Oriented Programming (Programming Core Course)
-Data Structures & Algorithms OR Design & Analysis of Algorithms
-Database Systems
-
-Design & Manufacturing Engineering
-
-Bachelors in Mechanical Engg / Industrial Engg /Mechatronics Engg / Aerospace Engg / Electrical Engg / Electronics Engg / Avionics Engg / Manufacturing Engg / Computer Engg / Software Engg /Telecom Engg / Agriculture Engg / Biomedical Engg / Automotive Engg / An equivalent qualification in relevant discipline
-
-Electrical Engineering
-
-Bachelors in Electrical Engg / Telecom Engg / Mechatronics Engg / Electronics Engg / Industrial Electronics Engg / Elec & Com Engg / Avionics Engg / Com Tech Engg / Computer Sys Engg / Computer Engg / Software Engg / Biomedical Engg / Aerospace Engg / Equivalent qualification in relevant discipline
-
-Energy Systems Engineering / Thermal Energy Engineering
-
-BE in any Engineering Discipline recognized by PEC
-
-OR
-
-MSc/BS (04 years) in  Chemistry/Physics/Electronics/Environment.
-
-Electrical Engineering (Power)·
-
-BE or BS in relevant Engineering discipline (HEC/PEC)
-
-Engineering Management
-
-Bachelors in Any Engg degree / Information Tech / Equivalent qualification in relevant Science discipline
-
-Environmental Engineering
-
-Bachelors in Environmental Engg / Civil Engg / Chemical Engg / Agriculture Engg / Textile Engg / Equivalent qualification in relevant discipline
-
-Environmental Science        
-
-Bachelors in Environmental Science / Agriculture / Health Sciences / Equivalent qualification in relevant Science discipline
-
-Geotechnical Engineering
-
-Bachelors in Civil Engg / Geological Engg / Transportation Engg / Tunneling Engg / Mining Engg / Earth Sciences / Geology / Equivalent qualification in relevant Science discipline
-
-Industrial and Manufacturing Engineering
-
-BSc/BE in any Aerospace / Mechanical / Industrial / Manufacturing and Materials Engineering discipline recognized by PEC
-
-Information Security
-
-Bachelors in BSc Engineering / Electrical Engg / Telecom Engg / Computer Software Engg / Computer Sys Engg / Electronics Engg / Electrical & Comm Engg / Avionics Engg / Information Technology / Computer Science / Industrial Electronics / Communication Technologies / MCS, MIT / Information Security / Equivalent qualification in relevant discipline
-
-Innovative Technologies in Learning
-
-16 years of education from HEC/PEC recognized institute in disciplines in Computer Science / Information Technology / Education / Social Sciences / Management Sciences / Basic Sciences OR BE in any discipline.
-
-Mechanical Engineering
-
-Bachelors in Mechanical Engg / Mechatronics Engg / Manufacturing Engg / Industrial Engg /Aerospace Engg / Avionics Engg / Electronics Engg / Electrical Engg / Computer Engg / Biomedical Engg / Automotive Engg / Textile Engg / Agriculture Engg / Computational Physics /Applied Mathematics / Physics / Mathematics / Metallurgy & Materials / An equivalent qualification in relevant discipline
-
-Mechatronics Engineering
-
-Bachelors in Any Engg Degree / MCS / MIT / BCS (4 years) / BIT (4 years) / BS/MSc Statistics / BS/MSc Physics / BS/MSc Applied Physics / BS/MSc Mathematics / BS/MSc Electronics / BS/MSc Robotics / BS/MSc Nano Science and Technology / BS/MSc Artificial Intelligence / BS/MSc Data Science / BS/MSc Cyber Security / Equivalent qualification in relevant disciplines
-
-Manufacturing Engineering and Management 
-
-Bachelors in Civil Engg / Mechanical Engg / Industrial Engg / Mechatronics Engg  / Aerospace Engg / Electrical Engg / Electronics Engg / Avionics Engg / Structural Engg / Textile Engg / Automotive Engg / Information Systems Engg / Telecom Engg / Material Science/Engg / Chemical Engg / Metallurgical Engg / Naval Architecture / Polymer & Petrochemical Engg / Biomedical Engg / Food Engg / Equivalent qualification in relevant Science discipline
-
-Materials and Surface Engineering
-
-BE in Materials and Metallurgical / Mechanical / Mining / Petroleum / Chemical / Engineering Sciences.
-
-OR
-
-MSc in Chemistry / Physics / Mathematics / Environmental Sciences.
-
-These candidates may be considered but will have to undertake additional courses as deemed necessary to cover deficiencies for Engineering degree essentials.
-
-Mining Engineering
-
-Bachelor’s degree (16 years education)  in Mining Engineering / Mineral Resource Engineering / Geological Engineering / Geoscience or Geo-technical Engineering / Metallurgical and Materials Engineering / Civil Engineering / BS Geology or an equivalent and relevant degree from a recognized University.
-
-Nanoscience & Engineering
-
-Bachelors in Materials Science & Engg / Chemical Engg / Mechanical Engg / Environmental Engg / Polymer Engg / Electronics / Biosciences / Physics / Chemistry / Environmental / Equivalent qualification in relevant Science discipline
-
-Naval Architecture
-
-BE in Naval Architecture / Mechanical / Electrical / Civil / Aerospace / Avionics Engineering or any other related Engineering discipline.​
-
-Process Systems Engineering
-
-BE / BSc in any Engineering Discipline recognized by PEC.
-
-OR
-
-MSc / BS (4 years) in Mathematics / Physics / Statistics
-
-Remote Sensing and GIS
-
-Bachelors in Civil Engg / Mining Engg / Environmental Engg / Agriculture Engg / Geoinformatics / Geomatics / Environmental Sciences / Forestry Science / Urban planning / Geography / Earth & Space Sciences / Remote Sensing and GIS / Agriculture Sciences / Equivalent qualification in relevant Science disciplines
-
-Renewable Energy
-
-16 years of schooling in related engineering, natural sciences, economics, and business administration.
-
-Robotics & Intelligent Machine Engineering
-
-Bachelors in Mechatronics Engg / Mechanical Engg / Electrical Engg / Computer Engg /Industrial Engg / Manufacturing Engg / Aerospace Engg /Avionics Engg / Automotive Engg / Electronics Engg / Software Engg / Telecom Engg / Agriculture Engg / Biomed Engg / Computer Science / Robotics / Artificial Intelligence / Data Science / Information Technology / Electronics / An equivalent qualification in relevant discipline
-
-Software Engineering
-
-Bachelors in Computer Science / Information Tech / Telecom Engg / Computer Software Engg / Computer Sys Engg / Comm Tech Engg / Cyber Security / Data Sciences / Information Security / Artificial Intelligence / Geographical Information System
-OR
-MCS, MIT / MSc Statistics / MSc Physics / MSc Applied Physics / MSc Mathematics / MSc Electronics with BCS/BIT / Equivalent qualification in relevant discipline
-
-Structural Engineering
-
-Bachelors in Civil Engg Or equivalent qualification in any of the relevant discipline of Civil Engineering
-
-Systems Engineering
-
-BE Mechanical / Mechatronics / Production / Industrial / Automobile / Electrical / Electronics / Avionics / Telecom / Computer Engineering / Software Engineering.
-
-OR
-
-​MCS / MIT / BCS (4 years) / BIT (4 years) or MSC in (Statistics / Physics / Applied Physics / Mathematics / Electronics).
-
-Transportation Engineering  
-
-Bachelors in Civil Engg / Transportation Engg Or equivalent qualification in any of the relevant discipline of Civil Engineering
-
-Urban and Regional Planning       
-
-Bachelors in Civil Engg / Architecture Engg / Environmental Engg / Geoinformatics Engg / City and Regional Planning / Equivalent qualification in relevant Science discipline
-
-Water Resources Engineering and Management
-
-Bachelors in Civil Engg / Agricultural Engg / Environmental Engg/ Geo-informatics Engg / Geological Engg / Equivalent qualification in relevant Science discipline
-
-2. Natural Sciences
- General Eligibility:
-Sixteen years of schooling or 4 years education after HSSC/A’ Level in relevant discipline with minimum CGPA of 2.0 out of 4.0 OR 55% marks (percentage will only be considered if CGPA is not mentioned on the transcript).
-GAT (General) conducted on or after 1st May 2022 till 31st May 2024 by NTS with at least 50 accumulative test score or
-Graduate NUST Entry Test (GNET) conducted by NUST on or after 1st June 2023 till 31st June 2024  with at least 50 accumulative test score or
-Higher Education Aptitude Test (HAT) conducted by HEC on or after 1st May 2022 till 31st May 2024 with at least 50 accumulative test score 
- Chemistry
-
-Masters / Bachelors (4 years) in Chemistry.
-
-Masters / Bachelor’s degree must be recognized by HEC.
-
-Mathematics
-
-Bachelors in Mathematics / Physics / Statistics/ Computer Science /  Data Science / Electrical Engg /  Mechanical Engg / Mechatronics Engg /  Aerospace Engg / Electronics Engg / Avionics Engg /Aerospace Engg / Equivalent qualification in relevant Science discipline
-
- Physics 
-
-Bachelors in Physics / Electronics / Mathematics / Material Engg / Electrical Engg / Mechanical Engg / Avionics Engg / Aerospace Engg / Computer Science / Space Science
-
-Statistics 
-
-Masters / Bachelors (4 years) in Statistics / Mathematics / Data Science / Actuarial Science or equivalent.
-
-Masters / Bachelor’s degree must be recognized by HEC.
-
-Applied Mathematics
-
-Masters or Bachelors (4 years) or equivalent in Mathematics, Physics, Computer Science, Data Science and Materials Sciences
-
-BE or equivalent in Electrical / Mechanical / Mechatronics / Computer / Manufacturing / Aerospace / Avionics / Electronics / Software
-
- 
-
-3. Applied BioScience​s
-General Eligibility:
-Sixteen years of schooling or 4 years  education after HSSC/A’ Level in relevant discipline with minimum CGPA of 2.0 out of 4.0 OR 55% marks (percentage will only be considered if CGPA is not mentioned on the transcript).
-GAT (General) conducted on or after 1st May 2022 till 31st May 2024 by NTS with at least 50 accumulative test score or
-Graduate NUST Entry Test (GNET) conducted by NUST on or after 1st June 2023 till 31st June 2024  with at least 50 accumulative test score or
-Higher Education Aptitude Test (HAT) conducted by HEC on or after 1st May 2022 till 31st May 2024 with at least 50 accumulative test score 
-Healthcare Biotechnology
-
-Bachelors in Life Sciences / Biotechnology / Biochemistry / Molecular Biology / Biosciences / Biomedicine / Microbiology / Pharm-D / Bioinformatics / MBBS/DVM/BDS degrees
-
-Industrial Biotechnology
-
-Bachelors in Life Sciences / Biotechnology / Biochemistry / Molecular Biology / Biosciences / Bioinformatics / Microbiology, / Biomedical Sciences / Food Sciences and Technology / Chemistry / MBBS/DVM/BDS degree
-
-Plant Biotechnology
-
-Bachelors in Life Sciences / Biotechnology / Biochemistry / Molecular Biology / Biosciences / Bioinformatics / Plant Sciences/Botany / Agriculture / Chemistry / Food Sciences and Technology / MBBS/DVM/BDS
-
-Biomedical Science 
-
-Bachelors in Biology /  Physics / Chemistry /  Biomedical Sciences / Computer Science /  Materials Science / Biosciences / Pharmacy / Biochemistry /  Microbiology / Molecular Biology /  Genetics / Biotechnology / Physiotherapy / Orthotics and Prosthetics / Rehabilitation Sciences / Bioinformatics / Food and Nutrition / MBBS/BDS/ Medical Sciences
-
-Agribusiness Management 
-
-Bachelors in Agriculture Sciences / Agricultural Economics / Agricultural Marketing / Agricultural Engineering / Applied Biosciences / Agribusiness / Business Administration / DVM / Biotechnology / Food Sciences and Technology / Equivalent qualification in relevant Science discipline
-
-Molecular Medicine 
-
-Bachelors in Life Sciences / Biotechnology / Biochemistry / Molecular Biology / Biosciences /  Molecular Medicine / Pharm-D / Microbiology / Bioinformatics / Biomedicine / MBBS/DVM/BDS
-
-4. Business and Social Sciences​
-General Eligibility:
-Sixteen years of schooling or 4 years education after HSSC/A’ Level in relevant discipline with minimum CGPA of 2.0 out of 4.0 OR 55% marks except for MBA, MS Human Resource Management, MS Logistic & Supply Chain Management, MS Innovation and Entrepreneurship, MS Career Counselling & Education and MS Marketing for which minimum CGPA of 2.5 out of 4.0 OR 60% marks are required. Percentage will only be considered if CGPA is not mentioned on the transcript.
-GAT (General) conducted on or after 1st May 2022 till 31st May 2024 by NTS with at least 50 accumulative test score or
-Graduate NUST Entry Test (GNET) conducted by NUST on or after 1st June 2023 till 31st June 2024  with at least 50 accumulative test score or
-Higher Education Aptitude Test (HAT) conducted by HEC on or after 1st May 2022 till 31st May 2024 with at least 50 accumulative test score or
-GMAT conducted by GMAC, USA with minimum 50 percentile score
-MBA (2 years) 
-
-Sixteen years of schooling or 4 years education after FA/FSc/A Level.
-
-Bachelors/Masters degree must be recognized by HEC.
-
-Executive MBA
-
-Minimum 16 years education.
-
-Minimum of 3 years full time experience in executive post.
-
-Bachelors degree must be recognized by HEC.
-
-Innovation and Entrepreneurship
-
-Bachelors in any Engg Degree / Information Technology / Business or Management / Public Administration / Commerce / Economics / Mass Communication / Computer Science
-
-Human Resource Management
-
-Masters / bachelors in any field of Business or Management, Public Administration, Commerce, Economics, Mass Communication, Engineering or IT from an HEC recognized institution or with equivalence granted by HEC.
-
-​Logistic & Supply Chain Management
-
-Bachelors in Business or Management / Engineering / Information Tech / Public Administration / Commerce / Economics / Computer Science
-
-Marketing
-
-Bachelors in Business or Management / any Engg Degree / Information Technology / Public Administration / Commerce / Economics / Mass Communication
-
-​Clinical Psychology
-
-Bachelors in Psychology / Clinical Psychology
-
-OR
-
-BS or Masters (16 years of education) with major in Psychology or Clinical Psychology
-
-NOTE: Only shortlisted candidates will be called for interview
-
-Economics 
-
-Bachelors in Economics /Economics and Maths / Economics and Finance / Economics and Data Analytics / Sciences / Development Studies / Maths / Statistics / Commerce / Bachelors in Business Administration (provided sufficient number of economics courses have been studied)
-
-Mass Communication
-
-Bachelors in Media Studies / Journalism / Radio/TV Production / Advertising / PR / Visual Arts / Social Sciences
-
-Development Studies
-
-Masters / Bachelors (04 Years) in Social Sciences / Natural Sciences / Applied & Engineering Sciences / Commerce / Humanities
-
-Masters / Bachelors degree must be recognized by HEC/PEC (as applicable) recognized institute.
-
-Career Counselling & Education
-
-Masters / BS (04 years) in any discipline from HEC recognized institute with minimum CGPA of 2.5/4.0 or 65% marks.
-
-Peace & Conflict Studies
-
-Masters / Bachelors (04 Years) in International Relations / Defence & Strategic Studies / Defence and Diplomatic Studies / Political Science / Pakistan Studies / Peace & Conflict Studies / Economics / History / Psychology / Sociology / Anthropology / Engineering / Management.
-
-Masters / Bachelors degree must be recognized by HEC/PEC (as applicable) recognized institute.
-
-Disaster Management
-
-Masters / BS (04 years) in any discipline from HEC recognized institute.
-
-Governance & Public Policy
-
-Masters / BS (04 years) in Social Sciences, Management Sciences or Business Studies. Preference will be given to students who have a Bachelor’s degree in public policy or public administration.
-
-Strategic Studies
-
- BS (04 years) in related discipline like Defence and Strategic Studies, Political Science, International Relation, History, Defence and Diplomatic Studies, Public Policy and Pakistan Studies.
-
-5. Architecture
-General Eligibility:
-Sixteen years of schooling or 4 years education after HSSC/A’ Level in relevant discipline with minimum CGPA of 2 out of 4.0 OR 55% marks. Percentage will only be considered if CGPA is not mentioned on the transcript.
-GAT (General) conducted on or after 1st May 2022 till 31st May 2024 by NTS with at least 50 accumulative test score or
-Graduate NUST Entry Test (GNET) conducted by NUST on or after 1st June 2023 till 31st June 2024  with at least 50 accumulative test score or
-Higher Education Aptitude Test (HAT) conducted by HEC on or after 1st May 2022 till 31st May 2024 with at least 50 accumulative test score 
-
- 
-
-Architectural Design
-
-B. Arch degree from HEC recognized institute and accredited by PCATP
-
- 
-
-6. Interdisciplinary Engineering and Sciences
-General Eligibility:
-Sixteen years of schooling or 4 years education after HSSC/A’ Level in relevant discipline with minimum CGPA of 2 out of 4.0 OR 55% marks. Percentage will only be considered if CGPA is not mentioned on the transcript.
-GAT (General) conducted on or after 1st May 2022 till 31st May 2024 by NTS with at least 50 accumulative test score or
-Graduate NUST Entry Test (GNET) conducted by NUST on or after 1st June 2023 till 31st June 2024  with at least 50 accumulative test score or
-Higher Education Aptitude Test (HAT) conducted by HEC on or after 1st May 2022 till 31st May 2024 with at least 50 accumulative test score
-
- 
-
-Climate Change and Sustainable Development
-
-16 years of education in Engineering / Natural Sciences / Business / Health Sciences / Life Sciences / Economics / Development Studies / Law / Sociology /Sustainable Development / Information Science / Business studies / Environmental Studies / Geography or other relevant disciplines.
-
-Note:
-
-Candidates who are awaiting final results can also apply. In the online form these candidates will give CGPA / percentage till their second last semester. However, these candidates have to submit their final result, before commencement of classes.
-Percentage will only be valid if CGPA is not mentioned on transcript.
-Candidates with degree from foreign university have to submit equivalence certificate issued from HEC. This equivalence certificate should explicitly mention that their terminal degree is equivalent to 16 years (or more) of education in Pakistan.
-Candidates to ensure that the date of completion of terminal degree must be before the enrollment in MS admission / degree.
-Merit generation for MS admission will be held on the basis of academics (CGPA) and test score of GAT (Gen) / GRE (International) / GMAT / HAT only. Generally, there will be no interviews, however, if requirement of interview is felt, candidates will be informed well in time.
-
- 
-
-Note:  A particular advertised program may not be offered if an adequate no. of students do not get selected or other conditions do not permit offering a particular program.
-Undergraduate Programmes
-How To Apply For NET
-ENTRY ROUTE TO NUST
-UPDATES ON UG ADMISSIONS
-LIST OF UG PROGRAMMES AND INSTITUTIONS
-SALIENT FEATURES OF ADMISSION POLICY FOR UG PROGRAMMES
-DATES TO REMEMBER
-EXPATRIATE STUDENTS
-ELIGIBILITY CRITERIA FOR UG PROGRAMMES
-INELIGIBILITY CRITERIA
-ACADEMIC QUALIFICATION REQUIRED FOR DIFFERENT UG PROGAMMES
-DAE – Eligibility Criteria
-PROCEDURE OF ADMISSION ON THE BASIS OF NET
-SUBJECTS INCLUDED IN NET WITH WEIGHTINGS
-MERIT GENERATION CRITERIA
-RE-CHECKING OF NET PAPERS
-APPLYING ON THE BASIS OF ACT/SAT
-ELIGIBILITY CRITERIA FOR ADMISSION ON ACT/SAT BASIS
-INTERNATIONAL STUDENTS
-NET APPLICATION PROCESSING FEE
-UNDERGRADUATE SELECTION PROCESS
-CANCELLATION OF ADMISSION
-Migration & Transfer Policy
-UG ADMISSIONS HELP DESK
-GUIDE MAP FOR TEST VENUE
-UG AWARENESS DRIVES
-NUST OUTREACH PROGRAMME
-Frequently Asked Question (FAQs)
-Photo Gallery
-MBBS Admissions
-Eligibility Criteria
-SALIENT FEATURES OF MBBS ADMISSION 2023 – 2024
-MBBS Fee Structure (Session 2023-24)
-MBBS Admissions – FAQs
-MBBS Admissions Help Desk
-Master Programmes
-ADMISSION ANNOUNCEMENT
-DATES TO REMEMBER
-CANCELLATION OF ADMISSION
-INTERNATIONAL STUDENTS
-INSTRUCTIONS FOR ONLINE APPLICATION FORM
-PROGRAMMES OF STUDY
-ELIGIBILITY CRITERIA
-ADMISSION PROCESS AND SELECTION PROCEDURE
-EXPATRIATE STUDENT
-Graduate NUST Entry Test (GNET)
-MS HELPLINE
-FAQs
-PhD Programmes
-PhD ADMISSIONS
-PROGRAMMES OFFERED
-EXPATRIATE STUDENT – PHD
-Graduate NUST Entry Test (GNET)
-INTERNATIONAL PhD CANDIDATE
-INSTRUCTIONS FOR FILLING ADMISSION FORM
-DATES TO REMEMBER
-FREQUENTLY ASKED QUESTIONS (FAQs)
-ELIGIBILITY CRITERIA
-Scholarships
-DEFERMENT OF TUITION FEE & SUBSISTENCE ALLOWANCE
-FINANCIAL ASSISTANCE FOR UNDERGRADUATE STUDENTS
-FREQUENTLY ASKED QUESTIONS (FAQS)
-GUIDELINES TO SUBMIT NEED BASED FINANCIAL AID APPLICATION FORM (NFAAF)
-INTEREST FREE LOAN (IHSAN TRUST)
-MERIT BASED SCHOLARSHIPS FOR MASTERS AND PhD
-NEED BASED FINANCIAL AID
-NFAAF- DOCUMENTATION REQUIREMENTS
-FORMS AND CERTIFICATES
-OTHER OPPORTUNITIES
-PUNJAB EDUCATIONAL ENDOWMENT FUND (PEEF) SCHOLARSHIPS
-Fee Structure
-UNDERGRADUATE FINANCIAL MATTERS
-POSTGRADUATE FINANCIAL MATTERS
-REFUND POLICY
-ADVANCE TAX ON PAYMENT OF FEE
-HOSTEL ACCOMMODATION
-MODE OF PAYMENT
-OTHER FEE CHARGES
-CONTACT US
-FREQUENTLY ASKED QUESTIONS
-Salient Features Of Fee Policy
- 
- 
- 
-Career Development
-Placements
-Counselling & Career Advisory
-Professional Development
-Quality Assurance
-NUST Institute of Policy Studies
-Student Affairs
-Industry-Academia Linkages
-IMPORTANT LINKS
-In Focus
-> NUST at a Glance
-> Academic Calender
-> Academic Schedule
-> Student Helplines
-> Facilities at NUST
-> Contact Us
-> Trademark Notice
-> Offices and Resources
-Quick Links
-> Innovation & Commercialisation
-> Library
-> Downloads
-> Defaulter's list
-> Grievances Review Committee
-> Tender Information
-> Feedback
-> NUST Anti-Harassment Helpline
-> Online Degree/Transcript Verification
-> Career Development Centre
-NUST UAN
- +92-51-111-11-6878
-Address
-
-National University of Sciences & Technology (NUST) Campus, Sector H-12, Islamabad, Pakistan
-
-Location Map
-Home Contact Us
-
-© 2024 National University of Sciences and Technology. All Rights Reserved.
-
-    
+Chat history
+ChatGPT
+ChatGPT
+Explore GPTs
+Today
+Send PDF URL to Flask
+Save String to Text File
+Chrome Extension Save HTML
+Save Fetched Text to File
+Previous 7 Days
+Error Handling for URLs
+Parkinsons Disease Model Overview
+Classifier Library Overview
+Data Preprocessing Steps
+Audio Recording with Animation
+Parkinsons Disease Classification Model
+New chat
+App Testing Instructions
+Column Exclusion Confirmation
+New chat
+New chat
+Add percentage sign in columns
+New chat
+Upload CSV Files Streamlit
+Mistaken Geography and Reactions
+Streamlit Input Options Setup
+Number Inputs Creation
+Analysis Results Overview
+Eye Movement Analysis Options
+Dynamic Input Fields Streamlit
+Analysis Results Input Columns
+Parkinsons Disease Model Class
+New chat
+Fetch First Column Index
+Upgrade plan
+More access to the best models
+ChatGPT
+Share
+You said:
+async function processPage() {
+    // Get the current tab's URL
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    const url = tab.url;
+    document.getElementById('web-link').textContent = url;
+
+    // Check for irrelevant URLs
+    if (isIrrelevantTab(url)) {
+        showError("This is an irrelevant tab. Please open a valid website.");
+        return; // Exit if the tab is irrelevant
+    }
+
+    // Inject script to fetch the page's text content
+    const [result] = await chrome.scripting.executeScript({
+        target: { tabId: tab.id },
+        func: fetchPageText
+    });
+
+    const pageText = result.result;
+    // await saveTextToFile(pageText);
+
+    // Combine URL and page text into a single payload
+    const payload = {
+        url: url,
+        text: pageText
+    };
+
+    // Send the data (URL + page text) to the Flask server
+    await fetch('http://127.0.0.1:5000/process_page', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    });
+}
+
+// Function to fetch all visible text from the page
+function fetchPageText() {
+    return document.body.innerText;
+}
+
+
+I get error when open pdf file in current tab. I also want to snd url of pdf file to my flask sever how I can acheive this?
+ChatGPT said:
+ChatGPT
+
+To handle the scenario where a PDF file is opened in the current tab, you can modify your processPage function to check if the URL points to a PDF. If it does, you can send that URL directly to your Flask server. Here's how you can implement this:
+
+Check if the URL ends with .pdf: This will help identify if the current tab is a PDF file.
+Send the PDF URL to the server: If the URL is a PDF, create a payload that only contains the URL and send it to your server.
+
+Here's the modified code:
+
+javascript
+Copy code
+async function processPage() {
+    // Get the current tab's URL
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    const url = tab.url;
+    document.getElementById('web-link').textContent = url;
+
+    // Check for irrelevant URLs
+    if (isIrrelevantTab(url)) {
+        showError("This is an irrelevant tab. Please open a valid website.");
+        return; // Exit if the tab is irrelevant
+    }
+
+    // Check if the current URL is a PDF
+    if (url.endsWith('.pdf')) {
+        // Create payload for the PDF URL
+        const payload = {
+            url: url,
+            text: null // No text content for PDF
+        };
+
+        // Send the PDF URL to the Flask server
+        await fetch('http://127.0.0.1:5000/process_page', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+        return; // Exit after sending the PDF URL
+    }
+
+    // Inject script to fetch the page's text content
+    const [result] = await chrome.scripting.executeScript({
+        target: { tabId: tab.id },
+        func: fetchPageText
+    });
+
+    const pageText = result.result;
+
+    // Combine URL and page text into a single payload
+    const payload = {
+        url: url,
+        text: pageText
+    };
+
+    // Send the data (URL + page text) to the Flask server
+    await fetch('http://127.0.0.1:5000/process_page', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    });
+}
+
+// Function to fetch all visible text from the page
+function fetchPageText() {
+    return document.body.innerText;
+}
+
+Key Changes:
+PDF Check: The code now checks if the URL ends with .pdf. If it does, it constructs a payload with just the URL and sends it to your Flask server.
+No Text for PDFs: Since PDFs do not have accessible inner text like HTML documents, the text field in the payload is set to null.
+Flask Server Side
+
+Make sure your Flask server can handle both types of payloads. Here’s an example of how to modify your Flask endpoint:
+
+python
+Copy code
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+
+@app.route('/process_page', methods=['POST'])
+def process_page():
+    data = request.json
+    url = data.get('url')
+    text = data.get('text')
+
+    if text is None:
+        # Handle PDF URL
+        print(f"Received PDF URL: {url}")
+    else:
+        # Handle normal page content
+        print(f"Received URL: {url}, Text: {text}")
+
+    return jsonify({"status": "success"}), 200
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
+This way, your application will effectively send both webpage content and PDF URLs to the Flask server as needed!
+
+4o mini
+How to handle PDFs?
+Can I extract PDF text?
+
+ChatGPT can make mistakes. Check important info.
+?

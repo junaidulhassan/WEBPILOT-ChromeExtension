@@ -29,7 +29,7 @@ def is_pdf_url(url):
         )
         content_type = response.headers.get('Content-Type', '')
         is_doc = content_type.lower() == 'application/pdf'
-        print("Is Doc: ", is_doc)
+        print("Is PDF: ", is_doc)
         return is_doc
 
     except requests.RequestException as e:
@@ -69,8 +69,10 @@ def process_page():
             rag.load_Database(is_pdf=True, pdf_url=url)
         elif is_youtube_url(url):
             # Process YouTube video
+            print("URL Type: Youtube Video")
             rag.load_Database(is_youtube_url=True, youtube_url=url)
         else:
+            print("This is Website URL")
             # Process standard web page text
             scrp.Tab_data(text=text)
             rag.load_Database()

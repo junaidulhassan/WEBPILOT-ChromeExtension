@@ -25,6 +25,7 @@ async function processPage() {
     const pageText = result.result;
     // await saveTextToFile(pageText);
 
+    console.log(pageText);
     // Combine URL and page text into a single payload
     const payload = {
         url: url,
