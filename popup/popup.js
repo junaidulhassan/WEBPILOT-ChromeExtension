@@ -16,16 +16,36 @@ async function processPage() {
         return; // Exit if the tab is irrelevant
     }
 
-    // Inject script to fetch the page's text content
+    // Check if the URL is a PDF
+    if (url.endsWith('.pdf')) {
+        console.log("Detected a PDF file");
+
+        // Send only the URL to the Flask server (no text content to extract)
+        const payload = {
+            url: url,
+            text: "PDF file"  // or leave this field out if not needed
+        };
+
+        await fetch('http://127.0.0.1:5000/process_page', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        return;  // Exit early, no need to fetch page text
+    }
+
+    // Inject script to fetch the page's text content for non-PDFs
     const [result] = await chrome.scripting.executeScript({
         target: { tabId: tab.id },
         func: fetchPageText
     });
 
     const pageText = result.result;
-    // await saveTextToFile(pageText);
-
     console.log(pageText);
+
     // Combine URL and page text into a single payload
     const payload = {
         url: url,
@@ -46,6 +66,7 @@ async function processPage() {
 function fetchPageText() {
     return document.body.innerText;
 }
+
 
 // Function to save text using File System Access API
 async function saveTextToFile(content) {

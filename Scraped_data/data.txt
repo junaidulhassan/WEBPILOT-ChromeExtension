@@ -1,195 +1,115 @@
-Chat history
-ChatGPT
-ChatGPT
-Explore GPTs
-Today
-Send PDF URL to Flask
-Save String to Text File
-Chrome Extension Save HTML
-Save Fetched Text to File
-Previous 7 Days
-Error Handling for URLs
-Parkinsons Disease Model Overview
-Classifier Library Overview
-Data Preprocessing Steps
-Audio Recording with Animation
-Parkinsons Disease Classification Model
-New chat
-App Testing Instructions
-Column Exclusion Confirmation
-New chat
-New chat
-Add percentage sign in columns
-New chat
-Upload CSV Files Streamlit
-Mistaken Geography and Reactions
-Streamlit Input Options Setup
-Number Inputs Creation
-Analysis Results Overview
-Eye Movement Analysis Options
-Dynamic Input Fields Streamlit
-Analysis Results Input Columns
-Parkinsons Disease Model Class
-New chat
-Fetch First Column Index
-Upgrade plan
-More access to the best models
-ChatGPT
-Share
-You said:
-async function processPage() {
-    // Get the current tab's URL
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    const url = tab.url;
-    document.getElementById('web-link').textContent = url;
+Search Britannica
+Click here to search
+Subscribe
+ Now
+Login
+Ask the ChatbotGames & QuizzesHistory & SocietyScience & TechBiographiesAnimals & NatureGeography & TravelArts & CultureMoneyVideos
+Franz Kafka
+Table of Contents
+Introduction & Top Questions
+Life
+Works
+Quotes
+References & Edit History
+Quick Facts & Related Topics
+Images
+For Students
+Franz Kafka summary
+Quizzes
+A Study of Writers
+Novels and Novelists Quiz
+Related Questions
+What kind of relationship did Franz Kafka have with his father?
+What was Franz Kafka’s life like?
+What did Franz Kafka write?
+Read Next
+8 of History’s Most Famous Vegetarians
+12 Novels Considered the “Greatest Book Ever Written”
+Britannica’s Book Bingo
+10 Captivating Contemporary Novels Set in the British Isles
+9 American Countercultural Books
+Discover
+10 Greatest Baseball Players of All Time
+Secret Service Code Names of 11 U.S. Presidents
+Who Killed Tupac Shakur?
+What's the Difference Between a Solstice and an Equinox?
+The 10 Greatest Basketball Players of All Time
+What’s the Difference Between a President and a Prime Minister?
+The Seven Sacraments of the Roman Catholic church
+Literature
+Novels & Short Stories
+Novelists A-K
+Franz Kafka
+Franz Kafka
+German-language writer
+Print 
+Cite 
+Share 
+Feedback 
+Written and fact-checked by The Editors of Encyclopaedia Britannica
+Last Updated: Sep 19, 2024 • Article History
+Quick Facts
+Born: July 3, 1883, Prague, Bohemia, Austria-Hungary [now in Czech Republic]
+Died: June 3, 1924, Kierling, near Vienna, Austria (aged 40)
+Notable Works: “Amerika” “Description of a Struggle” “In the Penal Colony” “Letter to Father” “Meditation” “The Castle” “The Judgment” “The Metamorphosis” “The Trial”
+(Show more)
+See all related content →
+Ask the Chatbot a Question
+Top Questions
+What kind of relationship did Franz Kafka have with his father?
+What was Franz Kafka’s life like?
+What did Franz Kafka write?
+Recent News
+Sep. 16, 2024, 2:34 AM ET (Taipei Times)
+Kafka honored in ‘modern way’ in Taipei exhibition
 
-    // Check for irrelevant URLs
-    if (isIrrelevantTab(url)) {
-        showError("This is an irrelevant tab. Please open a valid website.");
-        return; // Exit if the tab is irrelevant
-    }
+Franz Kafka (born July 3, 1883, Prague, Bohemia, Austria-Hungary [now in Czech Republic]—died June 3, 1924, Kierling, near Vienna, Austria) was a German-language writer of visionary fiction whose works—especially the novel Der Prozess (1925; The Trial) and the story Die Verwandlung (1915; The Metamorphosis)—express the anxieties and alienation felt by many in 20th-century Europe and North America.
 
-    // Inject script to fetch the page's text content
-    const [result] = await chrome.scripting.executeScript({
-        target: { tabId: tab.id },
-        func: fetchPageText
-    });
+Life
 
-    const pageText = result.result;
-    // await saveTextToFile(pageText);
+Franz Kafka, the son of Julie Löwy and Hermann Kafka, a merchant, was born into a prosperous middle-class Jewish family. After two brothers died in infancy, he became the eldest child and remained, for the rest of his life, conscious of his role as elder brother; Ottla, the youngest of his three sisters, became the family member closest to him. Kafka strongly identified with his maternal ancestors because of their spirituality, intellectual distinction, piety, rabbinical learning, melancholy disposition, and delicate physical and mental constitution. He was not, however, particularly close to his mother. Subservient to her overwhelming ill-tempered husband and his exacting business, she shared with her spouse a lack of comprehension of their son’s unprofitable and, they feared, unhealthy dedication to the literary “recording of [his]…dreamlike inner life.”
 
-    // Combine URL and page text into a single payload
-    const payload = {
-        url: url,
-        text: pageText
-    };
+Kafka and his father
 
-    // Send the data (URL + page text) to the Flask server
-    await fetch('http://127.0.0.1:5000/process_page', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-    });
-}
+The figure of Kafka’s father overshadowed his work as well as his existence. The figure is, in fact, one of his most impressive creations. In his imagination this coarse, practical, and domineering shopkeeper and patriarch who worshipped nothing but material success and social advancement belonged to a race of giants and was an awesome, admirable, but repulsive tyrant. In Kafka’s most important attempt at autobiography, Brief an den Vater (written 1919; Letter to Father), a letter that never reached the addressee, Kafka attributed his failure to live, to cut loose from parental ties and establish himself in marriage and fatherhood, as well as his escape into literature, to the prohibitive father figure, which instilled in him the sense of his own impotence. He felt his will had been broken by his father. The conflict with the father is reflected directly in Kafka’s story Das Urteil (1913; The Judgment). It is projected on a grander scale in Kafka’s novels, which portray in lucid, deceptively simple prose a man’s desperate struggle with an overwhelming power, one that may persecute its victim (as in The Trial) or one that may be sought after and begged in vain for approval (as in Das Schloss [1926; The Castle]). Yet the roots of Kafka’s anxiety and despair go deeper than his relationship with his father and family, with whom he chose to live in close and cramped proximity for the major part of his adult life. The source of Kafka’s despair lies in a sense of ultimate isolation from true communion with all human beings—the friends he cherished, the women he loved, the job he detested, the society he lived in—and with God, or, as he put it, with true indestructible Being.
 
-// Function to fetch all visible text from the page
-function fetchPageText() {
-    return document.body.innerText;
-}
+The son of an assimilated Jew who held only perfunctorily to the religious practices and social formalities of the Jewish community, Kafka was German in both language and culture. He was a timid, guilt-ridden, and obedient child who did well in elementary school and in the Altstädter Staatsgymnasium, an exacting high school for the academic elite. He was respected and liked by his teachers. Inwardly, however, he rebelled against the authoritarian institution and the dehumanized humanistic curriculum, with its emphasis on rote learning and classical languages. Kafka’s opposition to established society became apparent when, as an adolescent, he declared himself a socialist as well as an atheist. Throughout his adult life he expressed qualified sympathies for the socialists, he attended meetings of Czech anarchists (before World War I), and in his later years he showed marked interest and sympathy for a socialized Zionism. Even then he was essentially passive and politically unengaged. As a Jew, Kafka was isolated from the German community in Prague, but, as a modern intellectual, he was also alienated from his own Jewish heritage. He was sympathetic to Czech political and cultural aspirations, but his identification with German culture kept even these sympathies subdued. Thus, social isolation and rootlessness contributed to Kafka’s lifelong personal unhappiness.
 
+Kafka’s double life
+Britannica Quiz
+A Study of Writers
 
-I get error when open pdf file in current tab. I also want to snd url of pdf file to my flask sever how I can acheive this?
-ChatGPT said:
-ChatGPT
+Kafka did, however, become friendly with some German Jewish intellectuals and literati in Prague, and in 1902 he met Max Brod. This minor literary artist became the most intimate and solicitous of Kafka’s friends, and eventually, as Kafka’s literary executor, he emerged as the promoter, saviour, and interpreter of Kafka’s writings and as his most influential biographer. The two men became acquainted while Kafka was studying law at the University of Prague. He received his doctorate in 1906, and in 1907 he took up regular employment with an insurance company. The long hours and exacting requirements of the Assicurazioni Generali, however, did not permit Kafka to devote himself to writing. In 1908 he found in Prague a job in the seminationalized Workers’ Accident Insurance Institute for the Kingdom of Bohemia. There he remained until 1917, when tuberculosis forced him to take intermittent sick leaves and, finally, to retire (with a pension) in 1922, about two years before he died. In his job he was considered tireless and ambitious; he soon became the right hand of his boss, and he was esteemed and liked by all who worked with him.
 
-To handle the scenario where a PDF file is opened in the current tab, you can modify your processPage function to check if the URL points to a PDF. If it does, you can send that URL directly to your Flask server. Here's how you can implement this:
+In fact, generally speaking, Kafka was a charming, intelligent, and humorous individual, but he found his routine office job and the exhausting double life into which it forced him (for his nights were frequently consumed in writing) to be excruciating torture, and his deeper personal relationships were neurotically disturbed. The conflicting inclinations of his complex and ambivalent personality found expression in his sexual relationships. Inhibition painfully disturbed his relations with Felice Bauer, to whom he was twice engaged before their final rupture in 1917. Later his love for Milena Jesenská Pollak was also thwarted. His health was poor and office work exhausted him. In 1917 he was diagnosed as having tuberculosis, and from then onward he spent frequent periods in sanatoriums.
 
-Check if the URL ends with .pdf: This will help identify if the current tab is a PDF file.
-Send the PDF URL to the server: If the URL is a PDF, create a payload that only contains the URL and send it to your server.
+Get Unlimited Access
+Try Britannica Premium for free and discover more.
+Subscribe
 
-Here's the modified code:
+In 1923 Kafka went to Berlin to devote himself to writing. During a vacation on the Baltic coast later that year, he met Dora Dymant (Diamant), a young Jewish socialist. The couple lived in Berlin until Kafka’s health significantly worsened during the spring of 1924. After a brief final stay in Prague, where Dymant joined him, he died of tuberculosis in a clinic near Vienna.
 
-javascript
-Copy code
-async function processPage() {
-    // Get the current tab's URL
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    const url = tab.url;
-    document.getElementById('web-link').textContent = url;
+Works of Franz Kafka
+Franz KafkaFranz Kafka, c. 1910.
 
-    // Check for irrelevant URLs
-    if (isIrrelevantTab(url)) {
-        showError("This is an irrelevant tab. Please open a valid website.");
-        return; // Exit if the tab is irrelevant
-    }
+Sought out by leading avant-garde publishers, Kafka reluctantly published a few of his writings during his lifetime. These publications include two sections (1909) from Beschreibung eines Kampfes (1936; Description of a Struggle) and Betrachtung (1913; Meditation), a collection of short prose pieces. They also include other works representative of Kafka’s maturity as an artist: The Judgment, written in 1912 and published a year later; two other long stories, The Metamorphosis (published in 1915) and In der Strafkolonie (1919; In the Penal Colony); and a collection of short prose, Ein Landarzt (1919; A Country Doctor). Ein Hungerkünstler (1924; A Hunger Artist), four stories exhibiting the concision and lucidity characteristic of Kafka’s late style, had been prepared by the author but did not appear until after his death.
 
-    // Check if the current URL is a PDF
-    if (url.endsWith('.pdf')) {
-        // Create payload for the PDF URL
-        const payload = {
-            url: url,
-            text: null // No text content for PDF
-        };
+In fact, misgivings about his work caused Kafka before his death to request that all of his unpublished manuscripts be destroyed; Brod, as his literary executor, disregarded his instructions and published the novels The Trial, The Castle, and Amerika in 1925, 1926, and 1927, respectively, and a collection of shorter pieces, Beim Bau der chinesischen Mauer (The Great Wall of China), in 1931. Such early works by Kafka as Description of a Struggle (begun about 1904) and Meditation, though their style is more concretely imaged and their structure more incoherent than that of the later works, are already original in a characteristic way. The characters in these works fail to establish communication with others, they follow a hidden logic that flouts normal everyday logic, and their world erupts in grotesque incidents and violence. Each character is only an anguished voice, vainly questing for information and understanding of the world and for a way to believe in his own identity and purpose.
 
-        // Send the PDF URL to the Flask server
-        await fetch('http://127.0.0.1:5000/process_page', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload)
-        });
-        return; // Exit after sending the PDF URL
-    }
+Many of Kafka’s fables contain an inscrutable, baffling mixture of the normal and the fantastic, though occasionally the strangeness may be understood as the outcome of a literary or verbal device, as when the delusions of a pathological state are given the status of reality or when the metaphor of a common figure of speech is taken literally. Thus, in The Judgment a son unquestioningly commits suicide at the behest of his aged father. In The Metamorphosis the son, Gregor Samsa, wakes up to find himself transformed into a monstrous and repulsive insect; he slowly dies, not only because of his family’s shame and its neglect of him but because of his own guilty despair.
 
-    // Inject script to fetch the page's text content
-    const [result] = await chrome.scripting.executeScript({
-        target: { tabId: tab.id },
-        func: fetchPageText
-    });
+Many of the tales are even more unfathomable. In the Penal Colony presents an officer who demonstrates his devotion to duty by submitting himself to the appalling (and clinically described) mutilations of his own instrument of torture. This theme, the ambiguity of a task’s value and the horror of devotion to it—one of Kafka’s constant preoccupations—appears again in A Hunger Artist. The fable Vor dem Gesetz (1914; Before the Law, later incorporated into The Trial) presents both the inaccessibility of meaning (the “law”) and humankind’s tenacious longing for it. A group of fables written in 1923–24, the last year of Kafka’s life, all centre on the individual’s vain but undaunted struggle for understanding and security.
 
-    const pageText = result.result;
+Many of the motifs in the short fables recur in the novels. In the unfinished Amerika, for example, the boy Karl Rossmann has been sent by his family to America. There he seeks shelter with a number of father figures. His innocence and simplicity are everywhere exploited, and a last chapter describes his admission to a dreamworld, the “nature-theatre of Oklahoma”; Kafka made a note that Rossmann was ultimately to perish. In The Trial, Joseph K., an able and conscientious bank official and a bachelor, is awakened by bailiffs, who arrest him. The investigation in the magistrate’s court turns into a squalid farce, the charge against him is never defined, and from this point the courts take no further initiative. But Joseph K. consumes himself in a search for inaccessible courts and for an acquittal from his unknown offense. He appeals to intermediaries whose advice and explanations produce new bewilderment; he adopts absurd stratagems; squalor, darkness, and lewdness attend his search. Resting in a cathedral, he is told by a priest that his protestations of innocence are themselves a sign of guilt and that the justice he is forced to seek must forever be barred to him. A last chapter describes his execution as, still looking around desperately for help, he protests to the last. This is Kafka’s blackest work: evil is everywhere, acquittal or redemption is inaccessible, and frenzied effort only indicates an individual’s real impotence.
 
-    // Combine URL and page text into a single payload
-    const payload = {
-        url: url,
-        text: pageText
-    };
+In The Castle, one of Kafka’s last works and also unfinished, the setting is a village dominated by a castle. Time seems to have stopped in this wintry landscape, and nearly all the scenes occur in the dark. K. arrives at the village claiming to be a land surveyor appointed by the castle authorities. His claim is rejected by the village officials, and the novel recounts K.’s efforts to gain recognition from an authority that is as elusive as Joseph K.’s courts. But K. is not a victim: he is an aggressor, challenging both the petty, arrogant officials and the villagers who accept their authority. All of his stratagems fail. Like Joseph K., he makes love to a servant, the barmaid Frieda, but she leaves him when she discovers that he is simply using her. Brod observes that Kafka intended that K. should die exhausted by his efforts but that on his deathbed he was to receive a permit to stay. There are new elements in this novel. It is tragic, not desolate. While the majority of Kafka’s characters are mere functions, Frieda is a resolute person, calm and matter-of-fact. K. gains through her personality some insight into a possible solution of his quest, and, when he speaks of her with affection, he seems himself to be breaking through his sense of isolation.
 
-    // Send the data (URL + page text) to the Flask server
-    await fetch('http://127.0.0.1:5000/process_page', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-    });
-}
+Kafka’s stories and novels have provoked a wealth of interpretations. Brod and Kafka’s first English translators, Edwin Muir and his wife, Willa, viewed the novels as allegories of divine grace. Existentialists have seen Kafka’s environment of guilt and despair as the ground upon which to construct an authentic existence. Some have seen his neurotic involvement with his father as the heart of his work. Others have emphasized the social criticism, the inhumanity of the powerful and their agents, the violence and barbarity that lurk beneath normal routine. Some have found an imaginative anticipation of totalitarianism in the random and faceless bureaucratic terror of The Trial. The Surrealists delighted in the persistent intrusions of the absurd. There is evidence in both the works and the diaries for each of these interpretations, but Kafka’s work as a whole transcends them all. One critic may have put it most accurately when he wrote of the works as “open parables” whose final meanings can never be rounded off.
 
-// Function to fetch all visible text from the page
-function fetchPageText() {
-    return document.body.innerText;
-}
+But Kafka’s oeuvre is also limited. Each of his works bears the marks of a man suffering in spirit and body, searching desperately, but always inwardly, for meaning, security, self-worth, and a sense of purpose. Kafka himself looked upon his writing and the creative act it signified as a means of “redemption,” as a “form of prayer” through which he might be reconciled to the world or might transcend his negative experience of it. The lucidly described but inexplicable darkness of his works reveal Kafka’s own frustrated personal struggles, but through his powerless characters and the strange incidents that befall them the author achieved a compelling symbolism that more broadly signifies the anxiety and alienation of the 20th-century world itself.
 
-Key Changes:
-PDF Check: The code now checks if the URL ends with .pdf. If it does, it constructs a payload with just the URL and sends it to your Flask server.
-No Text for PDFs: Since PDFs do not have accessible inner text like HTML documents, the text field in the payload is set to null.
-Flask Server Side
+At the time of his death, Kafka was appreciated only by a small literary coterie. His name and work would not have survived if Brod had honoured Kafka’s testament—two notes requiring his friend to destroy all unpublished manuscripts and to refrain from republishing the works that had already appeared in print. Brod took the opposite course, and thus the name and work of Kafka gained worldwide posthumous fame. This development took place first in France and the English-speaking countries during the regime of Adolf Hitler, at the very time when Kafka’s three sisters were deported and killed in concentration camps. After 1945 Kafka was rediscovered in Germany and Austria and began to greatly influence German literature. By the 1960s this influence became global and extended even to the intellectual, literary, and political life of Kafka’s place of birth, what had become communist Czechoslovakia.
 
-Make sure your Flask server can handle both types of payloads. Here’s an example of how to modify your Flask endpoint:
-
-python
-Copy code
-from flask import Flask, request, jsonify
-
-app = Flask(__name__)
-
-@app.route('/process_page', methods=['POST'])
-def process_page():
-    data = request.json
-    url = data.get('url')
-    text = data.get('text')
-
-    if text is None:
-        # Handle PDF URL
-        print(f"Received PDF URL: {url}")
-    else:
-        # Handle normal page content
-        print(f"Received URL: {url}, Text: {text}")
-
-    return jsonify({"status": "success"}), 200
-
-if __name__ == '__main__':
-    app.run(debug=True)
-
-
-This way, your application will effectively send both webpage content and PDF URLs to the Flask server as needed!
-
-4o mini
-How to handle PDFs?
-Can I extract PDF text?
-
-ChatGPT can make mistakes. Check important info.
-?
+The Editors of Encyclopaedia Britannica
+This article was most recently revised and updated by Encyclopaedia Britannica.
+Load Next Page 
