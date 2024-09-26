@@ -67,7 +67,6 @@ class RAG_Model:
         # Define filter terms to stop the generation
         self.filter = [
             'Question:', 
-            '**Question:**',
             'Human:'
         ]
         
@@ -82,7 +81,7 @@ class RAG_Model:
             streaming=True,
             temperature=0.9,
             return_full_text=True,
-            max_new_tokens=500,
+            max_new_tokens=600,
             # Stop sequences is filter for stop criteria
             stop_sequences=self.filter,
             repetition_penalty=1.1
@@ -138,7 +137,7 @@ class RAG_Model:
             retriever=self.database.as_retriever(
                 search_type="mmr",
                 search_kwargs={
-                    'k': 5,  # Number of results to return
+                    'k': 10,  # Number of results to return
                     'fetch_k': 50  # Number of results to fetch
                 }
             ),

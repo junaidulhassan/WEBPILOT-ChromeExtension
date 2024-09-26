@@ -23,6 +23,7 @@ async function processPage() {
     });
 
     const pageText = result.result;
+    // await saveTextToFile(pageText);
 
     // Combine URL and page text into a single payload
     const payload = {
@@ -43,6 +44,29 @@ async function processPage() {
 // Function to fetch all visible text from the page
 function fetchPageText() {
     return document.body.innerText;
+}
+
+// Function to save text using File System Access API
+async function saveTextToFile(content) {
+    try {
+        // Request access to a file
+        const handle = await window.showSaveFilePicker({
+            suggestedName: '/media/junaid-ul-hassan/248ac48e-ccd4-4707-a28b-33cb7a46e6dc/WEB-Programming/WEBPILOT-ChromeExtension/Scraped_data/data.txt',
+            types: [{
+                description: 'Text file',
+                accept: {'text/plain': ['.txt']},
+            }],
+        });
+
+        // Create a writable stream and write the content
+        const writableStream = await handle.createWritable();
+        await writableStream.write(content);
+        await writableStream.close();
+
+        console.log('File saved successfully!');
+    } catch (error) {
+        console.error('Error saving the file:', error);
+    }
 }
 
 
