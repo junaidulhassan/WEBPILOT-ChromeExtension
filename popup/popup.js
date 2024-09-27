@@ -10,6 +10,9 @@ async function processPage() {
     const url = tab.url;
     document.getElementById('web-link').textContent = url;
 
+    // Load chat history from local storage for the current tab
+    loadChatHistory(tab.id);
+
     // Check for irrelevant URLs
     if (isIrrelevantTab(url)) {
         showError("This is an irrelevant tab. Please open a valid website.");
@@ -20,10 +23,9 @@ async function processPage() {
     if (url.endsWith('.pdf')) {
         console.log("Detected a PDF file");
 
-        // Send only the URL to the Flask server (no text content to extract)
         const payload = {
             url: url,
-            text: "PDF file"  // or leave this field out if not needed
+            text: "PDF file"
         };
 
         await fetch('http://127.0.0.1:5000/process_page', {
@@ -34,7 +36,7 @@ async function processPage() {
             body: JSON.stringify(payload)
         });
 
-        return;  // Exit early, no need to fetch page text
+        return; // Exit early, no need to fetch page text
     }
 
     // Inject script to fetch the page's text content for non-PDFs
@@ -44,9 +46,7 @@ async function processPage() {
     });
 
     const pageText = result.result;
-    console.log(pageText);
 
-    // Combine URL and page text into a single payload
     const payload = {
         url: url,
         text: pageText
@@ -65,6 +65,24 @@ async function processPage() {
 // Function to fetch all visible text from the page
 function fetchPageText() {
     return document.body.innerText;
+}
+
+// Function to save chat history in chrome storage
+function saveChatHistory(tabId, chatHistory) {
+    chrome.storage.local.set({ [tabId]: chatHistory }, () => {
+        console.log('Chat history saved for tab:', tabId);
+    });
+}
+
+// Function to load chat history from chrome storage
+function loadChatHistory(tabId) {
+    chrome.storage.local.get([tabId], (result) => {
+        if (result[tabId]) {
+            const chatMessages = document.getElementById("chat-messages");
+            chatMessages.innerHTML = result[tabId]; // Load chat history into the chat box
+            chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
+        }
+    });
 }
 
 
@@ -157,6 +175,10 @@ async function sendMessage() {
     // Clear input field
     document.getElementById("user-input").value = "";
 
+    // Save chat history
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    saveChatHistory(tab.id, chatMessages.innerHTML);
+
     // Show spinner in place of Conversify AI icon
     showSpinner();
 
@@ -176,8 +198,9 @@ async function sendMessage() {
         botMessageElement.classList.add("message", "assistant");
         chatMessages.appendChild(botMessageElement);
 
-        // Function to display text character by character in the botMessageElement
+        // Display bot response character by character
         await displayTextCharacterByCharacter(botResponse, botMessageElement);
+
     } catch (error) {
         console.error('Error:', error);
         var botMessageElement = document.createElement("div");
@@ -190,7 +213,23 @@ async function sendMessage() {
 
         // Scroll to the bottom of the chat messages
         chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        // Save updated chat history
+        const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+        saveChatHistory(tab.id, chatMessages.innerHTML);
     }
+}
+
+function clearChatHistory() {
+    var chatMessages = document.getElementById("chat-messages");
+    chatMessages.innerHTML = "";
+
+    // Clear saved chat history for the current tab
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        chrome.storage.local.remove([tabs[0].id], () => {
+            console.log("Chat history cleared for tab:", tabs[0].id);
+        });
+    });
 }
 
 function checkEnter(event) {
@@ -203,10 +242,46 @@ function checkEnter(event) {
     }
 }
 
-function clearChatHistory() {
-    var chatMessages = document.getElementById("chat-messages");
-    chatMessages.innerHTML = "";
+function convertToMarkdown(text) {
+    let converted = text;
+
+    // Convert headings
+    // converted = converted.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+    // converted = converted.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+    converted = converted.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+    converted = converted.replace(/^#### (.*$)/gim, '<h4>$1</h4>');
+    converted = converted.replace(/^##### (.*$)/gim, '<h5>$1</h5>');
+    converted = converted.replace(/^###### (.*$)/gim, '<h6>$1</h6>');
+
+    // Convert bold
+    converted = converted.replace(/\*\*(.*)\*\*/gim, '<b>$1</b>');
+
+    // Convert italics
+    converted = converted.replace(/\*(.*)\*/gim, '<i>$1</i>');
+
+    // Convert code blocks
+    converted = converted.replace(/```([a-z]*)([\s\S]*?)```/g, '<pre><code>$2</code></pre>');
+
+    // Convert inline code
+    converted = converted.replace(/`(.*?)`/gim, '<code>$1</code>');
+
+    // // Convert unordered lists
+    // converted = converted.replace(/^\s*[\*\-]\s(.*$)/gim, '<ul><li>$1</li></ul>');
+
+    // Convert ordered lists
+    converted = converted.replace(/^\s*[0-9]+\.\s(.*$)/gim, '<ol><li>$1</li></ol>');
+
+    // Convert horizontal rule
+    // converted = converted.replace(/^\-{3,}$/gim, '<hr />');
+
+    return converted.trim(); // Return the converted markdown as HTML
 }
+
+
+// function clearChatHistory() {
+//     var chatMessages = document.getElementById("chat-messages");
+//     chatMessages.innerHTML = "";
+// }
 
 function toggleDarkTheme() {
     console.log("Your message is received");
@@ -230,8 +305,9 @@ function hideSpinner() {
 
 // Function to display bot's response character by character
 async function displayTextCharacterByCharacter(text, element) {
+    console.log(text);
     for (let i = 0; i < text.length; i++) {
-        element.textContent += text[i];
+        element.innerText += text[i];
         await new Promise(resolve => setTimeout(resolve, 10)); // Adjust speed here
         document.getElementById("chat-messages").scrollTop = document.getElementById("chat-messages").scrollHeight; // Scroll to bottom
     }

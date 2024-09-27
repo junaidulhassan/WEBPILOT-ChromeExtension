@@ -376,33 +376,20 @@ a {
     margin: 10px 0;
 }
 
-/* Bullet List Styles */
-.message.assistant ul {
-    list-style-type: disc;
-    padding-left: 20px;
-}
-
-.message.assistant ol {
-    list-style-type: decimal;
-    padding-left: 20px;
-}
-
-/* Code Block Styles
 .message.assistant pre {
     background-color: #272822;
     color: #f8f8f2;
     padding: 10px;
     border-radius: 5px;
     overflow-x: auto;
-} */
+} 
 
-/* Inline Code Styles
 .message.assistant code {
     background-color: #f5f2f0;
     color: #c7254e;
     padding: 2px 4px;
     border-radius: 3px;
-} */
+}
 
 
 #url-link{
@@ -460,4 +447,14 @@ a {
     to {
         transform: rotate(360deg);
     }
+}
+
+.message.assistant {
+    background-color: #272727;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    white-space: pre-wrap; /* Preserves formatting */
 }
