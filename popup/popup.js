@@ -300,6 +300,7 @@ function hideSpinner() {
     const modelDropdownBtn = document.getElementById("model-dropdown-btn");
     const icon = modelDropdownBtn.querySelector("i");
     icon.classList.remove("fa-spinner", "fa-spin");
+    
     icon.classList.add("fa-atom");
 }
 
