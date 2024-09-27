@@ -266,13 +266,13 @@ function convertToMarkdown(text) {
     converted = converted.replace(/`(.*?)`/gim, '<code>$1</code>');
 
     // // Convert unordered lists
-    // converted = converted.replace(/^\s*[\*\-]\s(.*$)/gim, '<ul><li>$1</li></ul>');
+    converted = converted.replace(/^\s*[\*\-]\s(.*$)/gim, '<ul><li>$1</li></ul>');
 
     // Convert ordered lists
     converted = converted.replace(/^\s*[0-9]+\.\s(.*$)/gim, '<ol><li>$1</li></ol>');
 
     // Convert horizontal rule
-    // converted = converted.replace(/^\-{3,}$/gim, '<hr />');
+    converted = converted.replace(/^\-{3,}$/gim, '<hr />');
 
     return converted.trim(); // Return the converted markdown as HTML
 }
