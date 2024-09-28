@@ -61,7 +61,7 @@ class RAG_Model:
         rep_ids = [
             'meta-llama/Meta-Llama-3-8B-Instruct',
             'mistralai/Mistral-7B-Instruct-v0.3',
-            'tiiuae/falcon-7b-instruct'
+            'mistralai/Mixtral-8x7B-Instruct-v0.1'
         ]
         
         # Define filter terms to stop the generation

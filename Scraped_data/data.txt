@@ -1,329 +1,224 @@
-Dashboard
-My Business
-Growth & Marketing
-Analytics
-J
-junaidullhassan
+Skip to content
+Navigation Menu
+junaidulhassan
+/
+ConversifyAI
+Type / to search
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+Settings
+ConversifyAI
+Public
+Unpin
+Unwatch1
+Fork 1
+ Starred 2
+junaidulhassan/ConversifyAI
+ master
+1 Branch
+0 Tags
+t
+Add file
+Add file
+Code
+Folders and files
+Name	Last commit message	Last commit date
 
-My level
+Latest commit
+junaidulhassan
+Update requirements.txt
+09ed76d
+ · 
+History
+47 Commits
+
+
+Backend
+	
+Add Image Generation function
+	
+
+
+Frontend
+	
+Add Image Generation function
+	
+
+
+Images
+	
+Add Images Generation Functions
+	
+
+
+Jupyter Files
+	
+Add Image Generation function
+	
+
+
+Web-Content/Docs/Chroma
+	
+Updates
+	
+
+
+__pycache__
+	
+Add Image Generation function
+	
+
+
+text_file.txt
+	
+Updation
+	
+
+
+LLM.py
+	
+Update LLM.py
+	
+
+
+RAG.py
+	
+Add Images Generation Functions
+	
+
+
+RAG_QnA.py
+	
+Add Image Generation function
+	
+
+
+README.md
+	
+Update README.md
+	
 
-New seller
 
-Success score
+Web-Pilot.py
+	
+Add Image Generation function
+	
 
-6
 
-Rating
-
-4.8
-
-Response rate
-
-100%
-
-Go to level overview
-Earned in September
-$0
-Inbox
-View All
-
-thibfen
-
-9h
-Me: Plz check sometime error occurs due to Openai embedding limit exceeded.
-T
-
-akilasekar98
-
-1d
-Please let me know when you have an update
-A
-
-durkaramsantha
-
-4d
-Me: Its working now. Program don't ask for audio permission.
-D
-
-unempoyedprof
-
-1 week
-so how is it supposed to be done? I guess he used regression
-U
-
-guyves2001
-
-4 weeks
-Me: Alright let me check it
-G
-
-Hany
-
-1 month
-I really need that work can i wait or something
-H
-
-hamza_eyash
-
-1 month
-Me: 👍
-H
-
-gbrjam
-
-2 months
-Me: We can get data from each curve.
-G
-
-xavier_suico
-
-2 months
-Me: My Pleasure sir 🙂
-X
-
-salmanlyp
-
-2 months
-Me: So you want to fine tune your chatbot on insurance data?
-S
-
-mlandelibongani
-
-2 months
-Me: Sir, you have not shared any details about your project yet.🙂
-M
-
-no_lifer
-
-4 months
-Me: Because it does take effort to fine tune algorithms
-N
-
-kevalmakadiya
-
-5 months
-Me: Could you please provide information on the project deadline and budget?
-K
-
-Liam Black
-
-5 months
-Me: Yeah I know GWO.
-M
-
-batichon001
-
-5 months
-Me: Also share your budget and deadline
-B
-
-Jonas Brown
-
-5 months
-J
-
-jg_kakr
-
-5 months
-Me: Hi there Sir. Do you have any project for me???
-J
-
-tomasrili
-
-6 months
-Me: How much is your budget?? We will adjust accordingly.
-T
-
-cynthia_marcus2
-
-6 months
-Me: How I may help you???
-C
-
-farajfarooque
-
-7 months
-Me: I can do this project brother.
-F
-
-Fayyaz A.
-
-9 months
-Me: Sure
-F
-
-Hannah Studio
-
-10 months
-Great
-V
-
-jayb0w
-
-1 year
-Me: 🤗
-J
-
-gigahmedsakr
-
-1 year
-modify the 1XBetCrashUpdater.py file to automatically update the 1XBetCrash.csv file. This will help to strengthen the models that rely on the Multiplier column. Modify the 1XBetCrashUpdater.py file to update the 1XBetCrash.csv file Test your modifications to ensure they work as expected Run crash.py to send the next 10 predictions to the tele-gram bot using command /predict after of course putting the bot api token to link it
-G
-
-zamcam12
-
-1 year
-Me: Welcome brother 😊
-Z
-
-antonio__88
-
-1 year
-Give me a quote and how long will it take you
-A
-
-marshalm21
-
-1 year
-Me: Sorry I&#39;m busy in an other projects
-M
-
-karimforex
-
-1 year
-40$ ok
-K
-
-jcash4268
-
-1 year
-Sorry that is your git price 😊
-J
-
-sudhanshumewati
-
-1 year
-Me: Ok
-S
-Active orders - 0 ($0)
-Active orders (0)
-Upgrade Your Business
-3 steps to become a top seller on Fiverr
-
-The key to your success on Fiverr is the brand you build for yourself through your Fiverr reputation. We gathered some tips and resources to help you become a leading seller on Fiverr.
-
-Get noticed
-Tap into the power of social media by sharing your Gig, and get expert help to grow your impact.
-Share Your Gigs
-Get more skills & exposure
-Hone your skills and expand your knowledge with online courses. You’ll be able to offer more services and gain more exposure with every course completed.
-Explore Learn
-Become a successful seller!
-Watch this free online course to learn how to create an outstanding service experience for your buyer and grow your career as an online freelancer.
-Watch Free Course
-Maximize your Gig's potential
-
-From fast delivery to revisions, earn with Extras.
-
-Be a scroll stopper
-
-Grab more attention with these Gig image tips.
-
-Up your communication game
-
-Communication is key for success with your customers, and we've got tips to help you talk your way to the top
-
-Facebook ads targeting
-
-Reach the right audiences with this targeting course.
-
-Maximize your Gig's potential
-
-From fast delivery to revisions, earn with Extras.
-
-Be a scroll stopper
-
-Grab more attention with these Gig image tips.
-
-Up your communication game
-
-Communication is key for success with your customers, and we've got tips to help you talk your way to the top
-
-Facebook ads targeting
-
-Reach the right audiences with this targeting course.
-
-Maximize your Gig's potential
-
-From fast delivery to revisions, earn with Extras.
-
-1234
-Categories
-Graphics & Design
-Digital Marketing
-Writing & Translation
-Video & Animation
-Music & Audio
-Programming & Tech
-AI Services
-Consulting
-Data
-Business
-Personal Growth & Hobbies
-Photography
-Finance
-End-to-End Projects
-Service Catalog
-For Clients
-How Fiverr Works
-Customer Success Stories
-Trust & Safety
-Quality Guide
-Fiverr Learn
-
-Online Courses
-
-Fiverr Guides
-Fiverr Answers
-For Freelancers
-Become a Fiverr Freelancer
-Become an Agency
-Kickstart
-Community Hub
-Forum
-Events
-Business Solutions
-Fiverr Pro
-Project Management Service
-ClearVoice
-
-Content Marketing
-
-Working Not Working
-
-Creative Talent
-
-AutoDS
-
-Dropshipping Tool
-
-Fiverr Logo Maker
-Contact Sales
-Company
-About Fiverr
-Help & Support
-Social Impact
-Careers
-Terms of Service
-Privacy Policy
-Partnerships
-Creator Network
-Affiliates
-Invite a Friend
-Press & News
-Investor Relations
-
-© Fiverr International Ltd. 2024
-
-English
-$ USD
+api_token.py
+	
+Update api_token.py
+	
+
+
+chatbot.py
+	
+Update chatbot.py
+	
+
+
+requirements.txt
+	
+Update requirements.txt
+	
+
+
+scrap.py
+	
+Update scrap.py
+	
+Repository files navigation
+README
+Conversify AI
+
+Application Name: Conversify AI
+
+Conversify AI is a sophisticated RAG (Retrieval Augmented Generation) application designed to interact seamlessly with website content, including vlogs and other materials. This application allows users to paste the URL of any website they want to engage with, enabling question-answering, summarization, and more, all with ease.
+
+Key Components
+Mistral-7b-instruct v0.3 LLM: Utilized for text generation.
+Langchain Library: Used for prompt engineering and RAG application development.
+Chroma DB: Employed as a vector database for storing data.
+Vector Embedding: Ensures quick document search within the database.
+Streamlit: Provides a user-friendly front end to display responses effectively.
+Project Overview
+
+In this notebook, we leverage the Mistral-7b-instruct model alongside the Langchain framework. The technique applied here is RAG, focusing on contextual training of LLMs rather than traditional fine-tuning.
+
+Detailed Components and Usage
+Large Language Model: Mistral-7b-instruct v0.3
+Purpose: Text generation.
+Benefits: Advanced capabilities for natural language understanding and generation.
+Langchain Library
+Purpose: Prompt engineering and developing the RAG application.
+Benefits: Provides robust tools for building and managing prompts, enhancing the model's interaction with the user.
+Chroma DB
+Purpose: Vector database.
+Benefits: Efficient data storage and retrieval, crucial for quick and accurate responses.
+Transformer Embedding
+Purpose: Quick document search.
+Benefits: Ensures that relevant information is retrieved swiftly, improving the application's responsiveness.
+Streamlit
+Purpose: Front end and text streaming
+Benefits: Offers an intuitive and visually appealing interface for users to interact with the application.
+
+Retrieval Augmented Generation (RAG):
+What is RAG?
+
+Retrieval Augmented Generation is a technique that enhances the capabilities of LLMs by providing contextual training, as opposed to the traditional method of fine-tuning.
+
+Advantages of RAG
+Contextual Training: Provides more relevant and accurate responses by incorporating external data.
+Flexibility: Allows the model to adapt to new information without the need for extensive retraining.
+Efficiency: Reduces the time and computational resources required for fine-tuning.
+
+With "Conversify AI," users can experience a seamless and efficient way to interact with web content, making it a powerful tool for extracting and summarizing information, answering questions, and more.
+
+About
+
+Conversify AI explore large contents.
+
+Resources
+ Readme
+ Activity
+Stars
+ 2 stars
+Watchers
+ 1 watching
+Forks
+ 1 fork
+
+
+Releases
+No releases published
+Create a new release
+
+
+Packages
+No packages published
+Publish your first package
+
+
+Languages
+Jupyter Notebook
+69.1%
+ 
+Python
+30.9%
+Footer
+© 2024 GitHub, Inc.
+Footer navigation
+Terms
+Privacy
+Security
+Status
+Docs
+Contact
+Manage cookies
+Do not share my personal information

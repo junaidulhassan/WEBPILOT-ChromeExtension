@@ -93,7 +93,7 @@ def generate_response():
 
         # Generate response based on user input
         response = rag.generateResponse(user_input)
-        print(response)
+        # print(response)
         
         return jsonify({'response': response}), 200
 

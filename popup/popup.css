@@ -376,20 +376,13 @@ a {
     margin: 10px 0;
 }
 
-.message.assistant pre {
+/* .message.assistant pre {
     background-color: #272822;
     color: #f8f8f2;
     padding: 10px;
     border-radius: 5px;
     overflow-x: auto;
-} 
-
-.message.assistant code {
-    background-color: #f5f2f0;
-    color: #c7254e;
-    padding: 2px 4px;
-    border-radius: 3px;
-}
+}  */
 
 
 #url-link{
@@ -448,7 +441,7 @@ a {
         transform: rotate(360deg);
     }
 }
-
+/* 
 .message.assistant {
     background-color: #272727;
     color: #ffffff;
@@ -456,5 +449,5 @@ a {
     border-radius: 10px;
     margin-bottom: 10px;
     font-family: 'Courier New', Courier, monospace;
-    white-space: pre-wrap; /* Preserves formatting */
-}
+    white-space: pre-wrap; 
+} */

@@ -6,12 +6,15 @@ document.getElementById('dark-theme').addEventListener('click', toggleDarkTheme)
 
 async function processPage() {
     // Get the current tab's URL
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    const [tab] = await chrome.tabs.query(
+        { 
+            active: true, 
+            currentWindow: true 
+        }
+    );
     const url = tab.url;
     document.getElementById('web-link').textContent = url;
 
-    // Load chat history from local storage for the current tab
-    loadChatHistory(tab.id);
 
     // Check for irrelevant URLs
     if (isIrrelevantTab(url)) {
@@ -41,7 +44,9 @@ async function processPage() {
 
     // Inject script to fetch the page's text content for non-PDFs
     const [result] = await chrome.scripting.executeScript({
-        target: { tabId: tab.id },
+        target: { 
+            tabId: tab.id 
+        },
         func: fetchPageText
     });
 
@@ -69,7 +74,9 @@ function fetchPageText() {
 
 // Function to save chat history in chrome storage
 function saveChatHistory(tabId, chatHistory) {
-    chrome.storage.local.set({ [tabId]: chatHistory }, () => {
+    chrome.storage.local.set({ 
+            [tabId]: chatHistory 
+        }, () => {
         console.log('Chat history saved for tab:', tabId);
     });
 }
@@ -94,7 +101,9 @@ async function saveTextToFile(content) {
             suggestedName: '/media/junaid-ul-hassan/248ac48e-ccd4-4707-a28b-33cb7a46e6dc/WEB-Programming/WEBPILOT-ChromeExtension/Scraped_data/data.txt',
             types: [{
                 description: 'Text file',
-                accept: {'text/plain': ['.txt']},
+                accept: {
+                    'text/plain': ['.txt']
+                },
             }],
         });
 
@@ -176,8 +185,16 @@ async function sendMessage() {
     document.getElementById("user-input").value = "";
 
     // Save chat history
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    saveChatHistory(tab.id, chatMessages.innerHTML);
+    const [tab] = await chrome.tabs.query(
+        { 
+            active: true, 
+            currentWindow: true 
+        });
+
+    saveChatHistory(
+        tab.id, 
+        chatMessages.innerHTML
+    );
 
     // Show spinner in place of Conversify AI icon
     showSpinner();
@@ -186,8 +203,13 @@ async function sendMessage() {
         // Send the user's message to the Flask server for a response
         const response = await fetch('http://127.0.0.1:5000/generate_response', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message: userInput })
+            headers: { 
+                'Content-Type': 
+                'application/json' 
+            },
+            body: JSON.stringify({ 
+                    message: userInput 
+                })
         });
 
         const result = await response.json();
@@ -215,7 +237,12 @@ async function sendMessage() {
         chatMessages.scrollTop = chatMessages.scrollHeight;
 
         // Save updated chat history
-        const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+        const [tab] = await chrome.tabs.query(
+            { 
+                active: true, 
+                currentWindow: true 
+            });
+            
         saveChatHistory(tab.id, chatMessages.innerHTML);
     }
 }
