@@ -84,6 +84,9 @@ def process_page():
             parse_url = get_file_url(
                 file_url=url
             )
+            
+            print("Parse URL: ",parse_url)
+            
             rag.load_Database(
                 is_pdf=True, 
                 pdf_url=parse_url

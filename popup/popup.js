@@ -247,6 +247,17 @@ async function sendMessage() {
     }
 }
 
+// Function to copy text to clipboard
+function copyToClipboard(text) {
+    const tempTextArea = document.createElement('textarea');
+    tempTextArea.value = text;
+    document.body.appendChild(tempTextArea);
+    tempTextArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempTextArea);
+    alert('Message copied to clipboard!');
+}
+
 function clearChatHistory() {
     var chatMessages = document.getElementById("chat-messages");
     chatMessages.innerHTML = "";
