@@ -3,6 +3,7 @@ from RAG_QnA import RAG_Model
 from scrap import Scraper
 import requests
 import re
+from urllib.parse import urlparse
 import json
 
 app = Flask(__name__)
@@ -18,6 +19,20 @@ def is_valid_url(url):
         r'(?::\d+)?'  # optional port
         r'(?:/?|[/?]\S+)$', re.IGNORECASE)
     return re.match(regex, url) is not None
+
+
+# Original file URL
+# file_url = "file:///home/junaid-ul-hassan/Documents/Updated_CV_ML.pdf"
+
+def  get_file_url(file_url):
+    # Parse the URL and convert to a valid file path
+    parsed_url = urlparse(file_url)
+
+    # Extract the path and convert it to a valid file system path
+    file_path = parsed_url.path
+    
+    # return the parse url
+    return file_path
 
 def is_pdf_url(url):
     if url.lower().endswith('.pdf'):
@@ -66,11 +81,22 @@ def process_page():
         # Check if the URL is a PDF or a YouTube link
         if is_pdf_url(url):
             # Process PDF
-            rag.load_Database(is_pdf=True, pdf_url=url)
+            parse_url = get_file_url(
+                file_url=url
+            )
+            rag.load_Database(
+                is_pdf=True, 
+                pdf_url=parse_url
+            )
+            
         elif is_youtube_url(url):
             # Process YouTube video
             print("URL Type: Youtube Video")
-            rag.load_Database(is_youtube_url=True, youtube_url=url)
+            rag.load_Database(
+                is_youtube_url=True, 
+                youtube_url=url
+            )
+            
         else:
             print("This is Website URL")
             # Process standard web page text
