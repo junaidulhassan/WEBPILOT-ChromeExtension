@@ -1,1038 +1,175 @@
-Orders
-Switch to Selling
-J
-Graphics & Design
-Programming & Tech
-Digital Marketing
-Video & Animation
-Writing & Translation
-Music & Audio
-Business
-Finance
-AI Services
-Personal Growth
-Consulting
-Photography
-145
-Basic
-Standard
-Premium
-$90
-Save up to 5% with Subscribe to Save
-
-Data Cleaning will pre-process the python data and few viusalization
-
-1-day delivery
-Research
-Data preprocessing
-Model creation
-Model testing & optimization
-Performance monitoring
-Source code
-Model documentation
-Continue
-Compare packages
-Contact me
-
-/
-
-Data
-
-/
-
-Data Science & ML
-
-/
-
-Machine Learning
-I will do python data science analysis or machine learning projects on jupyter notebook
-5.0
-(66)
-Danish S
-
-Pakistan
-
-I speak Urdu, English
-
-145 orders completed
-
-Contact me
-
-I Believe in providing topnotch Quality Work!
-
-I am danish - a multitask-er; having many years of experience working as a data scientist, python developer, power-point creator, logo designer. Now a days, I am working on 'ground water modelling using python'. I want to enhance the skills I have gained over the years by simply working for you. I love working with data/ python language & doing writing tasks. Better to say, I'm one solution to your multiple work queries. Do give me a chance to prove myself!
-Read Less
-Python
-pandas
-Data entry
-Machine learning
-Data science
-Data science consulting
-Exploratory data analysis
-Data cleaning
-Data visualization
-
-+6
-
-Top Rated
-
-Top Rated sellers are individually selected by Fiverr after meeting specific benchmarks for quality and service.
-
-About this Gig
-
-                                                                Hi
-
-Welcome to my Python Data Analysis Gig
-
-
-
-
-Do you have a lot of data and need help with data analysis, data visualization, data manipulation, machine learning python and more? I am here to help. I am an expert in Python and can-do data analysis machine learning using python.
-
-
-
-
-You are looking for a Python Data Science for your project. I have excellent expertise over data analysis and machine learning using python, and many more.
-
-
-
-
-It is my goal to provide high-quality Python data analysis work
-
-
-
-
-My Services on Data Analysis Python:
-
-
-
-
-Data Analysis Python , Data Cleaning and Pre-Processing
-Python Data Visualization(bar, pie , line, scatter and many more)
-Python Data Analysis and Machine Learning
-
-
-
-
-Why me?
-
-Data Analysis Python (Microsoft Certified)
-Fast Response and Fast Communication
-Great Quality code of python data analysis
-Lifetime support
-
-
-
-
-
-
-
-NOTE
-
-The amount of the data analysis python projects can be differed by intricacy. so FEEL FREE TO CONTACT ME BEFORE YOU PLACE YOUR ORDER
-
-
-
-
-NOTE
-
-For certain Python Data Analysis projects I need to give you online video presentation or i may need to cont
-
-Read More
-
-Expertise:
-
-Image processing
-
-•
-
-Feature learning
-
-•
-
-Classification
-
-•
-
-Churn
-
-+3 more
-
-Programming language:
-
-Python
-
-•
-
-Colab
-
-•
-
-Amazon SageMaker
-
-Frameworks:
-
-Scikit-learn
-
-•
-
-Google ML Kit
-
-•
-
-Keras
-
-•
-
-Panda
-
-APIs:
-
-Microsoft Computer Vision AI
-
-•
-
-Amazon Rekognition
-
-+1 more
-
-Tools:
-
-Jupyter Notebook
-
-•
-
-TensorFlow
-
-•
-
-Excel
-
-•
-
-Amazon SageMaker
-
-•
-
-Colab
-
-My Portfolio
-1
-
-From: June 2020
-
-COVID-19 Impact Analysis
-
-I present an in-depth analysis of the impact of the COVID-19 pandemic on the Asian continent. Through exploratory data analysis, I delve into trends of new cases, deaths, and tests over time, while investigating the relationship between Cardiovascular Death Rate and COVID-19 fatalities. I also showcase the development of a predictive model using supervised machine learning techniques to forecast the total number of deaths. Join me on a journey through data-driven insights and predictive modeling to understand the pandemic's impact on Asia and its potential future trajectory.
-
-Health Organization
-+9
-
-Project cost
-
-$400-$600
-
-Project duration
-
-7-30 days
-
-Compare packages
-Package	
-
-$90
-
-Basic
-DATA CLEANING
-	
-
-$150
-
-Standard
-DATA VISUALIZATION WITH EXPLANATION
-	
-
-$250
-
-Premium
-DATA CLEANING, VISUALIZATION AND ML
-
-	will pre-process the python data and few viusalization	will pre-process the python data and visualize with proper explanation	python data analysis and Machine learning also
-
-Research
-	
-	
-	
-
-
-Data preprocessing
-	
-	
-	
-
-
-Model creation
-	
-	
-	
-
-
-Model testing & optimization
-	
-	
-	
-
-
-Performance monitoring
-	
-	
-	
-
-
-Include source code
-	
-	
-	
-
-
-Model documentation
-	
-	
-	
-
-Delivery Time	1 day	5 days	7 days
-	
-
-$90
-
-Select	
-
-$150
-
-Select	
-
-$250
-
-Select
-Recommended for you 
-S
-Salman Khan
-
-Level 2
-
-I will do classification analysis with python and machine learning
-
-5.0
-(44)
-From $90
-M
-Muzammil
-
-Level 2
-
-I will offer deep learning, data science, neural networks , machine learning services
-
-4.9
-(47)
-From $90
-P
-Priyam K
-
-Pro
-
-I will do machine learning projects here
-
-5.0
-(3)
-From $500
-
-Offers video consultations
-
-P
-Priyam K
-
-Pro
-
-I will do data science projects
-
-5.0
-(4)
-From $490
-
-Offers video consultations
-
-U
-Usman
-
-Level 2
-
-I will do machine learning and deep learning python projects
-
-5.0
-(13)
-From $90
-
-Offers video consultations
-
-A
-Algorithm-guru
-
-Level 2
-
-I will do ai, machine learning, nlp and deep learning, with python
-
-4.7
-(18)
-From $90
-
-Offers video consultations
-
-M
-Moshe Mash Phd
-
-Pro
-
-I will do machine learning data analysis and ai projects
-
-From $500
-
-Offers video consultations
-
-T
-Tanveer
-
-Level 1
-
-I will perform python data preprocessing, extraction, cleaning, analysis and prediction
-
-5.0
-(8)
-From $50
-L
-Lars K
-
-Pro
-
-I will do machine learning in python
-
-From $400
-R
-Radoslav H
-
-Top Rated
-
-I will code your finance data science machine learning project
-
-5.0
-(8)
-From $200
-L
-Lukasz A
-
-Level 1
-
-I will do data science machine learning data mining python r sql
-
-From $100
-
-Offers video consultations
-
-M
-Muhammad Talha
-
-Top Rated
-
-I will do machine learning deep learning python projects
-
-5.0
-(69)
-From $2,000
-
-Offers video consultations
-
-K
-Keith
-
-Level 1
-
-I will do data science and machine learning projects
-
-4.7
-(16)
-From $245
-
-Offers video consultations
-
-U
-Umer
-
-I will provide knime and python services for data science and machine learning
-
-4.9
-(11)
-From $20
-A
-Asim S
-
-Level 1
-
-I will do machine learning and data science project in python and r
-
-5.0
-(11)
-From $80
-Other Data Science & ML Services I Offer
-
-Generative Models
-
-Starting at $300
-
-Computer Vision
-
-Starting at $90
-
-Deep Learning
-
-Starting at $90
-
-Natural Language Processing
-
-Starting at $90
-
-Data Science Consultation
-
-Starting at $50
-
-Time Series Analysis
-
-Starting at $90
-Reviews
-66 reviews for this Gig
-5.0
-5 Stars	
-	(65)
-4 Stars	
-	(1)
-3 Stars	
-	(0)
-2 Stars	
-	(0)
-1 Star	
-	(0)
-Rating Breakdown
-Seller communication level
-5
-Recommend to a friend
-5
-Service as described
-5
-Sort By
-Most relevant
-Only show reviews with files (2)
-W
-
-wolpsoft
-
-Germany
-
-4
-
-2 months ago
-
-Danish S showed solid skills in Data Science & ML, but there’s room for improvement. The quality of delivery could be closer to my expectations with more professionalism and attention to detail. Additionally, working with Danish would be smoother with greater politeness, proactiveness, and better language fluency.
-
-$200-$400
-
-Price
-
-2 days
-
-Duration
-
-Helpful?
-Yes
-No
-H
-
-hfh105
-
-Malaysia
-
-5
-
-3 months ago
-
-Great work received above expectation and very good cooperation
-
-$200-$400
-
-Price
-
-3 days
-
-Duration
-
-Helpful?
-Yes
-No
-M
-
-meltag12
-
-United Arab Emirates
-
-5
-
-3 months ago
-
-Danish was very quick to complete the task despite the tight deadline and was very active in communicating. Taking into account the time difference and the difficulty, it was great work.
-
-$100-$200
-
-Price
-
-1 day
-
-Duration
-
-Helpful?
-Yes
-No
-L
-
-lifeofluxeltd
-
-United Kingdom
-
-5
-
-5 months ago
-
-Had a task that needed doing, it was quite a large task and the Danish has gotten back to me in under 24 hours, arranged a call and shown me his work. His work is exceptional and does everything i need it to do, and more. Highly recommend using Danish to do your work as he is definitely one of the best!
-
-$200-$400
-
-Price
-
-2 days
-
-Duration
-
-Helpful?
-Yes
-No
-V
-
-vinigrette
-
-United States
-
-5
-
-6 months ago
-
-Danish was exceptionally fast and helpful. I would hire him again anytime. He combed through the data I had and made meaningful observations and models.
-
-$100-$200
-
-Price
-
-2 days
-
-Duration
-
-Helpful?
-Yes
-No
-Show More Reviews
-Related tags
-pythonjupytermachine learningpython data analysis
-D
-
-Message Danish S
-
-Away
-Avg. response time:
-2 Hrs
-More from danish__786
-D
-Danish S
-Top Rated
-
-I will help in data science time series regression classification analysis
-
-From $90
-D
-Danish S
-Top Rated
-
-I will do live consultancy on data science, ai, machine learning, deep learning project
-
-From $50
-D
-Danish S
-Top Rated
-
-I will create nlp model projects and text analysis with python
-
-From $90
-D
-Danish S
-Top Rated
-
-I will do deep learning python project on cnn run and neural network using tensorlow
-
-From $90
-D
-Danish S
-Top Rated
-
-I will do data science deep learning computer vision tensorflow projects
-
-From $90
-D
-Danish S
-Top Rated
-
-I will make generative ai models using hugging face on google colab
-
-From $300
-People Who Viewed This Service Also Viewed 
-F
-Faisal Mehmood
-
-Level 2
-
-I will do data science, nvivo, nlp, ai, ml, and gpt, using python
-
-4.8
-(152)
-From $200
-M
-Muzammil
-
-Level 2
-
-I will offer deep learning, data science, neural networks , machine learning services
-
-4.9
-(47)
-From $90
-Y
-Yassin E
-
-Level 1
-
-I will build data science and machine learning models in python
-
-4.8
-(88)
-From $95
-
-Offers video consultations
-
-U
-Usman
-
-Level 2
-
-I will do machine learning and deep learning python projects
-
-5.0
-(13)
-From $90
-
-Offers video consultations
-
-J
-John
-
-Pro
-
-I will develop ai data science website application dashboard using python
-
-5.0
-(26)
-From $500
-K
-Keith
-
-Level 1
-
-I will do data science and machine learning projects
-
-4.7
-(16)
-From $245
-
-Offers video consultations
-
-R
-Ryan W
-
-Level 2
-
-I will create openai or gpt3 or chatgpt or machine learning app for you
-
-5.0
-(46)
-From $100
-
-Offers video consultations
-
-H
-Hamza A
-
-Top Rated
-
-I will provide end to end machine learning application development and cloud deployment
-
-5.0
-(17)
-From $1,000
-
-Offers video consultations
-
-C
-Chinmay D
-
-Level 1
-
-I will do custom machine learning project with 2 days fast delivery
-
-5.0
-(73)
-From $500
-A
-Aswin
-
-Pro
-
-I will do ai, machine learning, deep learning projects in python
-
-5.0
-(6)
-From $100
-
-Offers video consultations
-
-G
-Gal O
-
-Top Rated
-
-I will build a prediction model
-
-4.9
-(49)
-From $200
-
-Offers video consultations
-
-Z
-Zeynoc
-
-Level 2
-
-I will do machine learning, deep learning, computer vision projects
-
-5.0
-(106)
-From $500
-
-Offers video consultations
-
-P
-Priyam K
-
-Pro
-
-I will do machine learning projects here
-
-5.0
-(3)
-From $500
-
-Offers video consultations
-
-S
-Salman Khan
-
-Level 2
-
-I will do classification analysis with python and machine learning
-
-5.0
-(44)
-From $90
-F
-Feroz Khan
-
-Level 2
-
-I will develop machine learning projects
-
-5.0
-(18)
-From $400
-
-Offers video consultations
-
-G
-Gal O
-
-Top Rated
-
-I will do data science or data analysis
-
-4.9
-(22)
-From $120
-
-Offers video consultations
-
-K
-Karthik Pillai
-
-Pro
-
-I will do computer vision, image processing, opencv and deep learning in python
-
-5.0
-(84)
-From $3,800
-
-Offers video consultations
-
-R
-Radoslav H
-
-Top Rated
-
-I will code your finance data science machine learning project
-
-5.0
-(8)
-From $200
-M
-Muhammad Talha
-
-Top Rated
-
-I will do machine learning deep learning python projects
-
-5.0
-(69)
-From $2,000
-
-Offers video consultations
-
-G
-Galip
-
-Level 2
-
-I will do all data science projects,msc engineer,python,knime
-
-5.0
-(91)
-From $90
-Your Browsing History 
-Clear All
-|
-See All
-
-I will deliver flutter apps with firebase for ios and android
-
-I will do QA chatbot finetuning rag with langchain huggingface
-
-I will create ai chatbots using llama, langchain, chatgpt and openai api integration
-
-I will add custom python or javascript code in integromat or zapier and chatgpt
-
-I will create chatgpt, ai chatbot, perplexity or openai app
-
-Pro
-
-I will do python programming and machine learning projects
-
-I will do professional video editing for youtube in short time
-
-I will do time series analysis and modelling with lstm,gru and tcn
-
-I will accurately do image segmentation for your ai model
-
-I will do professional video editing in 24 hours
-
-I will create flat modern minimalist and business logo design
-
-I will be blockchain developer and make coinflip, staking web3 dapp on solana and ton
-
-Categories
-Graphics & Design
-Digital Marketing
-Writing & Translation
-Video & Animation
-Music & Audio
-Programming & Tech
-AI Services
-Consulting
-Data
-Business
-Personal Growth & Hobbies
-Photography
-Finance
-End-to-End Projects
-Service Catalog
-For Clients
-How Fiverr Works
-Customer Success Stories
-Trust & Safety
-Quality Guide
-Fiverr Learn
-
-Online Courses
-
-Fiverr Guides
-Fiverr Answers
-For Freelancers
-Become a Fiverr Freelancer
-Become an Agency
-Kickstart
-Community Hub
-Forum
-Events
-Business Solutions
-Fiverr Pro
-Project Management Service
-ClearVoice
-
-Content Marketing
-
-Working Not Working
-
-Creative Talent
-
-AutoDS
-
-Dropshipping Tool
-
-Fiverr Logo Maker
-Contact Sales
+Products
+Methods
+Resources
+Docs
 Company
-About Fiverr
-Help & Support
-Social Impact
-Careers
-Terms of Service
+Pricing
+Get a demo
+Sign up
+Get your LLM app from prototype to production
+
+LangSmith is an all-in-one developer platform for every step of the LLM-powered application lifecycle, whether you’re building with LangChain or not.
+Debug, collaborate, test, and monitor your LLM applications.
+
+Get a demo
+Sign up for free
+250K+
+Users signed up
+1Bn
+Traces logged
+25K+
+Monthly active teams
+The platform for your LLM development lifecycle
+
+LLM-apps are powerful, but have peculiar characteristics. The non-determinism, coupled with unpredictable, natural language inputs, make for countless ways the system can fall short. Traditional engineering best practices need to be re-imagined for working with LLMs, and LangSmith supports all phases of the development lifecycle.
+
+Sign Up
+Develop with greater visibility
+
+Unexpected results happen all the time with LLMs. With full visibility into the entire sequence of calls, you can spot the source of errors and performance bottlenecks in real-time with surgical precision. Debug. Experiment. Observe. Repeat. Until you’re happy with your results.
+
+Go to Docs
+Collaborate with teammates to get app behavior just right.
+
+Building LLM-powered applications requires a close partnership between developers and subject matter experts.
+
+Go to Docs
+
+Traces
+
+Easily share a chain trace with colleagues, clients, or end users, bringing explainability to anyone with the shared link.
+
+001
+
+Hub
+
+Use LangSmith Hub to craft, version, and comment on prompts. No engineering experience required.
+
+002
+
+Annotation Queues
+
+Try out LangSmith Annotation Queues to add human labels and feedback on traces.
+
+003
+
+Datasets
+
+Easily collect examples, and construct datasets from production data or existing sources. Datasets can be used for evaluations, few-shot prompting, and even fine-tuning.
+
+004
+Test & Evaluate: Measure quality over large test suites.
+
+Layer in human feedback on runs or use AI-assisted evaluation,
+with off-the-shelf and custom evaluators that can check for relevance, correctness, harmfulness, insensitivity, and more.
+
+Evaluation
+001
+Dataset Construction
+
+Quickly save debugging and production traces to datasets. Datasets are collections of either exemplary or problematic inputs and outputs that should be replicated or rectified, respectively.
+
+002
+Auto-evaluation
+
+Use an LLM and prompt to score your application output, or write your own functional evaluation tests to record different measures of effectiveness.
+
+003
+Regression testing
+
+See how performance of the evaluation criteria that you’ve defined is affected by changes to your application. Know that quality is moving in a positive direction by applying engineering rigor to your testing workflow.
+
+004
+Online evaluation
+
+Continuously track qualitative characteristics of any live application, and spot issues in real-time with LangSmith monitoring.
+
+Get tips for testing your LLM application,
+from design to production.
+Get a demo
+Get the eBook
+Monitor cost, latency, quality.
+
+See what’s happening with your production application, so you can take action when needed or rest assured while your chains and agents do the hard work.
+
+Go to Docs
+User feedback collection
+Advanced filtering
+Online  auto-evaluation
+Cost tracking
+Inspect anomalies and errors
+Spot latency spikes
+LangSmith turns LLM  "magic" into enterprise-ready applications.
+Got a question?
+Can I use LangSmith if I don’t use LangChain?
+
+Yes! Many companies who don’t build with LangChain use LangSmith. You can log traces to LangSmith via the Python SDK, the TypeScript SDK, or the API. See here for more information.
+
+I can’t have data leave my environment. Can I self-host LangSmith?
+
+Yes, we allow customers to self-host LangSmith on our enterprise plan. We deliver the software to run on your Kubernetes cluster, and data will not leave your environment. For more information, check out our documentation.
+
+How easy is it to start using LangSmith if I use LangChain?
+
+Getting started is as easy as setting three environment variables in your LangChain code. When you use the LangSmith SDK, there’s a callback handler to collect traces and send them to your LangSmith Organization. All your trace steps will be formatted automatically, so there’s virtually no set up cost.
+
+My application isn’t written in Python or TypeScript. Will LangSmith be helpful?
+
+Yes, we have an API that allows you to programmatically interact with every feature LangSmith has to offer, including logging traces, creating datasets, and running evals. See documentation for more detail.
+
+Where is LangSmith data stored?
+
+Traces are stored in GCP us-central-1. Organizations' traces are logically separated from each other in a Clickhouse database and encrypted in transit and at rest.
+
+What information is contained in LangSmith traces?
+
+LangSmith traces contain the full information of all the inputs and outputs of each step of the application. This level of information is needed, so that users have full visibility into what's happening in their applications for debugging purposes.
+
+Can I sample the traces that I send to LangSmith?
+
+Yes, starting with the LangSmith Python SDK version 0.0.84 and JS SDK version 0.0.64, you can specify the % of traces you send to LangSmith. See documentation for more detail.
+
+Will LangSmith add latency to my application?
+
+No, LangSmith does not add any latency to your application. In the LangSmith SDK, there’s a callback handler that sends traces to a LangSmith trace collector which runs as an async, distributed process. Additionally, if LangSmith experiences an incident, your application performance will not be disrupted.
+
+Will you train on the data that I send LangSmith?
+
+We will not train on your data, and you own all rights to your data. See LangSmith Terms of Service for more information.
+
+How much does LangSmith cost?
+
+See our pricing page for more information, and find a plan that works for you.
+
+Interested in becoming a LangChain Ambassador?
+
+Start by hosting a meetup, building a digital community, or creating educational content - and share it with us in our Community Slack!
+
+Get a demo
+Sign up for free
+Products
+LangChain
+LangSmith
+LangGraph
+Agents
+Evaluation
+Retrieval
+Resources
+Python Docs
+JS/TS Docs
+GitHub
+Integrations
+Changelog
+LangSmith Trust Portal
+Company
+About
+Blog
+Twitter
+LinkedIn
+YouTube
+Community
+Marketing Assets
+Sign up for our newsletter to stay up to date
+All systems operational
 Privacy Policy
-Partnerships
-Creator Network
-Affiliates
-Invite a Friend
-Press & News
-Investor Relations
-
-© Fiverr International Ltd. 2024
-
-English
-$ USD
+Terms of Service

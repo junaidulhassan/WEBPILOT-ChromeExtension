@@ -48,8 +48,8 @@ class RAG_Model:
             k=3,  # Number of messages to remember
             memory_key='chat_history', 
             return_messages=False, 
-            human_prefix='Human',
-            ai_prefix='AI',
+            human_prefix='Question',
+            ai_prefix='Answer',
             input_key='question',
             verbose=False
         )
@@ -110,6 +110,33 @@ class RAG_Model:
             is_youtube_url=is_youtube_url,
             youtube_url=youtube_url
         ) 
+        
+    def __General_chain(self):
+        # Define the prompt template
+        template = """
+        Your name is **WEB-PILOT**, a chatbot developed by WEBPILOT TEAM that answers user questions.
+        Keep your answer short, concise and informative. 
+        Keep answers under 60 words, in simple and clear English.
+        
+        **Chat History**
+        
+        {chat_history}
+        Question: {question}
+        Answer:
+        """
+        
+        # Create a prompt with the template
+        prompt_template = PromptTemplate.from_template(
+            template=template
+        )       
+        
+        chain = LLMChain(
+            llm = self.llm,
+            template=prompt_template,
+            output_parser=StrOutputParser()
+        ) 
+        
+        return chain
 
     def __PromptEngineering(self):
         # Define the prompt template
@@ -190,6 +217,8 @@ class RAG_Model:
         
         cat = category['text']
         
+        print("This is ",cat," Question.")
+        
         return cat
         
         
@@ -212,13 +241,26 @@ class RAG_Model:
         return text    
     
     def generateResponse(self, prompt):
-        # Generate a response using the prompt chain
-        chain = self.__PromptEngineering()
-        response = chain.invoke({
-            'query': prompt
-        })
-        response = response['result']
-        response = self.remove_unwanted_suffixes(response)
+        # check the prompt category
+        category = self.__check_category(
+            prompt
+        )
+        
+        if category == 'University-Related':
+            # Generate a response using the prompt chain
+            chain = self.__PromptEngineering()
+            response = chain.invoke({
+                'query': prompt
+            })
+            response = response['result']
+            response = self.remove_unwanted_suffixes(response)
+        else:
+            # Generate a response using the prompt chain
+            chain = self.__General_chain()
+            response = chain.invoke({
+                'question': prompt
+            })
+            
         return response
     
     def generateImage(self, prompt):
