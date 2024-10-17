@@ -10,6 +10,7 @@ from langchain.prompts import PromptTemplate
 from langchain.memory import ConversationBufferWindowMemory, ConversationBufferMemory
 from RAG import Retrieval_Augmented_Generation
 from langchain_openai import ChatOpenAI
+from langchain_core.output_parsers import StrOutputParser
 import io
 import os
 from PIL import Image
@@ -150,6 +151,47 @@ class RAG_Model:
         )
                 
         return chain
+    
+    def __routing_chain(self,prompt):
+    # Create a prompt template for classifying questions
+        prompt_template = PromptTemplate.from_template(
+        """Given the user question below, classify it as either being about `General` or `University-Related`.
+        
+        Examples of `General` questions include: 
+        - "How are you?"
+        - "What is your name?"
+        - "Who created you?"
+        - "What can you do?"
+        
+        Examples of `University-Related` questions include:
+        - "What is the fee structure at NUML?"
+        - "Does this university offer a Master's in AI?"
+        - "What is the procedure to apply at NUML University?"
+        - "Are there any scholarships available?"
+        
+        Do not respond with more than one word.
+        
+        <question>
+        {question}
+        </question>
+        
+        Classification:"""
+        )
+        # Create a chain with the prompt template and the LLM
+        chain = LLMChain(
+            prompt=prompt_template,
+            llm=self.llm,
+            output_parser=StrOutputParser()
+        )
+        
+        category = chain.invoke({
+            'question': prompt
+        })
+        
+        cat = category['text']
+        
+        return cat
+        
         
     def __clean_string(self, input_text):
         # Clean the string from unwanted filter terms
