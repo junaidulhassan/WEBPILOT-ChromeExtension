@@ -92,6 +92,20 @@ class Retrieval_Augmented_Generation:
         return split
 
     def __load_youtube_transcript(self,youtube_url):
+        
+        error_text = """
+            Please Show this Error message in easy way to user if user Ask about context or video context.
+            We could not retrieve a transcript for the requested video URL. This is likely due to the following reasons:
+            No transcripts were found for any of the requested language codes: ['english'].
+            As a result, this video does not have an English transcript. To chat about the video, you must have a transcript available in English.
+        """
+        
+        error_text_2 ="""
+            Please Show this Error message in easy way to user if user Ask about context or video context.
+            Sorry I can't describe this video because We couldn't retrieve the transcript for this video.This might be because the video doesn't have subtitles or transcripts in English. 
+            Please check if the video includes an English transcript and try again.
+        """
+        
         # define the spilter docs properties
         chunks_size = 1000
         chunks_overlap = 40
@@ -106,13 +120,24 @@ class Retrieval_Augmented_Generation:
             loader = YoutubeLoader.from_youtube_url(
                 youtube_url=youtube_url
             )
+            docs = loader.load()
         except Exception as e:
-            print("Error to load files")
+            # if error occure then this code with run
+            print("Video Transcript Error Occure....")
+            docs = [Document(page_content=x) for x in splitter.split_text(error_text)]
         
-        docs = loader.load()
-        split = splitter.split_documents(
-            documents=docs
-        )
+        if len(docs) == 0:
+            # if no transcript found then this code will run
+            print("Video Don't have Transcript")
+            docs = [Document(page_content=x) for x in splitter.split_text(error_text_2)]
+            split = splitter.split_documents(
+                documents=docs
+            )
+        else:
+            # if transcript found then this code will run
+            split = splitter.split_documents(
+                documents=docs
+            )
             
         return split
     

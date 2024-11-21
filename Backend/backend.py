@@ -71,7 +71,6 @@ def process_page():
         data = request.json
         url = data.get('url')
         text = data.get('text')
-        print(text)
         
         if not url:
             return jsonify({'error': 'Missing URL'}), 400
