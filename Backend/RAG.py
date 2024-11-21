@@ -43,6 +43,18 @@ class Retrieval_Augmented_Generation:
             return None
     
     def __load_pdf(self,file_path):
+        # error message
+        error_text = """
+            Please Show this Error message in easy way to user if user Ask any question about context.
+            Sorry cannot Load PDF File because of Invalid PDF file Location format or non-pdf file. 
+            Please Try again with different pdf file.
+        """
+        error_text_2 = """
+            Please Show this Error message in easy way to user if user Ask any question about context.
+            This file may be a scanned PDF or it could be empty, meaning there is no data available. 
+            Please try again with a PDF that contains text data and is not just a scanned image.
+        """
+        
         # define the spilter docs properties
         chunks_size = 1000
         chunks_overlap = 40
@@ -55,17 +67,26 @@ class Retrieval_Augmented_Generation:
             is_separator_regex=False
         )
         try:
-            loader = PyPDFLoader(
-                file_path=file_path,
-            )
+            # Attempt to load the PDF
+            loader = PyPDFLoader(file_path=file_path)
+            docs = loader.load()
+            print("PDF loaded successfully!")
         except Exception as e:
-            print("Error to load pdf files")
-            
-        docs = loader.load()
-        split = splitter.split_documents(
-            documents=docs
-        )
-        return split
+            print(f"Error loading PDF file")
+            # Return error_text in a Document object
+            docs = [Document(page_content=error_text)]
+            return docs
+
+        # Check if the document contains data
+        if len(docs) == 0 or not all(doc.page_content.strip() for doc in docs):
+            print("PDF file has no readable text or data...")
+            docs = [Document(page_content=error_text_2)]
+    
+        # Split documents into chunks
+        split_docs = splitter.split_documents(docs)
+    
+        return split_docs
+
     
     
     def __load_text(self,text):
@@ -125,6 +146,9 @@ class Retrieval_Augmented_Generation:
             # if error occure then this code with run
             print("Video Transcript Error Occure....")
             docs = [Document(page_content=x) for x in splitter.split_text(error_text)]
+            split = splitter.split_documents(
+                documents=docs
+            )
         
         if len(docs) == 0:
             # if no transcript found then this code will run
