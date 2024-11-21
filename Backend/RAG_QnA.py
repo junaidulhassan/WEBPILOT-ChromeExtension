@@ -90,12 +90,12 @@ class RAG_Model:
         
         print("Model Loading Done..")
         
-        # self.gpt_llm = ChatOpenAI(
-        #     model='gpt-4o-mini',
-        #     temperature=0.1,
-        #     max_tokens=200,
-        #     stop_sequences=self.filter,
-        # )
+        self.gpt_llm = ChatOpenAI(
+            model='gpt-4o-mini',
+            temperature=0.1,
+            max_tokens=400,
+            stop_sequences=self.filter,
+        )
     
     def load_Database(self,pdf_url=None,is_pdf = False,
                       pdf_text = None, is_pdf_file=False,
@@ -160,7 +160,7 @@ class RAG_Model:
         
         # Create the chain with the prompt and memory
         chain = RetrievalQA.from_chain_type(
-            llm=self.llm,
+            llm=self.gpt_llm,
             chain_type="stuff",
             retriever=self.database.as_retriever(
                 search_type="mmr",
@@ -242,24 +242,17 @@ class RAG_Model:
     
     def generateResponse(self, prompt):
         # check the prompt category
-        category = self.__check_category(
-            prompt
-        )
+        # category = self.__check_category(
+        #     prompt
+        # )
         
-        if category == 'University-Related':
-            # Generate a response using the prompt chain
-            chain = self.__PromptEngineering()
-            response = chain.invoke({
-                'query': prompt
-            })
-            response = response['result']
-            response = self.remove_unwanted_suffixes(response)
-        else:
-            # Generate a response using the prompt chain
-            chain = self.__General_chain()
-            response = chain.invoke({
-                'question': prompt
-            })
+        # Generate a response using the prompt chain
+        chain = self.__PromptEngineering()
+        response = chain.invoke({
+            'query': prompt
+        })
+        response = response['result']
+        # response = self.remove_unwanted_suffixes(response)
             
         return response
     

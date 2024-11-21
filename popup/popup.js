@@ -211,6 +211,7 @@ async function sendMessage() {
                     message: userInput 
                 })
         });
+        // console.log("Response: ",response);
 
         const result = await response.json();
         const botResponse = result.response || "Please check your URL link or Internet connection";

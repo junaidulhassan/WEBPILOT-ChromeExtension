@@ -441,13 +441,25 @@ a {
         transform: rotate(360deg);
     }
 }
-/* 
-.message.assistant {
-    background-color: #272727;
-    color: #ffffff;
-    padding: 10px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    font-family: 'Courier New', Courier, monospace;
-    white-space: pre-wrap; 
-} */
+
+.example-prompts {
+    color: #f5f5f5;
+    border-style:ridge;
+    border-radius: 15px;
+    border-color: #000000;
+    padding: 10px 10px; /* Adjust padding to make it look balanced */
+    font-size: 1.5em;
+    width: 230px;
+    margin: 50px auto;
+    line-height: 1.5em; /* Ensures the icon and text align properly */
+    vertical-align: middle; /* Aligns the content vertically */
+}
+
+.example-prompts i {
+    margin-right: 15px; /* Adds space between the icon and text */
+}
+
+.example-prompts span{
+    margin-right: 15px;
+}
+

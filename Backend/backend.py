@@ -24,15 +24,17 @@ def is_valid_url(url):
 # Original file URL
 # file_url = "file:///home/junaid-ul-hassan/Documents/Updated_CV_ML.pdf"
 
-def  get_file_url(file_url):
-    # Parse the URL and convert to a valid file path
-    parsed_url = urlparse(file_url)
-
-    # Extract the path and convert it to a valid file system path
-    file_path = parsed_url.path
-    
-    # return the parse url
-    return file_path
+def get_file_url(file_url):
+    # Check if the URL starts with https://
+    if file_url.startswith("https://"):
+        return file_url
+    else:
+        # Parse the URL and convert to a valid file path
+        parsed_url = urlparse(file_url)
+        # Extract the path and convert it to a valid file system path
+        file_path = parsed_url.path
+        # Return the parsed file path
+        return file_path
 
 def is_pdf_url(url):
     if url.lower().endswith('.pdf'):
@@ -69,6 +71,7 @@ def process_page():
         data = request.json
         url = data.get('url')
         text = data.get('text')
+        print(text)
         
         if not url:
             return jsonify({'error': 'Missing URL'}), 400
@@ -122,7 +125,7 @@ def generate_response():
 
         # Generate response based on user input
         response = rag.generateResponse(user_input)
-        # print(response)
+        print(response)
         
         return jsonify({'response': response}), 200
 
