@@ -3,7 +3,7 @@ from RAG_QnA import RAG_Model
 from scrap import Scraper
 import requests
 import re
-from urllib.parse import urlparse
+from urllib.parse import urlparse, unquote
 import json
 
 app = Flask(__name__)
@@ -33,6 +33,8 @@ def get_file_url(file_url):
         parsed_url = urlparse(file_url)
         # Extract the path and convert it to a valid file system path
         file_path = parsed_url.path
+        # Extract the path and decode it to remove '%20'
+        file_path = unquote(file_path)
         # Return the parsed file path
         return file_path
 

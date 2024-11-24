@@ -7,5 +7,5 @@ class LargeLanguageModel():
         return __api_key
     
     def get_gpt_key(self):
-        __api_key = "sk-proj-h5DJtyabcr1OpzVRYkLTT3BlbkFJ4rMji2osGpQ7VDdRkBsJ"
+        __api_key = "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"
         return __api_key

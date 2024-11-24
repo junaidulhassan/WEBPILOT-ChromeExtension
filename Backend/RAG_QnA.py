@@ -57,7 +57,7 @@ class RAG_Model:
         self.Load_llm()
         
     
-    def Load_llm(self,llm_model = 0):    
+    def Load_llm(self,llm_model = 1):    
         # Set HuggingFace model repository ID
         rep_ids = [
             'meta-llama/Meta-Llama-3-8B-Instruct',
