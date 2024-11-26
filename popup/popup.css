@@ -152,7 +152,7 @@ a {
     width: fit-content;
     max-width: 90%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 1rem;
 }
 
@@ -441,25 +441,72 @@ a {
         transform: rotate(360deg);
     }
 }
-
 .example-prompts {
     color: #f5f5f5;
-    border-style:ridge;
-    border-radius: 15px;
-    border-color: #000000;
-    padding: 10px 10px; /* Adjust padding to make it look balanced */
+    background-color: #4b4b4b;
+    border: none;
+    border-radius: 15px; /* Default border radius */
+    /* box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3); */
+    padding: 10px 10px;
     font-size: 1.5em;
-    width: 230px;
+    width: auto; /* Width will now adjust according to the text length */
     margin: 50px auto;
-    line-height: 1.5em; /* Ensures the icon and text align properly */
-    vertical-align: middle; /* Aligns the content vertically */
+    line-height: 1.5em;
+    vertical-align: middle;
+    display: inline-flex;
+    align-items: center;
+    transition: background-color 0.3s, border-radius 0.3s, padding 0.3s; /* Smooth transitions */
 }
 
 .example-prompts i {
-    margin-right: 15px; /* Adds space between the icon and text */
+    color: #ffaaaa;
+    margin-right: 15px;
+    margin-left: 10px;
 }
 
-.example-prompts span{
+.example-prompts span {
     margin-right: 15px;
 }
 
+#exmaple_1,
+.example-prompts i {
+    transition: opacity 0.5s ease-in-out;
+}
+
+
+
+.message.typing-dots {
+    display: flex; /* Ensures horizontal alignment */
+    gap: 4px; /* Adds spacing between dots */
+    align-items: center; /* Aligns dots vertically in their row */
+    justify-content: flex-start; /* Ensures they align to the left */
+}
+
+
+.message.typing-dots .dot {
+    width: 5px;
+    height: 5px;
+    background-color: #ffffff;
+    border-radius: 60%;
+    animation: typingDots 1.5s infinite;
+}
+
+.message.typing-dots .dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.message.typing-dots .dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typingDots {
+    0% {
+        opacity: 0.1;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.3;
+    }
+}

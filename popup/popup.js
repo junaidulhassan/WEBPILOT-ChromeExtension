@@ -4,6 +4,69 @@ document.getElementById('user-input').addEventListener('keypress', checkEnter);
 document.getElementById('clear-chat-btn').addEventListener('click', clearChatHistory);
 document.getElementById('dark-theme').addEventListener('click', toggleDarkTheme);
 
+
+const wordsAndIcons = [
+    { text: "Brain Storming", icon: "fa-solid fa-brain", color: "#ff6347" },
+    { text: "Video Summarization", icon: "fa-solid fa-video", color: "#4682b4" },
+    { text: "Web Content Summarizing", icon: "fa-solid fa-globe", color: "#32cd32" },
+    { text: "Research Article Summarizing", icon: "fa-solid fa-file-alt", color: "#8a2be2" },
+    { text: "PDF Document Chat", icon: "fa-solid fa-file-pdf", color: "#f4a300" },
+    { text: "Web Content Chat", icon: "fa-solid fa-comment", color: "#ff1493" },
+    { text: "Question Answering", icon: "fa-solid fa-question-circle", color: "#ff4500" },
+    { text: "YouTube Video Analysis", icon: "fa-solid fa-youtube", color: "#ff0000" },
+    { text: "Summarize YouTube Videos", icon: "fa-solid fa-video", color: "#ff6347" },
+    { text: "Web Content Search", icon: "fa-solid fa-search", color: "#008080" },
+    { text: "Research Article Analysis", icon: "fa-solid fa-book-reader", color: "#4b0082" },
+    { text: "PDF Document Analysis", icon: "fa-solid fa-file-pdf", color: "#b22222" },
+    { text: "PDF Document Summarizing", icon: "fa-solid fa-file-alt", color: "#f0e68c" },
+    { text: "Chat with Web Pages", icon: "fa-solid fa-globe", color: "#4682b4" },
+    { text: "Web Page Summarizing", icon: "fa-solid fa-file-alt", color: "#32cd32" },
+    { text: "Text Content Analysis", icon: "fa-solid fa-text-height", color: "#d2691e" }
+];
+
+
+let currentIndex = 0;
+const textElement = document.getElementById("exmaple_1");
+const iconElement = document.querySelector(".example-prompts i");
+const promptElement = document.querySelector(".example-prompts");
+
+function updateContent() {
+    // Fade out
+    textElement.style.opacity = 0;
+    iconElement.style.opacity = 0;
+
+    setTimeout(() => {
+        // Update text, icon, and icon color
+        textElement.textContent = wordsAndIcons[currentIndex].text;
+        iconElement.className = wordsAndIcons[currentIndex].icon;
+        iconElement.style.color = wordsAndIcons[currentIndex].color;  // Set the color of the icon
+
+        // Adjust left and right padding based on text length (top and bottom padding stay fixed)
+        const wordLength = wordsAndIcons[currentIndex].text.length;
+        const newPaddingLeftRight = 10 + wordLength * 0.5;  // Adjust left and right padding based on length
+        promptElement.style.padding = `10px ${newPaddingLeftRight}px`;  // Dynamic left and right padding
+
+        // Adjust the border-radius based on word length (smoothly)
+        const newRadius = 15 + wordLength * 0.1;  // Adjust border-radius
+        promptElement.style.borderRadius = `${newRadius}px`;  // Dynamic border-radius
+
+        // Fade in
+        textElement.style.opacity = 1;
+        iconElement.style.opacity = 1;
+
+        // Cycle to the next item
+        currentIndex = (currentIndex + 1) % wordsAndIcons.length;
+    }, 500); // Match fade-out duration
+}
+
+// Start the animation loop (change every 3 seconds)
+setInterval(updateContent, 3000);
+
+
+
+
+
+
 async function processPage() {
     // Get the current tab's URL
     const [tab] = await chrome.tabs.query(
@@ -169,6 +232,29 @@ function disableChatInput(disable) {
     }
 }
 
+// Function to show typing dots
+function showTypingDots() {
+    const chatMessages = document.getElementById("chat-messages");
+
+    // Create typing dots element
+    const typingDotsElement = document.createElement("div");
+    typingDotsElement.classList.add("message", "assistant", "typing-dots");
+    typingDotsElement.innerHTML = `<span class="dot"></span><span class="dot"></span><span class="dot"></span>`;
+    chatMessages.appendChild(typingDotsElement);
+
+    // Scroll to the bottom
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// Function to remove typing dots
+function removeTypingDots() {
+    const typingDotsElement = document.querySelector(".typing-dots");
+    if (typingDotsElement) {
+        typingDotsElement.remove();
+    }
+}
+
+// Update `sendMessage` function
 async function sendMessage() {
     var userInput = document.getElementById("user-input").value;
     if (userInput.trim() === "") return;
@@ -199,6 +285,9 @@ async function sendMessage() {
     // Show spinner in place of Conversify AI icon
     showSpinner();
 
+    // Show typing dots while waiting for response
+    showTypingDots();
+
     try {
         // Send the user's message to the Flask server for a response
         const response = await fetch('http://127.0.0.1:5000/generate_response', {
@@ -211,10 +300,12 @@ async function sendMessage() {
                     message: userInput 
                 })
         });
-        // console.log("Response: ",response);
 
         const result = await response.json();
         const botResponse = result.response || "Please check your URL link or Internet connection";
+
+        // Remove typing dots before showing the response
+        removeTypingDots();
 
         // Create a container for the bot's response
         var botMessageElement = document.createElement("div");
@@ -226,6 +317,7 @@ async function sendMessage() {
 
     } catch (error) {
         console.error('Error:', error);
+        removeTypingDots(); // Remove typing dots on error
         var botMessageElement = document.createElement("div");
         botMessageElement.textContent = "Error retrieving response.";
         botMessageElement.classList.add("message", "assistant");
