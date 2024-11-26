@@ -141,10 +141,12 @@ class RAG_Model:
     def __PromptEngineering(self):
         # Define the prompt template
         template = """
-        Your name is **WEB-PILOT**, a chatbot that answers user questions based on provided scraped website context. 
+        Your name is WEB-PILOT(Created by Web-pilot team), a chatbot that answers user questions based on provided scraped context. 
         Keep answers under 60 words, in simple and clear English.
         
-        Chat History: {chat_history}
+        ##Chat History
+        
+        {chat_history}
         Context: {context}
         Question: {question}
         Answer:

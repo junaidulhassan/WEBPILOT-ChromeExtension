@@ -25,6 +25,7 @@ const wordsAndIcons = [
 ];
 
 
+
 let currentIndex = 0;
 const textElement = document.getElementById("exmaple_1");
 const iconElement = document.querySelector(".example-prompts i");
@@ -61,9 +62,6 @@ function updateContent() {
 
 // Start the animation loop (change every 3 seconds)
 setInterval(updateContent, 3000);
-
-
-
 
 
 
@@ -207,7 +205,9 @@ function showError(message) {
     //         <span class="error-text">${message}</span>
     //     </div>
     // `;
-    chatMessages.appendChild(errorMessageElement);
+    chatMessages.appendChild(
+        errorMessageElement
+    );
 
     // Scroll to the bottom of the chat messages
     chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -240,7 +240,9 @@ function showTypingDots() {
     const typingDotsElement = document.createElement("div");
     typingDotsElement.classList.add("message", "assistant", "typing-dots");
     typingDotsElement.innerHTML = `<span class="dot"></span><span class="dot"></span><span class="dot"></span>`;
-    chatMessages.appendChild(typingDotsElement);
+    chatMessages.appendChild(
+        typingDotsElement
+    );
 
     // Scroll to the bottom
     chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -254,12 +256,20 @@ function removeTypingDots() {
     }
 }
 
-// Update `sendMessage` function
+
+let isFirstMessage = true; // Flag to track the first message
+
 async function sendMessage() {
     var userInput = document.getElementById("user-input").value;
     if (userInput.trim() === "") return;
 
     var chatMessages = document.getElementById("chat-messages");
+    
+    // Clear chat messages only for the first message
+    if (isFirstMessage) {
+        chatMessages.innerHTML = "";
+        isFirstMessage = false; // Set flag to false after first message
+    }
 
     // Display user's message
     var userMessageElement = document.createElement("div");
@@ -271,16 +281,9 @@ async function sendMessage() {
     document.getElementById("user-input").value = "";
 
     // Save chat history
-    const [tab] = await chrome.tabs.query(
-        { 
-            active: true, 
-            currentWindow: true 
-        });
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
-    saveChatHistory(
-        tab.id, 
-        chatMessages.innerHTML
-    );
+    saveChatHistory(tab.id, chatMessages.innerHTML);
 
     // Show spinner in place of Conversify AI icon
     showSpinner();
@@ -292,13 +295,8 @@ async function sendMessage() {
         // Send the user's message to the Flask server for a response
         const response = await fetch('http://127.0.0.1:5000/generate_response', {
             method: 'POST',
-            headers: { 
-                'Content-Type': 
-                'application/json' 
-            },
-            body: JSON.stringify({ 
-                    message: userInput 
-                })
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: userInput })
         });
 
         const result = await response.json();
@@ -330,15 +328,11 @@ async function sendMessage() {
         chatMessages.scrollTop = chatMessages.scrollHeight;
 
         // Save updated chat history
-        const [tab] = await chrome.tabs.query(
-            { 
-                active: true, 
-                currentWindow: true 
-            });
-            
+        const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
         saveChatHistory(tab.id, chatMessages.innerHTML);
     }
 }
+
 
 // Function to copy text to clipboard
 function copyToClipboard(text) {
