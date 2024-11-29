@@ -64,6 +64,45 @@ function updateContent() {
 setInterval(updateContent, 3000);
 
 
+// document.addEventListener("DOMContentLoaded", () => {
+//     const settingsBtn = document.getElementById("settings-btn");
+//     const sidebar = document.getElementById("settings-sidebar");
+//     const closeSidebarBtn = document.getElementById("close-sidebar-btn");
+
+//     // Open the sidebar when settings button is clicked
+//     settingsBtn.addEventListener("click", () => {
+//         sidebar.classList.remove("hidden");
+//         sidebar.classList.add("visible");
+//     });
+
+//     // Close the sidebar when close button is clicked
+//     closeSidebarBtn.addEventListener("click", () => {
+//         sidebar.classList.remove("visible");
+//         sidebar.classList.add("hidden");
+//     });
+
+//     // Toggle functionality for switches
+//     const darkThemeToggle = document.getElementById("dark-theme-toggle");
+//     const notificationsToggle = document.getElementById("notifications-toggle");
+//     const autoSaveToggle = document.getElementById("auto-save-toggle");
+
+//     darkThemeToggle.addEventListener("change", () => {
+//         if (darkThemeToggle.checked) {
+//             document.body.classList.add("dark-theme");
+//         } else {
+//             document.body.classList.remove("dark-theme");
+//         }
+//     });
+
+//     notificationsToggle.addEventListener("change", () => {
+//         alert(`Notifications are now ${notificationsToggle.checked ? "enabled" : "disabled"}`);
+//     });
+
+//     autoSaveToggle.addEventListener("change", () => {
+//         console.log(`Auto Save is now ${autoSaveToggle.checked ? "enabled" : "disabled"}`);
+//     });
+// });
+
 
 async function processPage() {
     // Get the current tab's URL
@@ -213,10 +252,10 @@ function showError(message) {
     chatMessages.scrollTop = chatMessages.scrollHeight;
 
     // Disable user input
-    disableChatInput(true);
+    disableChatInput(true,message);
 }
 
-function disableChatInput(disable) {
+function disableChatInput(disable,error_message) {
     var inputField = document.getElementById("user-input");
     var sendButton = document.getElementById("send-btn");
 
@@ -224,7 +263,7 @@ function disableChatInput(disable) {
     sendButton.disabled = disable;
 
     if (disable) {
-        inputField.placeholder = "Chat disabled due to irrelevant tab.";
+        inputField.placeholder = error_message;
         sendButton.classList.add("disabled");
     } else {
         inputField.placeholder = "Type your message here...";
@@ -264,7 +303,7 @@ async function sendMessage() {
     if (userInput.trim() === "") return;
 
     var chatMessages = document.getElementById("chat-messages");
-    
+
     // Clear chat messages only for the first message
     if (isFirstMessage) {
         chatMessages.innerHTML = "";
@@ -280,10 +319,19 @@ async function sendMessage() {
     // Clear input field
     document.getElementById("user-input").value = "";
 
-    // Save chat history
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    // Disable input field while generating a response
+    disableChatInput(
+        true,
+        "Response Generating..."
+    );
 
-    saveChatHistory(tab.id, chatMessages.innerHTML);
+    // Save chat history
+    const [tab] = await chrome.tabs.query({ 
+            active: true, 
+            currentWindow: true 
+        });
+
+    // saveChatHistory(tab.id, chatMessages.innerHTML);
 
     // Show spinner in place of Conversify AI icon
     showSpinner();
@@ -324,6 +372,9 @@ async function sendMessage() {
         // Remove spinner and restore Conversify AI icon
         hideSpinner();
 
+        // Enable input field after generating response
+        disableChatInput(false,"Generating Response...");
+
         // Scroll to the bottom of the chat messages
         chatMessages.scrollTop = chatMessages.scrollHeight;
 
@@ -332,6 +383,7 @@ async function sendMessage() {
         saveChatHistory(tab.id, chatMessages.innerHTML);
     }
 }
+
 
 
 // Function to copy text to clipboard
