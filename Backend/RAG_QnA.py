@@ -57,7 +57,7 @@ class RAG_Model:
         self.Load_llm()
         
     
-    def Load_llm(self,llm_model = 1):    
+    def Load_llm(self,llm_model = 0):    
         # Set HuggingFace model repository ID
         rep_ids = [
             'meta-llama/Meta-Llama-3-8B-Instruct',
@@ -93,7 +93,7 @@ class RAG_Model:
         self.gpt_llm = ChatOpenAI(
             model='gpt-4o-mini',
             temperature=0.1,
-            max_tokens=400,
+            max_tokens=500,
             stop_sequences=self.filter,
         )
     

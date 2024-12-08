@@ -56,7 +56,7 @@ class Retrieval_Augmented_Generation:
         """
         
         # define the spilter docs properties
-        chunks_size = 1000
+        chunks_size = 1500
         chunks_overlap = 40
         
         splitter = RecursiveCharacterTextSplitter(
@@ -91,7 +91,7 @@ class Retrieval_Augmented_Generation:
     
     def __load_text(self,text):
         # define the spilter docs properties
-        chunks_size = 1000
+        chunks_size = 1500
         chunks_overlap = 40
         
         splitter = RecursiveCharacterTextSplitter(
@@ -128,7 +128,7 @@ class Retrieval_Augmented_Generation:
         """
         
         # define the spilter docs properties
-        chunks_size = 1000
+        chunks_size = 1500
         chunks_overlap = 40
         splitter = RecursiveCharacterTextSplitter(
             # Set a really small chunk size, just to show.
@@ -167,7 +167,7 @@ class Retrieval_Augmented_Generation:
     
     def __text_spliter(self, chunks_size=500, chunks_overlap=50):
         # Define the chunks and overlap
-        chunks_size = 1000
+        chunks_size = 1500
         chunks_overlap = 40
 
         # Use RecursiveCharacterTextSplitter to split documents into chunks
@@ -203,7 +203,7 @@ class Retrieval_Augmented_Generation:
                        is_youtube_url = False
         ):
         # Define chunk size and overlap for splitting
-        chunk_size = 1000
+        chunk_size = 1500
         chunk_overlap = 50
         
         if is_pdf and is_pdf_file and is_youtube_url:
