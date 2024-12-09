@@ -4,9 +4,11 @@ from scrap import Scraper
 import requests
 import re
 from urllib.parse import urlparse, unquote
+from flask_cors import CORS
 import json
 
 app = Flask(__name__)
+CORS(app)  # Allows all origins by default
 
 # Utility functions to validate URLs
 def is_valid_url(url):
@@ -66,7 +68,7 @@ def is_youtube_url(url):
 scrp = Scraper()
 rag = RAG_Model()
 
-@app.route('/process_page', methods=['POST'])
+@app.route('/process_page', methods=['POST','OPTIONS'])
 def process_page():
     try:
         # Fetch URL and text from the request

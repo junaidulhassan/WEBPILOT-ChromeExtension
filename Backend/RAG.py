@@ -14,6 +14,7 @@ from langchain.document_loaders import PyPDFLoader, TextLoader,YoutubeLoader
 
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.schema import Document
+from langchain_openai.embeddings import OpenAIEmbeddings
 
 # Define the Retrieval_Augmented_Generation class
 class Retrieval_Augmented_Generation:
@@ -188,9 +189,7 @@ class Retrieval_Augmented_Generation:
     
     def __embed(self):
         # Create an embedding model
-        embeddings = HuggingFaceEmbeddings(
-            model_name="sentence-transformers/all-MiniLM-L6-v2",
-        )
+        embeddings = OpenAIEmbeddings()
         print("Embedding Runnings...")
         
         return embeddings

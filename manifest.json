@@ -11,7 +11,9 @@
     "default_popup": "popup/popup.html"
   },
   "host_permissions": [
-    "http://127.0.0.1/*"
+    "http://127.0.0.1/*",
+    "https://www.googleapis.com/*",
+    "http://ec2-13-60-182-253.eu-north-1.compute.amazonaws.com:5000/*"
   ],
   "icons": {
     "16": "icons/webpilot-16.png",

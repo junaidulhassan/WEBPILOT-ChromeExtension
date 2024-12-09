@@ -142,7 +142,7 @@ class RAG_Model:
         # Define the prompt template
         template = """
         Your name is WEB-PILOT(Created by Web-pilot team), a chatbot that answers user questions based on provided scraped context. 
-        Keep answers under 60 words, in simple and clear English.
+        Keep answers under 100 words, in simple and clear English.
         
         ##Chat History
         
