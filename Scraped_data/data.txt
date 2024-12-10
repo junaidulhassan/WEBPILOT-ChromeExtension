@@ -1,437 +1,315 @@
-Chat history
-ChatGPT
-ChatGPT
-Logo Creator
-image generator
-Explore GPTs
-Today
-CORS Policy Error
-AI Chatbot Integration
-Yesterday
-OCR Image Text
-Flask Integration for Chatbot
-New Line in Streamlit
-University Logo Integration
-Fix Logo Path
-Add Logo to Chat Interface
-Previous 7 Days
-JSON Parsing Safely
-Chatbot Logo Design
-Farmer Chatbot Setup
-Farmer Chatbot Setup
-ARIMA Forecast Visualization
-Plot Actual vs Predicted
-Bank transfer details explained
-Project Outcome Clarification
-Chatbot Assistance Summary
-PandasAI Deployment Assistance
-Code Explanation Request
-Model File Organization
-LSTM Model Performance Metrics
-Bitcoin Price Visualization
-Transaction Details Explanation
-LSTM Model Enhancement
-مشاركة معلومات الاتصال
-PayPal Fiverr Payment Guide
-Bitcoin Price Prediction Columns
-Bitcoin Price Prediction Features
-Upgrade plan
-More access to the best models
-ChatGPT
-Share
-You said:
-Access to fetch at 'http://ec2-13-60-182-253.eu-north-1.compute.amazonaws.com:5000/process_page' from origin 'chrome-extension://dbifnmcffddobjongeokjoakdcjkhbok' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
-
-why this error happend
-ChatGPT said:
-ChatGPT
-
-This error occurs because of a CORS (Cross-Origin Resource Sharing) policy restriction. Here’s what’s happening:
-
-Explanation of the Error
-
-CORS Policy:
-
-The server at http://ec2-13-60-182-253.eu-north-1.compute.amazonaws.com:5000 is not configured to allow requests from the origin chrome-extension://dbifnmcffddobjongeokjoakdcjkhbok.
-Browsers enforce the Same-Origin Policy, which blocks requests from one origin (the Chrome extension in this case) to another (the EC2 server) unless the server explicitly allows it via the Access-Control-Allow-Origin header.
-
-Preflight Request:
-
-Before making the actual request, the browser sends a preflight OPTIONS request to the server to check if the actual request is allowed.
-The server did not respond with the required CORS headers (e.g., Access-Control-Allow-Origin), so the browser blocked the request.
-
-no-cors Mode:
-
-Using no-cors mode in a fetch request prevents the browser from performing the preflight check, but it significantly limits what you can do with the response (you cannot read the response body, for example).
-Solutions to Fix the Error
-
-To resolve this issue, you need to configure the server or adjust your request setup:
-
-1. Modify the Server to Allow CORS
-On the server side, add the following headers to the response:
-http
-Copy code
-Access-Control-Allow-Origin: *
-Access-Control-Allow-Methods: GET, POST, OPTIONS
-Access-Control-Allow-Headers: Content-Type, Authorization
-
-This can be implemented in your server code. For example, in Python Flask:
-python
-Copy code
-from flask import Flask, request
-from flask_cors import CORS
-
-app = Flask(__name__)
-CORS(app)  # Allows all origins by default
-
-@app.route('/process_page', methods=['POST', 'OPTIONS'])
-def process_page():
-    # Your logic here
-    return {"message": "Success"}
-
-2. Add a Proxy Server
-Use a proxy server to make the request. The browser will only communicate with the proxy, which will fetch the resource on its behalf.
-Example: Use http-proxy-middleware in Node.js or any reverse proxy like Nginx.
-3. Run the Server Locally
-If possible, run the server locally on the same origin as your extension to avoid cross-origin requests.
-4. Configure Your Chrome Extension
-Update your Chrome extension’s manifest file to include the server URL in the permissions section:
-json
-Copy code
-"permissions": [
-    "http://ec2-13-60-182-253.eu-north-1.compute.amazonaws.com/*"
-]
-
-5. Test Using no-cors Mode (Not Recommended)
-Setting mode: 'no-cors' in your fetch request suppresses the CORS error but makes the response opaque:
-javascript
-Copy code
-fetch('http://ec2-13-60-182-253.eu-north-1.compute.amazonaws.com:5000/process_page', {
-    method: 'POST',
-    mode: 'no-cors',
-    body: JSON.stringify(data),
-    headers: {
-        'Content-Type': 'application/json'
-    }
-});
-
-Note: You won’t be able to read the response content in this mode.
-
-Let me know if you need help implementing any of these solutions!
-
-4o
-You said:
-# University options
-options = {
-    "National University Of Modern Languages": 0,
-    "IQRA University": 1,
-    "International Islamic University": 2
-}
-
-# Initialize previous university model if not present in session state
-if "previous_model" not in st.session_state:
-    st.session_state.previous_model = list(options.keys())[0]
-
-# University selection with a radio button
-university = st.sidebar.radio(
-    label="Select University",
-    options=list(options.keys()),
-    index=list(options.keys()).index(st.session_state.previous_model)
-)
-
-
-university_logos = {
-    "NUML":"/media/junaid-ul-hassan/248ac48e-ccd4-4707-a28b-33cb7a46e6dc1/Freelance Projects/UniGPT Project/ScholarSphereProject/Backend/Images/NUML_logo.png",
-    "IQRA":"/media/junaid-ul-hassan/248ac48e-ccd4-4707-a28b-33cb7a46e6dc1/Freelance Projects/UniGPT Project/ScholarSphereProject/Backend/Images/Iqra_logo.jpg",
-    "IUII":"/media/junaid-ul-hassan/248ac48e-ccd4-4707-a28b-33cb7a46e6dc1/Freelance Projects/UniGPT Project/ScholarSphereProject/Backend/Images/IIUI_Logo.png"
-}
-
-
-# Create columns to center the image
-col1, col2, col3 = st.columns([1.5, 2, 1])  # Adjust column width ratios
-
-with col2:  # Center column
-    st.image(university['NUML'], 
-             width=200)
-
-st.markdown(
-    """
-    <div style="text-align: center; margin: 0px; color: #333;">
-        <h1 style="font-size: 3em; color: #4CAF50; margin-top: 0px;">Scholar-Sphere</h1>
-        <p style="font-size: 1.2em; color: white; margin-top: 0;">
-            How I can Help You Today? 
-        </p>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
-
-
-
-Uni_index = options[university]  # Get the index of the selected university
-
-if Uni_index==0:
-    with col2:  # Center column
-        st.image(university['NUML'], 
-             width=200)
-elif Uni_index==1:
-    with col2:  # Center column
-        st.image(university['IQRA'], 
-             width=200)
-else:
-    with col2:  # Center column
-        st.image(university['IUII'], 
-             width=200)
-
-st.markdown(
-    """
-    <div style="text-align: center; margin: 0px; color: #333;">
-        <h1 style="font-size: 3em; color: #4CAF50; margin-top: 0px;">Scholar-Sphere</h1>
-        <p style="font-size: 1.2em; color: white; margin-top: 0;">
-            How I can Help You Today? 
-        </p>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
-
-
-# Check if university has changed, if so, update AI model
-if university != st.session_state.previous_model:
-    st.session_state.previous_model = university
-    st.session_state.model = AI_Assistant(
-        univeristy=Uni_index  # Reinitialize AI model with the new university
-    )
-    st.rerun()  # Rerun the app to reflect the changes
-
-
-
-# Initialize the AI model once and store it in the session state if not already initialized
-if "model" not in st.session_state:
-    st.session_state.model = AI_Assistant(
-        univeristy=Uni_index
-    )
-
-I want when user click any these university option logo should also change according to university.
-ChatGPT said:
-ChatGPT
-
-Your current code has an issue in the way university logos are accessed from the university_logos dictionary. You're trying to access them as if university contains keys from university_logos (like 'NUML'), but it contains the university name (e.g., "National University Of Modern Languages").
-
-To make the university logos update correctly when the user selects a university, you need to correctly map the selected university name to the corresponding logo.
-
-Here's the corrected code:
-
-python
-Copy code
-import streamlit as st
-
-# University options
-options = {
-    "National University Of Modern Languages": 0,
-    "IQRA University": 1,
-    "International Islamic University": 2
-}
-
-# Logos mapped to the same keys as options
-university_logos = {
-    "National University Of Modern Languages": "/media/junaid-ul-hassan/248ac48e-ccd4-4707-a28b-33cb7a46e6dc1/Freelance Projects/UniGPT Project/ScholarSphereProject/Backend/Images/NUML_logo.png",
-    "IQRA University": "/media/junaid-ul-hassan/248ac48e-ccd4-4707-a28b-33cb7a46e6dc1/Freelance Projects/UniGPT Project/ScholarSphereProject/Backend/Images/Iqra_logo.jpg",
-    "International Islamic University": "/media/junaid-ul-hassan/248ac48e-ccd4-4707-a28b-33cb7a46e6dc1/Freelance Projects/UniGPT Project/ScholarSphereProject/Backend/Images/IIUI_Logo.png"
-}
-
-# Initialize previous university model if not present in session state
-if "previous_model" not in st.session_state:
-    st.session_state.previous_model = list(options.keys())[0]
-
-# University selection with a radio button
-university = st.sidebar.radio(
-    label="Select University",
-    options=list(options.keys()),
-    index=list(options.keys()).index(st.session_state.previous_model)
-)
-
-# Create columns to center the image
-col1, col2, col3 = st.columns([1.5, 2, 1])  # Adjust column width ratios
-
-# Display the selected university's logo in the center column
-with col2:
-    st.image(university_logos[university], width=200)
-
-st.markdown(
-    """
-    <div style="text-align: center; margin: 0px; color: #333;">
-        <h1 style="font-size: 3em; color: #4CAF50; margin-top: 0px;">Scholar-Sphere</h1>
-        <p style="font-size: 1.2em; color: white; margin-top: 0;">
-            How I can Help You Today? 
-        </p>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
-
-# Check if university has changed, if so, update AI model
-if university != st.session_state.previous_model:
-    st.session_state.previous_model = university
-    st.session_state.model = AI_Assistant(
-        univeristy=options[university]  # Reinitialize AI model with the new university
-    )
-    st.rerun()  # Rerun the app to reflect the changes
-
-# Initialize the AI model once and store it in the session state if not already initialized
-if "model" not in st.session_state:
-    st.session_state.model = AI_Assistant(
-        univeristy=options[university]
-    )
-
-Changes Made:
-
-Mapped university_logos keys to match options keys:
-
-The dictionary university_logos now uses the full university names as keys instead of abbreviations like "NUML".
-
-Updated st.image calls:
-
-Now fetches the correct image using university_logos[university].
-
-Removed redundant if-else conditions:
-
-The if-else block for selecting logos is no longer necessary because the logo is dynamically selected based on the user's choice.
-
-Now, when a user selects a university from the sidebar, the logo will change accordingly. Let me know if you need further assistance!
-
-4o
-You said:
-how to upload pdf file from local system to aws-s3
-ChatGPT said:
-ChatGPT
-
-To upload a PDF file (or any file) from your local system to AWS S3, you can use the boto3 library in Python. Here’s a step-by-step guide:
-
-1. Install boto3
-
-Ensure that you have the boto3 library installed. Run the following command:
-
-bash
-Copy code
-pip install boto3
-
-2. Create an S3 Bucket
-Go to the S3 Management Console and create a bucket if you don’t have one.
-Note down the Bucket Name and the Region.
-3. Set Up AWS Credentials
-You need AWS access and secret keys to authenticate. Set them up using:
+Write
 
-AWS CLI:
-
-bash
-Copy code
-aws configure
-
-
-Provide the AWS Access Key, Secret Key, Region, and Output Format when prompted.
+Sign up
 
-Environment Variables: Export the credentials to environment variables:
+Sign in
 
-bash
-Copy code
-export AWS_ACCESS_KEY_ID='your_access_key'
-export AWS_SECRET_ACCESS_KEY='your_secret_key'
+LangChain and the Evolution of LLM: Why Memory Matters
 
+Tejaswi kashyap
 
-Credentials File: Create a ~/.aws/credentials file:
+·
 
-plaintext
-Copy code
-[default]
-aws_access_key_id = your_access_key
-aws_secret_access_key = your_secret_key
+Follow
 
-4. Python Code to Upload PDF
+Published in
 
-Here’s an example Python script to upload a PDF file:
+GoPenAI
 
-python
-Copy code
-import boto3
-from botocore.exceptions import NoCredentialsError
+·
+4 min read
+·
+Sep 5, 2023
 
-def upload_to_s3(file_name, bucket_name, object_name=None):
-    """
-    Upload a file to an S3 bucket.
+8
 
-    :param file_name: File to upload (local path)
-    :param bucket_name: Bucket to upload to
-    :param object_name: S3 object name. If not specified, file_name is used
-    :return: True if file was uploaded, else False
-    """
-    # If no object name is provided, use the file name
-    if object_name is None:
-        object_name = file_name
+1
 
-    # Create an S3 client
-    s3 = boto3.client('s3')
+Image from Google
 
-    try:
-        s3.upload_file(file_name, bucket_name, object_name)
-        print(f"File {file_name} uploaded to {bucket_name}/{object_name}")
-        return True
-    except FileNotFoundError:
-        print("The file was not found.")
-        return False
-    except NoCredentialsError:
-        print("Credentials not available.")
-        return False
+In the realm of computational advancements and artificial intelligence, a new titan has emerged: the LangChain. Particularly notable for its applications in hosting Large Language Models (LLM), LangChain is a pivotal move forward in the AI ecosystem. This article will explore the benefits of LangChain, the revolutionary shift towards adding memory to LLMs, the complexities involved, and why it’s a consistent area of focus and development.
 
-# Example usage
-if __name__ == "__main__":
-    # Replace these variables with your actual values
-    local_file_path = "path/to/your/file.pdf"  # Local file path
-    bucket_name = "your-s3-bucket-name"
-    s3_file_name = "uploaded-file.pdf"  # Name to save in S3 (optional)
+Introducing LangChain
 
-    upload_to_s3(local_file_path, bucket_name, s3_file_name)
+LangChain, at its core, is an infrastructure specifically designed for hosting LLM applications. It seamlessly integrates various components of language modeling, ensuring robustness, scalability, and efficiency. One of the standout features of LangChain is its emphasis on memory augmentation for LLMs.
 
-5. Breaking Down the Script
+Image from pinecone article
 
-Import boto3: Used to interact with AWS services.
+Why memory matters
 
-Create an S3 Client:
+Memory is fundamental for any computational model. For LLMs, memory represents the capacity to recall, learn from experiences, and derive meaningful patterns. Think of LLMs as superhumans; while their processing power is immense, without memory, they’d be unable to remember past interactions, causing them to start from scratch each time.
 
-python
-Copy code
-s3 = boto3.client('s3')
+Adding memory to LLM can:
 
+Improve efficiency: Memory allows LLM to recall past computations, reducing repetitive processes.
+Enhance context understanding: With memory, LLM can draw from a broader base of information, enhancing its contextual comprehension.
+Advance iterative learning: Memory paves the way for LLM to learn from its mistakes and successes.
+Different Types of Memories
 
-This requires credentials, which you’ve set up earlier.
+When we discuss memory in the context of LLM, it’s not just a singular concept. Different types of memories play unique roles:
 
-Upload File:
+Short-term memory: This allows LLMs to recall recent interactions. It’s instrumental in tasks that require quick recalls, such as ongoing conversations or tasks.
+Long-term memory: This is a more permanent store of information. For LLMs, long-term memory could mean the ability to remember interactions across sessions, days, or even longer.
+Episodic memory: Pertains to events or “episodes”. LLMs with episodic memory can recall specific instances or interactions.
+Semantic memory: This is about facts and general knowledge. For LLMs, it would mean a vast storehouse of information not tied to specific instances.
+The Challenges of Adding Memory to LLM
 
-python
-Copy code
-s3.upload_file(file_name, bucket_name, object_name)
+While the advantages of memory augmentation are clear, implementing it is far from straightforward. Here’s why:
 
-file_name: Local file path.
-bucket_name: Name of the target S3 bucket.
-object_name: The name to use for the file in S3.
+Complexity: Memory systems, especially for intricate models like LLMs, are highly complex. The integration process is intricate, demanding rigorous testing and optimization.
+Size & Scalability: As you add memory, the size of the model grows. This presents challenges in terms of scalability and operational efficiency.
+Data Privacy: With memory, there’s potential for LLMs to remember sensitive user data. Addressing these concerns requires sophisticated data handling and privacy safeguards.
+Interference: Storing vast amounts of data might lead to information overlapping or interference, potentially compromising the LLM’s output quality.
 
-Handle Errors: Catch exceptions like FileNotFoundError or NoCredentialsError.
+Let me show how we can add different memory into a Large language model or Open AI API via code block
 
-6. Output
+LangChain’s Suite of Memory Modules
 
-When the script runs successfully, you’ll see:
+LangChain, with its forward-thinking architecture, offers a range of memory modules to cater to diverse LLM applications:
 
-plaintext
-Copy code
-File path/to/your/file.pdf uploaded to your-s3-bucket-name/uploaded-file.pdf
+1. ConversationBufferMemory
 
-7. Confirm in S3
-Navigate to your S3 bucket in the AWS Management Console.
-You should see the uploaded file in the bucket.
+Essence: Provides a structured mechanism for LLMs to remember and recall the chronological sequence of interactions in a conversation
 
-Let me know if you encounter any issues!
+from langchain.chat_models import ChatOpenAI
+from langchain.chains import ConversationChain
+from langchain.memory import ConversationBufferMemory
 
-4o
+llm = ChatOpenAI(temperature=0.0)
+memory = ConversationBufferMemory()
+conversation = ConversationChain(llm=llm, memory=memory, verbose=True)
+...
+print(memory.buffer)
 
-ChatGPT can make mistakes. Check important info.
-?
+2. ConversationBufferWindowMemory
+
+Essence: Retains a specific window (or ‘k’ number) of past interactions, ensuring that the model has a balanced context without being overwhelmed by excessive data.
+
+from langchain.memory import ConversationBufferWindowMemory
+
+llm = ChatOpenAI(temperature=0.0)
+memory = ConversationBufferWindowMemory(k=1)
+conversation = ConversationChain(llm=llm, memory=memory, verbose=True)
+...
+print(memory.buffer)
+
+3. ConversationTokenBufferMemory
+
+Essence: This token-centric memory model allows LLMs to remember up to a certain token limit, ensuring that memory storage is optimized and computational limits are maintained.
+
+from langchain.memory import ConversationTokenBufferMemory
+
+llm = ChatOpenAI(temperature=0.0)
+memory = ConversationTokenBufferMemory(llm=llm, max_token_limit=70)
+conversation = ConversationChain(llm=llm, memory=memory, verbose=True)
+...
+print(memory.load_memory_variables({}))
+
+4. ConversationSummaryMemory
+
+Essence: A novel approach where interactions are stored not verbatim, but in a summarized format. This ensures core contextual details are retained without burdening the model with extensive data.
+
+from langchain.memory import ConversationSummaryBufferMemory
+
+memory = ConversationSummaryBufferMemory(llm=llm, max_token_limit=100)
+...
+conversation = ConversationChain(llm=llm, memory=memory, verbose=True)
+...
+memory.load_memory_variables({})
+Image from pinecone article
+Conclusion
+
+LangChain’s commitment to integrating sophisticated memory systems underscores the trajectory the AI domain is headed toward. It’s not about creating gargantuan models but about crafting intelligent, context-aware systems that can communicate, remember, and learn akin to humans. In this endeavor, memory modules such as those offered by LangChain aren’t just features; they’re foundational steps towards a future where AI’s interactions become indistinguishable from human conversations.
+
+I have provided a Google Collab link where you can test different memories via the Open AI API
+
+Collab link- https://colab.research.google.com/drive/1FjouSF69-duBqn9giKG8O6HnxA1ocroq?usp=sharing
+
+Reference -https://www.pinecone.io/learn/series/langchain/langchain-conversational-memory/
+
+Large Language Models
+Langchain
+Memory
+
+8
+
+1
+
+Published in GoPenAI
+1.6K Followers
+·
+Last published 1 day ago
+
+Where the ChatGPT community comes together to share insights and stories.
+
+Follow
+Written by Tejaswi kashyap
+42 Followers
+·
+24 Following
+
+Aspiring ML Engineer
+
+Follow
+Responses (1)
+
+What are your thoughts?
+
+Cancel
+Respond
+Respond
+
+Also publish to my profile
+
+Sulaiman Ghori
+
+about 1 year ago
+
+exactly why we're building https://piedpiper.pro
+
+Reply
+
+More from Tejaswi kashyap and GoPenAI
+
+Tejaswi kashyap
+
+TimesLM: A Foundation Model for Time Series Forecasting
+Introduction
+Nov 17
+39
+1
+
+In
+
+GoPenAI
+
+by
+
+Tarun Singh
+
+Free LLM Access That Every AI Developer Should Grab Right Now! Google’s Gemini API
+AI developers, rejoice! Google has rolled out its Gemini API, and it’s available for free. Yes, you read that right — no fees, no strings…
+Nov 8
+119
+1
+
+In
+
+GoPenAI
+
+by
+
+Abhay Dodiya
+
+Kalman Filter to Predict Next Day Return Nifty Example
+A Kalman Filter is a technique from mathematical branch which helps in estimating the state of dynamic system from a noisy data. There are…
+Nov 16
+66
+2
+
+Tejaswi kashyap
+
+From Image to Data: Automating Text Extraction with OpenAI Api
+Introduction
+Oct 5
+1
+See all from Tejaswi kashyap
+See all from GoPenAI
+Recommended from Medium
+
+Harendra
+
+How I Am Using a Lifetime 100% Free Server
+Get a server with 24 GB RAM + 4 CPU + 200 GB Storage + Always Free
+Oct 26
+6.9K
+103
+
+Vipra Singh
+
+LLM Architectures Explained: NLP Fundamentals (Part 1)
+Deep Dive into the architecture & building of real-world applications leveraging NLP Models starting from RNN to the Transformers.
+Aug 15
+2.1K
+13
+Lists
+Natural Language Processing
+1853 stories
+·
+1477 saves
+AI Regulation
+6 stories
+·
+645 saves
+ChatGPT prompts
+50 stories
+·
+2344 saves
+Generative AI Recommended Reading
+52 stories
+·
+1546 saves
+
+In
+
+Stackademic
+
+by
+
+Abdur Rahman
+
+Python is No More The King of Data Science
+5 Reasons Why Python is Losing Its Crown
+Oct 23
+9.5K
+35
+
+In
+
+DataDrivenInvestor
+
+by
+
+Austin Starks
+
+I used OpenAI’s o1 model to develop a trading strategy. It is DESTROYING the market
+It literally took one try. I was shocked.
+Sep 16
+7.1K
+178
+
+Afrid Mondal
+
+Decoding Positional Encoding: The Secret Sauce Behind Transformer Models
+Positional encoding is a critical component of the Transformer architecture. Unlike recurrent models (RNNs or LSTMs), which process…
+Nov 27
+10
+
+Suman Das
+
+Fine Tune Large Language Model (LLM) on a Custom Dataset with QLoRA
+The field of natural language processing has been revolutionized by large language models (LLMs), which showcase advanced capabilities and…
+Jan 25
+1.97K
+21
+See more recommendations
+
+Help
+
+Status
+
+About
+
+Careers
+
+Press
+
+Blog
+
+Privacy
+
+Terms
+
+Text to speech
+
+Teams
