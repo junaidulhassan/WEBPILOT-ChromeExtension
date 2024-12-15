@@ -218,7 +218,6 @@ async function saveTextToFile(content) {
     }
 }
 
-
 function isIrrelevantTab(url) {
     // Check if the URL matches any irrelevant patterns
     return /^(chrome:\/\/|brave:\/\/|about:|data:|extensions:)/.test(url);
