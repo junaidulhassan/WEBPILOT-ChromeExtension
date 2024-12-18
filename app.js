@@ -15,7 +15,7 @@ function updatePreview() {
     preview.innerHTML = html;
 }
 
-// Add an event listener to update the preview when the user types
+// Add an event listener to update the preview when the user t
 markdownInput.addEventListener('input', updatePreview);
 
 // Initial render
