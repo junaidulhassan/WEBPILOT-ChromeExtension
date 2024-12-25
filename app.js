@@ -14,7 +14,7 @@ function updatePreview() {
     const html = md.render(markdownText);
     preview.innerHTML = html;
 }
-
+// markdown
 // Add an event listener to update the preview when the user t
 markdownInput.addEventListener('input', updatePreview);
 
