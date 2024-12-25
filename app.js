@@ -3,7 +3,6 @@ import MarkdownIt from 'markdown-it';
 
 // Initialize markdown-it
 const md = new MarkdownIt();
-
 // Get references to the textarea and preview div
 const markdownInput = document.getElementById('markdown-input');
 const preview = document.getElementById('preview');
