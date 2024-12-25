@@ -1,4 +1,4 @@
-// Import the markdown-it library
+// Import the markdown it library
 import MarkdownIt from 'markdown-it';
 
 // Initialize markdown-it
