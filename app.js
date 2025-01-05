@@ -17,5 +17,5 @@ function updatePreview() {
 // Add an event listener to update the preview when the user t
 markdownInput.addEventListener('input', updatePreview);
 
-// Initial render
+// Initial render is zrori
 updatePreview();
