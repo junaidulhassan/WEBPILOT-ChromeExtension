@@ -9,6 +9,7 @@ chrome.action.onClicked.addListener((tab) => {
     });
 });
 
+//
 // chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 //     if (changeInfo.status === 'complete' && tab.active) {
 //         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
