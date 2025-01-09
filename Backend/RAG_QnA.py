@@ -78,7 +78,7 @@ class RAG_Model:
             task="text-generation",
             huggingfacehub_api_token=self.api_key,
             verbose=False,
-            # show output in text streaming
+            # show output in text streamingg
             streaming=True,
             temperature=0.9,
             return_full_text=True,
