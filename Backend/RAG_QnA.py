@@ -18,6 +18,7 @@ from PIL import Image
 import requests
 import openai
 
+
 # Define RAG_Model class
 class RAG_Model: 
     
