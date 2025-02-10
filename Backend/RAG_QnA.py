@@ -227,6 +227,7 @@ class RAG_Model:
         
         
     def __clean_string(self, input_text):
+        
         # Clean the string from unwanted filter terms
         terms = self.filter
         earliest_position = len(input_text)
