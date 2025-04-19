@@ -8,6 +8,8 @@ chrome.action.onClicked.addListener((tab) => {
         files: ['popup.js']
     });
 });
+
+
 //
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
