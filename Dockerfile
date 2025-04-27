@@ -1,4 +1,4 @@
-FROM python:3.12
+FROM python:3.10
 COPY ./ WEBPILOT-ChromeExtension/backendfile
 WORKDIR /WEBPILOT-ChromeExtension/backendfile 
 RUN pip install -r requirements.txt
