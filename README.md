@@ -3,7 +3,6 @@
 ![image](https://github.com/user-attachments/assets/158d31f9-8500-4ef0-9027-447366313ce2)
 
 
-
 ## Application Name: Webpilot.AI
 
 **Webplit.ai** is a sophisticated RAG (Retrieval Augmented Generation) application designed to interact seamlessly with website content, including vlogs and other materials. This application allows users to paste the URL of any website they want to engage with, enabling question-answering, summarization, and more, all with ease. 
