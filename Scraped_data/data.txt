@@ -1,315 +1,62 @@
-Write
-
-Sign up
-
-Sign in
-
-LangChain and the Evolution of LLM: Why Memory Matters
-
-Tejaswi kashyap
-
-·
-
-Follow
-
-Published in
-
-GoPenAI
-
-·
-4 min read
-·
-Sep 5, 2023
-
-8
-
-1
-
-Image from Google
-
-In the realm of computational advancements and artificial intelligence, a new titan has emerged: the LangChain. Particularly notable for its applications in hosting Large Language Models (LLM), LangChain is a pivotal move forward in the AI ecosystem. This article will explore the benefits of LangChain, the revolutionary shift towards adding memory to LLMs, the complexities involved, and why it’s a consistent area of focus and development.
-
-Introducing LangChain
-
-LangChain, at its core, is an infrastructure specifically designed for hosting LLM applications. It seamlessly integrates various components of language modeling, ensuring robustness, scalability, and efficiency. One of the standout features of LangChain is its emphasis on memory augmentation for LLMs.
-
-Image from pinecone article
-
-Why memory matters
-
-Memory is fundamental for any computational model. For LLMs, memory represents the capacity to recall, learn from experiences, and derive meaningful patterns. Think of LLMs as superhumans; while their processing power is immense, without memory, they’d be unable to remember past interactions, causing them to start from scratch each time.
-
-Adding memory to LLM can:
-
-Improve efficiency: Memory allows LLM to recall past computations, reducing repetitive processes.
-Enhance context understanding: With memory, LLM can draw from a broader base of information, enhancing its contextual comprehension.
-Advance iterative learning: Memory paves the way for LLM to learn from its mistakes and successes.
-Different Types of Memories
-
-When we discuss memory in the context of LLM, it’s not just a singular concept. Different types of memories play unique roles:
-
-Short-term memory: This allows LLMs to recall recent interactions. It’s instrumental in tasks that require quick recalls, such as ongoing conversations or tasks.
-Long-term memory: This is a more permanent store of information. For LLMs, long-term memory could mean the ability to remember interactions across sessions, days, or even longer.
-Episodic memory: Pertains to events or “episodes”. LLMs with episodic memory can recall specific instances or interactions.
-Semantic memory: This is about facts and general knowledge. For LLMs, it would mean a vast storehouse of information not tied to specific instances.
-The Challenges of Adding Memory to LLM
-
-While the advantages of memory augmentation are clear, implementing it is far from straightforward. Here’s why:
-
-Complexity: Memory systems, especially for intricate models like LLMs, are highly complex. The integration process is intricate, demanding rigorous testing and optimization.
-Size & Scalability: As you add memory, the size of the model grows. This presents challenges in terms of scalability and operational efficiency.
-Data Privacy: With memory, there’s potential for LLMs to remember sensitive user data. Addressing these concerns requires sophisticated data handling and privacy safeguards.
-Interference: Storing vast amounts of data might lead to information overlapping or interference, potentially compromising the LLM’s output quality.
-
-Let me show how we can add different memory into a Large language model or Open AI API via code block
-
-LangChain’s Suite of Memory Modules
-
-LangChain, with its forward-thinking architecture, offers a range of memory modules to cater to diverse LLM applications:
-
-1. ConversationBufferMemory
-
-Essence: Provides a structured mechanism for LLMs to remember and recall the chronological sequence of interactions in a conversation
-
-from langchain.chat_models import ChatOpenAI
-from langchain.chains import ConversationChain
-from langchain.memory import ConversationBufferMemory
-
-llm = ChatOpenAI(temperature=0.0)
-memory = ConversationBufferMemory()
-conversation = ConversationChain(llm=llm, memory=memory, verbose=True)
-...
-print(memory.buffer)
-
-2. ConversationBufferWindowMemory
-
-Essence: Retains a specific window (or ‘k’ number) of past interactions, ensuring that the model has a balanced context without being overwhelmed by excessive data.
-
-from langchain.memory import ConversationBufferWindowMemory
-
-llm = ChatOpenAI(temperature=0.0)
-memory = ConversationBufferWindowMemory(k=1)
-conversation = ConversationChain(llm=llm, memory=memory, verbose=True)
-...
-print(memory.buffer)
-
-3. ConversationTokenBufferMemory
-
-Essence: This token-centric memory model allows LLMs to remember up to a certain token limit, ensuring that memory storage is optimized and computational limits are maintained.
-
-from langchain.memory import ConversationTokenBufferMemory
-
-llm = ChatOpenAI(temperature=0.0)
-memory = ConversationTokenBufferMemory(llm=llm, max_token_limit=70)
-conversation = ConversationChain(llm=llm, memory=memory, verbose=True)
-...
-print(memory.load_memory_variables({}))
-
-4. ConversationSummaryMemory
-
-Essence: A novel approach where interactions are stored not verbatim, but in a summarized format. This ensures core contextual details are retained without burdening the model with extensive data.
-
-from langchain.memory import ConversationSummaryBufferMemory
-
-memory = ConversationSummaryBufferMemory(llm=llm, max_token_limit=100)
-...
-conversation = ConversationChain(llm=llm, memory=memory, verbose=True)
-...
-memory.load_memory_variables({})
-Image from pinecone article
-Conclusion
-
-LangChain’s commitment to integrating sophisticated memory systems underscores the trajectory the AI domain is headed toward. It’s not about creating gargantuan models but about crafting intelligent, context-aware systems that can communicate, remember, and learn akin to humans. In this endeavor, memory modules such as those offered by LangChain aren’t just features; they’re foundational steps towards a future where AI’s interactions become indistinguishable from human conversations.
-
-I have provided a Google Collab link where you can test different memories via the Open AI API
-
-Collab link- https://colab.research.google.com/drive/1FjouSF69-duBqn9giKG8O6HnxA1ocroq?usp=sharing
-
-Reference -https://www.pinecone.io/learn/series/langchain/langchain-conversational-memory/
-
-Large Language Models
-Langchain
-Memory
-
-8
-
-1
-
-Published in GoPenAI
-1.6K Followers
-·
-Last published 1 day ago
-
-Where the ChatGPT community comes together to share insights and stories.
-
-Follow
-Written by Tejaswi kashyap
-42 Followers
-·
-24 Following
-
-Aspiring ML Engineer
-
-Follow
-Responses (1)
-
-What are your thoughts?
-
-Cancel
-Respond
-Respond
-
-Also publish to my profile
-
-Sulaiman Ghori
-
-about 1 year ago
-
-exactly why we're building https://piedpiper.pro
-
-Reply
-
-More from Tejaswi kashyap and GoPenAI
-
-Tejaswi kashyap
-
-TimesLM: A Foundation Model for Time Series Forecasting
-Introduction
-Nov 17
-39
-1
-
-In
-
-GoPenAI
-
-by
-
-Tarun Singh
-
-Free LLM Access That Every AI Developer Should Grab Right Now! Google’s Gemini API
-AI developers, rejoice! Google has rolled out its Gemini API, and it’s available for free. Yes, you read that right — no fees, no strings…
-Nov 8
-119
-1
-
-In
-
-GoPenAI
-
-by
-
-Abhay Dodiya
-
-Kalman Filter to Predict Next Day Return Nifty Example
-A Kalman Filter is a technique from mathematical branch which helps in estimating the state of dynamic system from a noisy data. There are…
-Nov 16
-66
-2
-
-Tejaswi kashyap
-
-From Image to Data: Automating Text Extraction with OpenAI Api
-Introduction
-Oct 5
-1
-See all from Tejaswi kashyap
-See all from GoPenAI
-Recommended from Medium
-
-Harendra
-
-How I Am Using a Lifetime 100% Free Server
-Get a server with 24 GB RAM + 4 CPU + 200 GB Storage + Always Free
-Oct 26
-6.9K
-103
-
-Vipra Singh
-
-LLM Architectures Explained: NLP Fundamentals (Part 1)
-Deep Dive into the architecture & building of real-world applications leveraging NLP Models starting from RNN to the Transformers.
-Aug 15
-2.1K
-13
-Lists
-Natural Language Processing
-1853 stories
-·
-1477 saves
-AI Regulation
-6 stories
-·
-645 saves
-ChatGPT prompts
-50 stories
-·
-2344 saves
-Generative AI Recommended Reading
-52 stories
-·
-1546 saves
-
-In
-
-Stackademic
-
-by
-
-Abdur Rahman
-
-Python is No More The King of Data Science
-5 Reasons Why Python is Losing Its Crown
-Oct 23
-9.5K
-35
-
-In
-
-DataDrivenInvestor
-
-by
-
-Austin Starks
-
-I used OpenAI’s o1 model to develop a trading strategy. It is DESTROYING the market
-It literally took one try. I was shocked.
-Sep 16
-7.1K
-178
-
-Afrid Mondal
-
-Decoding Positional Encoding: The Secret Sauce Behind Transformer Models
-Positional encoding is a critical component of the Transformer architecture. Unlike recurrent models (RNNs or LSTMs), which process…
-Nov 27
-10
-
-Suman Das
-
-Fine Tune Large Language Model (LLM) on a Custom Dataset with QLoRA
-The field of natural language processing has been revolutionized by large language models (LLMs), which showcase advanced capabilities and…
-Jan 25
-1.97K
-21
-See more recommendations
-
-Help
-
-Status
-
-About
-
-Careers
-
-Press
-
-Blog
-
-Privacy
-
-Terms
-
-Text to speech
-
-Teams
+Documentation Index
+
+Fetch the complete documentation index at: /llms.txt
+
+Use this file to discover all available pages before exploring further.
+
+Skip to main content
+
+Join our product experts for a "Build More with LangSmith: Summer AMA Series" from July 9-August 12, 2026. RSVP today
+
+Docs by LangChain home page
+Build
+Search...
+Ctrl K
+Ask AI
+GitHub
+Try LangSmith
+Overview
+Deep Agents
+LangChain
+LangGraph
+Integrations
+Learn
+Reference
+Contribute
+Build
+The LangChain open source stack provides the building blocks you need to design, test, and ship agents.
+Choose your starting point
+Deep Agents, LangChain, and LangGraph share the same stack, so choose based on how much control you need:
+Python
+TypeScript
+Deep Agents
+Build agents for complex, long-running tasks. A complete agent harness with planning, subagents, a virtual filesystem, and long-term memory built in. The fastest way to start.
+Get started
+LangChain
+A minimal, configurable agent framework. Compose exactly what you need from models, tools, prompts, and middleware.
+Get started
+LangGraph
+Low-level orchestration for stateful, long-running agents: durable execution, streaming, memory, and human-in-the-loop.
+Get started
+Use a ready-made agent
+Python
+TypeScript
+Deep Agents Code
+Open source terminal coding agent (dcode) built on the Deep Agents SDK. Switch models mid-session, customize skills and memory, and approve shell execution from the CLI.
+Install and run
+Explore
+Python
+TypeScript
+Integrations
+Connect to model providers, vector stores, retrievers, and other components.
+Browse providers
+Learn
+Follow tutorials and conceptual guides for common agent patterns and use cases.
+View tutorials
+Reference
+API references, error codes, release notes, and migration guides.
+View reference
+Contribute
+Contribute documentation, code, and integrations to the LangChain ecosystem.
+Start contributing
+Chat LangChain

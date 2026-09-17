@@ -4,33 +4,44 @@ import warnings as wn
 wn.filterwarnings('ignore')
 
 from langchain_community.llms import HuggingFaceHub
-from api_token import LargeLanguageModel
-from langchain_huggingface import HuggingFaceEndpoint
+from dotenv import load_dotenv
 from langchain.chains import LLMChain, RetrievalQA
 from langchain.prompts import PromptTemplate
 from langchain.memory import ConversationBufferWindowMemory, ConversationBufferMemory
 from RAG import Retrieval_Augmented_Generation
-from langchain_openai import ChatOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.output_parsers import StrOutputParser
 import io
 import os
 from PIL import Image
 import requests
-import openai
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Explicitly load keys
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+
+SUPPORTED_MODELS = {
+    # Google
+    "gemini-2.5-flash-lite":    "google",
+    "gemini-2.0-flash":         "google",
+    "gemini-1.5-pro":           "google",
+    "gemini-1.5-flash":         "google",
+}
+
+DEFAULT_MODEL       = "gemini-2.5-flash-lite"
+DEFAULT_TEMPERATURE = 0.2
+DEFAULT_MAX_TOKENS  = 4096
 
 
 # Define RAG_Model class
 class RAG_Model: 
     
     def __init__(self):
-        # Initialize API token for the large language model
-        self.token = LargeLanguageModel()
-        self.api_key = self.token.get_Key()
-        self.gpt_api_key = self.token.get_gpt_key()
-        os.environ['OPENAI_API_KEY'] = self.gpt_api_key
-        
-        # Initialize the open-ai key
-        # openai.api_key = os.environ['OPENAI_API_KEY']
+        # Initialize API tokens from environment variables
+        self.api_key = os.getenv('HUGGINGFACE_API_KEY', '')
+        self.google_api_key = os.getenv('GOOGLE_API_KEY', '')
         
         # Initialize Retrieval Augmented Generation (RAG)
         self.rag = Retrieval_Augmented_Generation()
@@ -59,44 +70,28 @@ class RAG_Model:
         self.Load_llm()
         
     
-    def Load_llm(self,llm_model = 0):    
-        # Set HuggingFace model repository ID
-        rep_ids = [
-            'meta-llama/Meta-Llama-3-8B-Instruct',
-            'mistralai/Mistral-7B-Instruct-v0.3',
-            'mistralai/Mixtral-8x7B-Instruct-v0.1'
-        ]
-        
+    def Load_llm(self, model=None, temperature=None, max_tokens=None):    
         # Define filter terms to stop the generation
         self.filter = [
             'Question:', 
             'Human:'
         ]
         
-        # Set up the language model endpoint
-        self.llm = HuggingFaceEndpoint(
-            name="Web-Pilot",
-            repo_id= rep_ids[llm_model],
-            task="text-generation",
-            huggingfacehub_api_token=self.api_key,
-            verbose=False,
-            # show output in text streamingg
-            streaming=True,
-            temperature=0.9,
-            return_full_text=True,
-            max_new_tokens=600,
-            # Stop sequences is filter for stop criteria
-            stop_sequences=self.filter,
-            repetition_penalty=1.1
-        )
+        # Use default values if not provided
+        if model is None:
+            model = DEFAULT_MODEL
+        if temperature is None:
+            temperature = DEFAULT_TEMPERATURE
+        if max_tokens is None:
+            max_tokens = DEFAULT_MAX_TOKENS
         
         print("Model Loading Done..")
         
-        self.gpt_llm = ChatOpenAI(
-            model='gpt-4o-mini',
-            temperature=0.1,
-            max_tokens=500,
-            stop_sequences=self.filter,
+        self.gpt_llm = ChatGoogleGenerativeAI(
+            model=model,
+            temperature=temperature,
+            max_tokens=max_tokens,
+            google_api_key=GOOGLE_API_KEY,
         )
     
     def load_Database(self,pdf_url=None,is_pdf = False,
@@ -113,32 +108,7 @@ class RAG_Model:
             youtube_url=youtube_url
         ) 
         
-    def __General_chain(self):
-        # Define the prompt template
-        template = """
-        Your name is **WEB-PILOT**, a chatbot developed by WEBPILOT TEAM that answers user questions.
-        Keep your answer short, concise and informative. 
-        Keep answers under 60 words, in simple and clear English.
-        
-        **Chat History**
-        
-        {chat_history}
-        Question: {question}
-        Answer:
-        """
-        
-        # Create a prompt with the template
-        prompt_template = PromptTemplate.from_template(
-            template=template
-        )       
-        
-        chain = LLMChain(
-            llm = self.llm,
-            template=prompt_template,
-            output_parser=StrOutputParser()
-        ) 
-        
-        return chain
+
 
     def __PromptEngineering(self):
         # Define the prompt template
@@ -183,47 +153,7 @@ class RAG_Model:
                 
         return chain
     
-    def __routing_chain(self,prompt):
-    # Create a prompt template for classifying questions
-        prompt_template = PromptTemplate.from_template(
-        """Given the user question below, classify it as either being about `General` or `University-Related`.
-        
-        Examples of `General` questions include: 
-        - "How are you?"
-        - "What is your name?"
-        - "Who created you?"
-        - "What can you do?"
-        
-        Examples of `University-Related` questions include:
-        - "What is the fee structure at NUML?"
-        - "Does this university offer a Master's in AI?"
-        - "What is the procedure to apply at NUML University?"
-        - "Are there any scholarships available?"
-        
-        Do not respond with more than one word.
-        
-        <question>
-        {question}
-        </question>
-        
-        Classification:"""
-        )
-        # Create a chain with the prompt template and the LLM
-        chain = LLMChain(
-            prompt=prompt_template,
-            llm=self.llm,
-            output_parser=StrOutputParser()
-        )
-        
-        category = chain.invoke({
-            'question': prompt
-        })
-        
-        cat = category['text']
-        
-        print("This is ",cat," Question.")
-        
-        return cat
+
         
         
     def __clean_string(self, input_text):

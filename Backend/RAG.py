@@ -3,25 +3,30 @@ import warnings as wn
 wn.filterwarnings('ignore')
 import os
 import shutil
+from dotenv import load_dotenv
 
 from langchain.prompts import PromptTemplate
 from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 from langchain.embeddings import HuggingFaceEmbeddings
+from langchain_google_genai.embeddings import GoogleGenerativeAIEmbeddings
 from langchain.vectorstores import FAISS
 
 from langchain.document_loaders import PyPDFLoader, TextLoader,YoutubeLoader
 
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.schema import Document
-from langchain_openai.embeddings import OpenAIEmbeddings
+
+# Load environment variables
+load_dotenv()
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
 # Define the Retrieval_Augmented_Generation class
 class Retrieval_Augmented_Generation:
     
     # Define the path for the database
     __DB_path = "/Docs/Chroma"
-    __store_text_file ="/media/junaid-ul-hassan/248ac48e-ccd4-4707-a28b-33cb7a46e6dc1/WEB-Programming/WEBPILOT-ChromeExtension/Scraped_data/data.txt"
+    __store_text_file ="/media/junaid-ul-hassan/NewVolume/WEBPILOT-ChromeExtension/Scraped_data/data.txt"
     
     def __init__(self):
         # Initialize the embedding model
@@ -188,8 +193,11 @@ class Retrieval_Augmented_Generation:
         return split
     
     def __embed(self):
-        # Create an embedding model
-        embeddings = OpenAIEmbeddings()
+        # Create an embedding model using Google Generative AI
+        embeddings = GoogleGenerativeAIEmbeddings(
+            model="models/gemini-embedding-001",
+            google_api_key=GOOGLE_API_KEY
+        )
         print("Embedding Runnings...")
         
         return embeddings

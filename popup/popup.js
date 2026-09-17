@@ -1,491 +1,457 @@
-document.addEventListener('DOMContentLoaded', processPage);
+// ─── Theme Management ─────────────────────────────────────────────────────────
+function getTheme() {
+    return localStorage.getItem('wp-theme') || 'dark';
+}
+
+function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('wp-theme', theme);
+
+    // Update theme buttons
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.theme === theme);
+    });
+}
+
+// ─── Settings Drawer ──────────────────────────────────────────────────────────
+function openSettings() {
+    document.getElementById('settings-overlay').classList.remove('hidden');
+    document.getElementById('settings-drawer').classList.remove('hidden');
+}
+
+function closeSettings() {
+    document.getElementById('settings-overlay').classList.add('hidden');
+    document.getElementById('settings-drawer').classList.add('hidden');
+}
+
+// ─── Event Listeners ─────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+    applyTheme(getTheme());
+    processPage();
+});
+
 document.getElementById('send-btn').addEventListener('click', sendMessage);
 document.getElementById('user-input').addEventListener('keypress', checkEnter);
 document.getElementById('clear-chat-btn').addEventListener('click', clearChatHistory);
-document.getElementById('dark-theme').addEventListener('click', toggleDarkTheme);
+document.getElementById('settings-btn').addEventListener('click', openSettings);
+document.getElementById('settings-close-btn').addEventListener('click', closeSettings);
+document.getElementById('settings-overlay').addEventListener('click', closeSettings);
 
+document.querySelectorAll('.theme-btn').forEach(btn => {
+    btn.addEventListener('click', () => applyTheme(btn.dataset.theme));
+});
 
+// Auto-resize textarea
+document.getElementById('user-input').addEventListener('input', function () {
+    this.style.height = 'auto';
+    this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+});
+
+// ─── Animated Example Prompts ─────────────────────────────────────────────────
 const wordsAndIcons = [
-    { text: "Brain Storming", icon: "fa-solid fa-brain", color: "#ff6347" },
-    { text: "Video Summarization", icon: "fa-solid fa-video", color: "#4682b4" },
-    { text: "Web Content Summarizing", icon: "fa-solid fa-globe", color: "#32cd32" },
-    { text: "Research Article Summarizing", icon: "fa-solid fa-file-alt", color: "#8a2be2" },
-    { text: "PDF Document Chat", icon: "fa-solid fa-file-pdf", color: "#f4a300" },
-    { text: "Web Content Chat", icon: "fa-solid fa-comment", color: "#ff1493" },
-    { text: "Question Answering", icon: "fa-solid fa-question-circle", color: "#ff4500" },
-    { text: "YouTube Video Analysis", icon: "fa-solid fa-youtube", color: "#ff0000" },
-    { text: "Summarize YouTube Videos", icon: "fa-solid fa-video", color: "#ff6347" },
-    { text: "Web Content Search", icon: "fa-solid fa-search", color: "#008080" },
-    { text: "Research Article Analysis", icon: "fa-solid fa-book-reader", color: "#4b0082" },
-    { text: "PDF Document Analysis", icon: "fa-solid fa-file-pdf", color: "#b22222" },
-    { text: "PDF Document Summarizing", icon: "fa-solid fa-file-alt", color: "#f0e68c" },
-    { text: "Chat with Web Pages", icon: "fa-solid fa-globe", color: "#4682b4" },
-    { text: "Web Page Summarizing", icon: "fa-solid fa-file-alt", color: "#32cd32" },
-    { text: "Text Content Analysis", icon: "fa-solid fa-text-height", color: "#d2691e" }
+    { text: "Brain Storming",               icon: "fa-solid fa-brain",           color: "#A78BFA" },
+    { text: "Video Summarization",          icon: "fa-solid fa-video",           color: "#60A5FA" },
+    { text: "Web Content Summarizing",      icon: "fa-solid fa-globe",           color: "#34D399" },
+    { text: "Research Article Analysis",    icon: "fa-solid fa-file-alt",        color: "#C084FC" },
+    { text: "PDF Document Chat",            icon: "fa-solid fa-file-pdf",        color: "#FBBF24" },
+    { text: "Question Answering",           icon: "fa-solid fa-circle-question", color: "#F87171" },
+    { text: "YouTube Video Analysis",       icon: "fa-brands fa-youtube",        color: "#F87171" },
+    { text: "Web Content Search",           icon: "fa-solid fa-magnifying-glass",color: "#2DD4BF" },
+    { text: "Chat with Web Pages",          icon: "fa-solid fa-comments",        color: "#818CF8" },
+    { text: "Text Content Analysis",        icon: "fa-solid fa-align-left",      color: "#FB923C" },
 ];
 
-
-
 let currentIndex = 0;
-const textElement = document.getElementById("exmaple_1");
-const iconElement = document.querySelector(".example-prompts i");
-const promptElement = document.querySelector(".example-prompts");
+const pillText = document.getElementById('pill-text');
+const pillIcon = document.getElementById('pill-icon');
 
-function updateContent() {
-    // Fade out
-    textElement.style.opacity = 0;
-    iconElement.style.opacity = 0;
+function updatePromptPill() {
+    pillText.style.opacity = '0';
+    pillIcon.style.opacity = '0';
 
     setTimeout(() => {
-        // Update text, icon, and icon color
-        textElement.textContent = wordsAndIcons[currentIndex].text;
-        iconElement.className = wordsAndIcons[currentIndex].icon;
-        iconElement.style.color = wordsAndIcons[currentIndex].color;  // Set the color of the icon
+        const item = wordsAndIcons[currentIndex];
+        pillText.textContent = item.text;
+        pillIcon.className   = item.icon + ' pill-icon';
+        pillIcon.style.color = item.color;
 
-        // Adjust left and right padding based on text length (top and bottom padding stay fixed)
-        const wordLength = wordsAndIcons[currentIndex].text.length;
-        const newPaddingLeftRight = 10 + wordLength * 0.5;  // Adjust left and right padding based on length
-        promptElement.style.padding = `10px ${newPaddingLeftRight}px`;  // Dynamic left and right padding
+        pillText.style.opacity = '1';
+        pillIcon.style.opacity = '1';
 
-        // Adjust the border-radius based on word length (smoothly)
-        const newRadius = 15 + wordLength * 0.1;  // Adjust border-radius
-        promptElement.style.borderRadius = `${newRadius}px`;  // Dynamic border-radius
-
-        // Fade in
-        textElement.style.opacity = 1;
-        iconElement.style.opacity = 1;
-
-        // Cycle to the next item
         currentIndex = (currentIndex + 1) % wordsAndIcons.length;
-    }, 500); // Match fade-out duration
+    }, 350);
 }
 
-// Start the animation loop (change every 3 seconds)
-setInterval(updateContent, 3000);
+setInterval(updatePromptPill, 2800);
 
-
-// document.addEventListener("DOMContentLoaded", () => {
-//     const settingsBtn = document.getElementById("settings-btn");
-//     const sidebar = document.getElementById("settings-sidebar");
-//     const closeSidebarBtn = document.getElementById("close-sidebar-btn");
-
-//     // Open the sidebar when settings button is clicked
-//     settingsBtn.addEventListener("click", () => {
-//         sidebar.classList.remove("hidden");
-//         sidebar.classList.add("visible");
-//     });
-
-//     // Close the sidebar when close button is clicked
-//     closeSidebarBtn.addEventListener("click", () => {
-//         sidebar.classList.remove("visible");
-//         sidebar.classList.add("hidden");
-//     });
-
-//     // Toggle functionality for switches
-//     const darkThemeToggle = document.getElementById("dark-theme-toggle");
-//     const notificationsToggle = document.getElementById("notifications-toggle");
-//     const autoSaveToggle = document.getElementById("auto-save-toggle");
-
-//     darkThemeToggle.addEventListener("change", () => {
-//         if (darkThemeToggle.checked) {
-//             document.body.classList.add("dark-theme");
-//         } else {
-//             document.body.classList.remove("dark-theme");
-//         }
-//     });
-
-//     notificationsToggle.addEventListener("change", () => {
-//         alert(`Notifications are now ${notificationsToggle.checked ? "enabled" : "disabled"}`);
-//     });
-
-//     autoSaveToggle.addEventListener("change", () => {
-//         console.log(`Auto Save is now ${autoSaveToggle.checked ? "enabled" : "disabled"}`);
-//     });
-// });
-
-
+// ─── Page Processing ──────────────────────────────────────────────────────────
 async function processPage() {
-    // Get the current tab's URL
-    const [tab] = await chrome.tabs.query(
-        { 
-            active: true, 
-            currentWindow: true 
-        }
-    );
-    const url = tab.url;
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    const url   = tab.url;
     document.getElementById('web-link').textContent = url;
 
-
-    // Check for irrelevant URLs
     if (isIrrelevantTab(url)) {
-        showError("This is an irrelevant tab. Please open a valid website.");
-        return; // Exit if the tab is irrelevant
+        showError("This tab can't be analysed. Please open a website, PDF, or YouTube video.");
+        return;
     }
 
-    // Check if the URL is a PDF
-    if (url.endsWith('.pdf')) {
-        console.log("Detected a PDF file");
+    showLoading(true);
+    disableChatInput(true, "Loading page content...");
 
-        const payload = {
-            url: url,
-            text: "PDF file"
-        };
+    try {
+        let payload;
 
-        await fetch('http://127.0.0.1:5000/process_page', {
+        if (url.endsWith('.pdf')) {
+            payload = { url, text: "PDF file" };
+        } else if (isYouTubeUrl(url)) {
+            payload = { url, text: "YouTube video" };
+        } else {
+            const [result] = await chrome.scripting.executeScript({
+                target: { tabId: tab.id },
+                func: () => document.body.innerText
+            });
+            payload = { url, text: result.result };
+        }
+
+        const response = await fetch('http://127.0.0.1:8000/process_page', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         });
 
-        return; // Exit early, no need to fetch page text
-    }
-
-    // Inject script to fetch the page's text content for non-PDFs
-    const [result] = await chrome.scripting.executeScript({
-        target: { 
-            tabId: tab.id 
-        },
-        func: fetchPageText
-    });
-
-    const pageText = result.result;
-
-    const payload = {
-        url: url,
-        text: pageText
-    };
-
-    // Send the data (URL + page text) to the Flask server
-    await fetch('http://127.0.0.1:5000/process_page', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-    });
-}
-
-// Function to fetch all visible text from the page
-function fetchPageText() {
-    return document.body.innerText;
-}
-
-// Function to save chat history in chrome storage
-function saveChatHistory(tabId, chatHistory) {
-    chrome.storage.local.set({ 
-            [tabId]: chatHistory 
-        }, () => {
-        console.log('Chat history saved for tab:', tabId);
-    });
-}
-
-// Function to load chat history from chrome storage
-function loadChatHistory(tabId) {
-    chrome.storage.local.get([tabId], (result) => {
-        if (result[tabId]) {
-            const chatMessages = document.getElementById("chat-messages");
-            chatMessages.innerHTML = result[tabId]; // Load chat history into the chat box
-            chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
+        if (!response.ok) {
+            const err = await response.json().catch(() => ({}));
+            throw new Error(err.detail || `Server error ${response.status}`);
         }
-    });
-}
 
+        disableChatInput(false, "");
 
-// Function to save text using File System Access API
-async function saveTextToFile(content) {
-    try {
-        // Request access to a file
-        const handle = await window.showSaveFilePicker({
-            suggestedName: '/media/junaid-ul-hassan/248ac48e-ccd4-4707-a28b-33cb7a46e6dc/WEB-Programming/WEBPILOT-ChromeExtension/Scraped_data/data.txt',
-            types: [{
-                description: 'Text file',
-                accept: {
-                    'text/plain': ['.txt']
-                },
-            }],
-        });
-
-        // Create a writable stream and write the content
-        const writableStream = await handle.createWritable();
-        await writableStream.write(content);
-        await writableStream.close();
-
-        console.log('File saved successfully!');
     } catch (error) {
-        console.error('Error saving the file:', error);
+        console.error('processPage error:', error);
+        showError("Could not connect to backend. Make sure the server is running.");
+    } finally {
+        showLoading(false);
     }
 }
 
 function isIrrelevantTab(url) {
-    // Check if the URL matches any irrelevant patterns
-    return /^(chrome:\/\/|brave:\/\/|about:|data:|extensions:)/.test(url);
+    return /^(chrome:\/\/|chrome-extension:\/\/|brave:\/\/|edge:\/\/|about:|data:|file:\/\/(?!.*\.pdf))/.test(url);
 }
 
-function showError(message) {
-    var chatMessages = document.getElementById("chat-messages");
-
-    // Clear previous error messages, if any
-    var existingError = document.querySelector('.message.error');
-    if (existingError) {
-        existingError.remove();
-    }
-
-    // Create error message element
-    var errorMessageElement = document.createElement("div");
-    errorMessageElement.classList.add("message", "error");
-
-    // // Add custom styling and content
-    // errorMessageElement.innerHTML = `
-    //     <div class="error-container">
-    //         <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-    //         <span class="error-text">${message}</span>
-    //     </div>
-    // `;
-    chatMessages.appendChild(
-        errorMessageElement
-    );
-
-    // Scroll to the bottom of the chat messages
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-
-    // Disable user input
-    disableChatInput(true,message);
+function isYouTubeUrl(url) {
+    return /^https?:\/\/(www\.)?(youtube|youtu|youtube-nocookie)\.(com|be)\/.+/i.test(url);
 }
 
-function disableChatInput(disable,error_message) {
-    var inputField = document.getElementById("user-input");
-    var sendButton = document.getElementById("send-btn");
-
-    inputField.disabled = disable;
-    sendButton.disabled = disable;
-
-    if (disable) {
-        inputField.placeholder = error_message;
-        sendButton.classList.add("disabled");
-    } else {
-        inputField.placeholder = "Type your message here...";
-        sendButton.classList.remove("disabled");
-    }
-}
-
-// Function to show typing dots
-function showTypingDots() {
-    const chatMessages = document.getElementById("chat-messages");
-
-    // Create typing dots element
-    const typingDotsElement = document.createElement("div");
-    typingDotsElement.classList.add("message", "assistant", "typing-dots");
-    typingDotsElement.innerHTML = `<span class="dot"></span><span class="dot"></span><span class="dot"></span>`;
-    chatMessages.appendChild(
-        typingDotsElement
-    );
-
-    // Scroll to the bottom
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-}
-
-// Function to remove typing dots
-function removeTypingDots() {
-    const typingDotsElement = document.querySelector(".typing-dots");
-    if (typingDotsElement) {
-        typingDotsElement.remove();
-    }
-}
-
-
-let isFirstMessage = true; // Flag to track the first message
+// ─── Messaging ────────────────────────────────────────────────────────────────
+let isFirstMessage = true;
 
 async function sendMessage() {
-    var userInput = document.getElementById("user-input").value;
-    if (userInput.trim() === "") return;
+    const userInput = document.getElementById("user-input").value.trim();
+    if (!userInput) return;
 
-    var chatMessages = document.getElementById("chat-messages");
+    const chatMessages = document.getElementById("chat-messages");
 
-    // Clear chat messages only for the first message
     if (isFirstMessage) {
         chatMessages.innerHTML = "";
-        isFirstMessage = false; // Set flag to false after first message
+        isFirstMessage = false;
     }
 
-    // Display user's message
-    var userMessageElement = document.createElement("div");
-    userMessageElement.textContent = userInput;
-    userMessageElement.classList.add("message", "user");
-    chatMessages.appendChild(userMessageElement);
+    // Render user message
+    chatMessages.appendChild(createUserMessage(userInput));
 
-    // Clear input field
-    document.getElementById("user-input").value = "";
+    // Reset input
+    const inputEl = document.getElementById("user-input");
+    inputEl.value = "";
+    inputEl.style.height = 'auto';
 
-    // Disable input field while generating a response
-    disableChatInput(
-        true,
-        "Response Generating..."
-    );
-
-    // Save chat history
-    const [tab] = await chrome.tabs.query({ 
-            active: true, 
-            currentWindow: true 
-        });
-
-    // saveChatHistory(tab.id, chatMessages.innerHTML);
-
-    // Show spinner in place of Conversify AI icon
-    showSpinner();
-
-    // Show typing dots while waiting for response
+    disableChatInput(true, "Generating response...");
+    showLoading(true);
     showTypingDots();
+    scrollToBottom();
 
     try {
-        // Send the user's message to the Flask server for a response
-        const response = await fetch('http://127.0.0.1:5000/generate_response', {
+        const response = await fetch('http://127.0.0.1:8000/generate_response', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ message: userInput })
         });
 
-        const result = await response.json();
-        const botResponse = result.response || "Please check your URL link or Internet connection";
+        if (!response.ok) throw new Error(`Server error ${response.status}`);
 
-        // Remove typing dots before showing the response
+        const result      = await response.json();
+        const botResponse = result.response || "Sorry, I couldn't generate a response. Please try again.";
+
         removeTypingDots();
-
-        // Create a container for the bot's response
-        var botMessageElement = document.createElement("div");
-        botMessageElement.classList.add("message", "assistant");
-        chatMessages.appendChild(botMessageElement);
-
-        // Display bot response character by character
-        await displayTextCharacterByCharacter(botResponse, botMessageElement);
+        const botEl = createBotMessage();
+        chatMessages.appendChild(botEl);
+        await typewriterRender(botResponse, botEl.querySelector('.message-bubble'));
 
     } catch (error) {
-        console.error('Error:', error);
-        removeTypingDots(); // Remove typing dots on error
-        var botMessageElement = document.createElement("div");
-        botMessageElement.textContent = "Error retrieving response.";
-        botMessageElement.classList.add("message", "assistant");
-        chatMessages.appendChild(botMessageElement);
+        console.error('sendMessage error:', error);
+        removeTypingDots();
+        chatMessages.appendChild(createErrorMessage("Error retrieving response. Please check your connection."));
     } finally {
-        // Remove spinner and restore Conversify AI icon
-        hideSpinner();
+        showLoading(false);
+        disableChatInput(false, "Ask me anything...");
+        scrollToBottom();
 
-        // Enable input field after generating response
-        disableChatInput(false,"Generating Response...");
-
-        // Scroll to the bottom of the chat messages
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-
-        // Save updated chat history
         const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
         saveChatHistory(tab.id, chatMessages.innerHTML);
     }
 }
 
+function checkEnter(event) {
+    if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+        sendMessage();
+    }
+}
 
+// ─── Message Builders ─────────────────────────────────────────────────────────
+function createUserMessage(text) {
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('message', 'user');
+    const bubble = document.createElement('div');
+    bubble.classList.add('message-bubble');
+    bubble.textContent = text;
+    wrapper.appendChild(bubble);
+    return wrapper;
+}
 
-// Function to copy text to clipboard
-function copyToClipboard(text) {
-    const tempTextArea = document.createElement('textarea');
-    tempTextArea.value = text;
-    document.body.appendChild(tempTextArea);
-    tempTextArea.select();
-    document.execCommand('copy');
-    document.body.removeChild(tempTextArea);
-    alert('Message copied to clipboard!');
+function createBotMessage() {
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('message', 'assistant');
+
+    const avatar = document.createElement('div');
+    avatar.classList.add('bot-avatar');
+    avatar.innerHTML = '<i class="fa-solid fa-atom"></i>';
+
+    const bubble = document.createElement('div');
+    bubble.classList.add('message-bubble');
+
+    wrapper.appendChild(avatar);
+    wrapper.appendChild(bubble);
+    return wrapper;
+}
+
+function createErrorMessage(text) {
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('message', 'error');
+    const bubble = document.createElement('div');
+    bubble.classList.add('message-bubble');
+    bubble.innerHTML = `<i class="fa fa-triangle-exclamation"></i>${text}`;
+    wrapper.appendChild(bubble);
+    return wrapper;
+}
+
+// ─── Chat History ─────────────────────────────────────────────────────────────
+function saveChatHistory(tabId, html) {
+    chrome.storage.local.set({ [tabId]: html }, () => {
+        console.log('Chat history saved for tab:', tabId);
+    });
+}
+
+function loadChatHistory(tabId) {
+    chrome.storage.local.get([String(tabId)], (result) => {
+        if (result[String(tabId)]) {
+            const chatMessages = document.getElementById("chat-messages");
+            chatMessages.innerHTML = result[String(tabId)];
+            scrollToBottom();
+            isFirstMessage = false;
+        }
+    });
 }
 
 function clearChatHistory() {
-    var chatMessages = document.getElementById("chat-messages");
-    chatMessages.innerHTML = "";
+    const chatMessages = document.getElementById("chat-messages");
+    chatMessages.innerHTML = '';
+    isFirstMessage = true;
 
-    // Clear saved chat history for the current tab
+    // Re-inject welcome screen
+    const welcome = buildWelcomeScreen();
+    chatMessages.appendChild(welcome);
+
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-        chrome.storage.local.remove([tabs[0].id], () => {
+        chrome.storage.local.remove([String(tabs[0].id)], () => {
             console.log("Chat history cleared for tab:", tabs[0].id);
         });
     });
 }
 
-function checkEnter(event) {
-    if (event.key === "Enter" && !event.shiftKey) {
-        sendMessage();
-        event.preventDefault();
-    } else if (event.key === "Enter" && event.shiftKey) {
-        // Allow line break
-        event.stopPropagation();
+function buildWelcomeScreen() {
+    const div = document.createElement('div');
+    div.id = 'welcome-screen';
+    div.innerHTML = `
+        <div class="welcome-icon-wrap">
+            <i class="fa-solid fa-atom welcome-icon"></i>
+            <div class="welcome-glow"></div>
+        </div>
+        <h2 class="welcome-title">WebPilot AI</h2>
+        <p class="welcome-sub">Explore large contents in seconds ✨</p>
+        <div id="example-prompt-pill" class="prompt-pill">
+            <i class="fa-regular fa-lightbulb pill-icon" id="pill-icon"></i>
+            <span id="pill-text">Brain Storming</span>
+        </div>
+    `;
+    return div;
+}
+
+// ─── UI Helpers ───────────────────────────────────────────────────────────────
+function showError(message) {
+    const chatMessages = document.getElementById("chat-messages");
+    document.querySelector('.message.error')?.remove();
+    chatMessages.appendChild(createErrorMessage(message));
+    scrollToBottom();
+    disableChatInput(true, message);
+}
+
+function disableChatInput(disable, placeholder) {
+    const inputField = document.getElementById("user-input");
+    const sendButton = document.getElementById("send-btn");
+    inputField.disabled = disable;
+    sendButton.disabled = disable;
+    if (placeholder !== undefined) {
+        inputField.placeholder = disable ? (placeholder || "") : (placeholder || "Ask me anything...");
     }
 }
 
+function showTypingDots() {
+    const chatMessages = document.getElementById("chat-messages");
+    const indicator = document.createElement('div');
+    indicator.classList.add('typing-indicator');
+    indicator.innerHTML = `
+        <div class="bot-avatar"><i class="fa-solid fa-atom"></i></div>
+        <div class="typing-bubble">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    `;
+    chatMessages.appendChild(indicator);
+    scrollToBottom();
+}
+
+function removeTypingDots() {
+    document.querySelector('.typing-indicator')?.remove();
+}
+
+function showLoading(on) {
+    const icon = document.querySelector('#brand-atom');
+    if (!icon) return;
+    if (on) {
+        icon.classList.add('spinning');
+    } else {
+        icon.classList.remove('spinning');
+    }
+}
+
+function scrollToBottom() {
+    const chatMessages = document.getElementById("chat-messages");
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// ─── Markdown Rendering ───────────────────────────────────────────────────────
 function convertToMarkdown(text) {
-    let converted = text;
+    let html = text;
 
-    // Convert headings
-    // converted = converted.replace(/^# (.*$)/gim, '<h1>$1</h1>');
-    // converted = converted.replace(/^## (.*$)/gim, '<h2>$1</h2>');
-    converted = converted.replace(/^### (.*$)/gim, '<h3>$1</h3>');
-    converted = converted.replace(/^#### (.*$)/gim, '<h4>$1</h4>');
-    converted = converted.replace(/^##### (.*$)/gim, '<h5>$1</h5>');
-    converted = converted.replace(/^###### (.*$)/gim, '<h6>$1</h6>');
+    // Code blocks first (before other replacements mess up content)
+    html = html.replace(/```[\w]*\n?([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+    html = html.replace(/`([^`]+)`/gim, '<code>$1</code>');
 
-    // Convert bold
-    converted = converted.replace(/\*\*(.*)\*\*/gim, '<b>$1</b>');
+    // Headings
+    html = html.replace(/^#{6}\s(.+)$/gim, '<h6>$1</h6>');
+    html = html.replace(/^#{5}\s(.+)$/gim, '<h5>$1</h5>');
+    html = html.replace(/^#{4}\s(.+)$/gim, '<h4>$1</h4>');
+    html = html.replace(/^#{3}\s(.+)$/gim, '<h3>$1</h3>');
+    html = html.replace(/^#{2}\s(.+)$/gim, '<h2>$1</h2>');
+    html = html.replace(/^#{1}\s(.+)$/gim, '<h1>$1</h1>');
 
-    // Convert italics
-    converted = converted.replace(/\*(.*)\*/gim, '<i>$1</i>');
+    // Bold & italic
+    html = html.replace(/\*\*\*(.*?)\*\*\*/gim, '<strong><em>$1</em></strong>');
+    html = html.replace(/\*\*(.*?)\*\*/gim,     '<strong>$1</strong>');
+    html = html.replace(/\*(.*?)\*/gim,          '<em>$1</em>');
 
-    // Convert code blocks
-    converted = converted.replace(/```([a-z]*)([\s\S]*?)```/g, '<pre><code>$2</code></pre>');
+    // Unordered lists — group consecutive items
+    html = html.replace(/((?:^\s*[-*]\s.+$\n?)+)/gim, (match) => {
+        const items = match.trim().split('\n').map(line =>
+            `<li>${line.replace(/^\s*[-*]\s/, '')}</li>`
+        ).join('');
+        return `<ul>${items}</ul>`;
+    });
 
-    // Convert inline code
-    converted = converted.replace(/`(.*?)`/gim, '<code>$1</code>');
+    // Ordered lists
+    html = html.replace(/((?:^\s*\d+\.\s.+$\n?)+)/gim, (match) => {
+        const items = match.trim().split('\n').map(line =>
+            `<li>${line.replace(/^\s*\d+\.\s/, '')}</li>`
+        ).join('');
+        return `<ol>${items}</ol>`;
+    });
 
-    // // Convert unordered lists
-    converted = converted.replace(/^\s*[\*\-]\s(.*$)/gim, '<ul><li>$1</li></ul>');
+    // HR
+    html = html.replace(/^---+$/gim, '<hr>');
 
-    // Convert ordered lists
-    converted = converted.replace(/^\s*[0-9]+\.\s(.*$)/gim, '<ol><li>$1</li></ol>');
+    // Paragraphs: wrap double newlines
+    html = html.replace(/\n{2,}/g, '</p><p>');
+    html = '<p>' + html + '</p>';
 
-    // Convert horizontal rule
-    converted = converted.replace(/^\-{3,}$/gim, '<hr />');
+    // Clean up <p> around block elements
+    html = html.replace(/<p>(<(?:h[1-6]|ul|ol|pre|hr)[^>]*>)/g, '$1');
+    html = html.replace(/(<\/(?:h[1-6]|ul|ol|pre|hr)>)<\/p>/g, '$1');
+    html = html.replace(/<p>\s*<\/p>/g, '');
 
-    return converted.trim(); // Return the converted markdown as HTML
+    return html.trim();
 }
 
+// ─── Typewriter Effect ────────────────────────────────────────────────────────
+// Strategy: parse the markdown into real HTML, then animate each text node
+// word-by-word so HTML structure is always valid and never shows raw tags.
+async function typewriterRender(text, element) {
+    const chatMessages = document.getElementById("chat-messages");
 
-// function clearChatHistory() {
-//     var chatMessages = document.getElementById("chat-messages");
-//     chatMessages.innerHTML = "";
-// }
+    // 1. Render markdown into a detached container
+    const rendered = convertToMarkdown(text);
+    const temp = document.createElement('div');
+    temp.innerHTML = rendered;
 
-function toggleDarkTheme() {
-    console.log("Your message is received");
-}
+    // 2. Clone the structure into the target but hide all text nodes
+    element.innerHTML = '';
+    const clone = temp.cloneNode(true);
+    element.appendChild(clone);
 
-// Function to show the spinner in place of the Conversify AI icon
-function showSpinner() {
-    const modelDropdownBtn = document.getElementById("model-dropdown-btn");
-    const icon = modelDropdownBtn.querySelector("i");
-    icon.classList.add("fa-spinner", "fa-spin");
-    icon.classList.remove("fa-atom");
-}
-
-// Function to hide the spinner and restore the Conversify AI icon
-function hideSpinner() {
-    const modelDropdownBtn = document.getElementById("model-dropdown-btn");
-    const icon = modelDropdownBtn.querySelector("i");
-    icon.classList.remove("fa-spinner", "fa-spin");
-    
-    icon.classList.add("fa-atom");
-}
-
-// Function to display bot's response character by character
-async function displayTextCharacterByCharacter(text, element) {
-    console.log(text);
-    for (let i = 0; i < text.length; i++) {
-        element.innerText += text[i];
-        await new Promise(resolve => setTimeout(resolve, 10)); // Adjust speed here
-        document.getElementById("chat-messages").scrollTop = document.getElementById("chat-messages").scrollHeight; // Scroll to bottom
+    // 3. Collect every text node inside the bubble
+    const textNodes = [];
+    const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null);
+    let node;
+    while ((node = walker.nextNode())) {
+        textNodes.push(node);
     }
+
+    // 4. Hide all text by replacing each text node with a span-wrapped version
+    //    where words start invisible and reveal one by one
+    const wordSpans = [];
+    for (const tn of textNodes) {
+        const words = tn.textContent.split(/(\s+)/); // keep whitespace tokens
+        const frag = document.createDocumentFragment();
+        for (const word of words) {
+            const span = document.createElement('span');
+            span.textContent = word;
+            span.style.opacity = '0';
+            span.style.transition = 'opacity 0.12s ease';
+            frag.appendChild(span);
+            if (word.trim()) wordSpans.push(span); // only animate non-whitespace
+            else span.style.opacity = '1'; // show whitespace immediately
+        }
+        tn.parentNode.replaceChild(frag, tn);
+    }
+
+    // 5. Reveal words with a small stagger
+    for (let i = 0; i < wordSpans.length; i++) {
+        wordSpans[i].style.opacity = '1';
+        if (i % 4 === 0) {
+            scrollToBottom();
+            await new Promise(resolve => setTimeout(resolve, 18));
+        }
+    }
+
+    scrollToBottom();
 }

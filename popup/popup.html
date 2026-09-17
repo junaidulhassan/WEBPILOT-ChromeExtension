@@ -1,63 +1,110 @@
 <!DOCTYPE html>
-<html>
+<html data-theme="dark">
 
 <head>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="popup.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
-    <div id="header-container">
-        <div class="Logo-web">
-            <button id="model-dropdown-btn" title="Change model">
-                <i class="fa-solid fa-atom"></i>
-                <span id="model-dropdown-btn-text"><b>WEBPILOT.AI</b></span> 
-            </button>
+
+    <!-- ── Settings Drawer ──────────────────────────────────────────────── -->
+    <div id="settings-overlay" class="hidden"></div>
+    <div id="settings-drawer" class="hidden">
+        <div class="settings-header">
+            <span class="settings-title"><i class="fa-solid fa-sliders"></i> Settings</span>
+            <button id="settings-close-btn" title="Close settings"><i class="fa-solid fa-xmark"></i></button>
         </div>
-        <div id="action-btn-container">
-            <button id="clear-chat-btn" title="Clear chat">
-                <i class="fa-solid fa-broom"></i>
-            </button>
-            <div class="dropdown">
-                <button id="settings-btn" title="Settings">
-                    <i class="fa-solid fa-robot"></i>
-                </button>
-                <div id="settings-dropdown-content" class="dropdown-content">
-                    <a id="dark-theme" class="settings-dropdown-btn">GPT-4o-mini</a>
-                    <a id="new-chat" class="settings-dropdown-btn">Mistral-7B-instruct</a>
-                    <a id="chat-history" class="settings-dropdown-btn">Llama-3.1-instruct</a>
+        <div class="settings-body">
+            <div class="settings-section-label">Appearance</div>
+            <div class="setting-row">
+                <div class="setting-info">
+                    <span class="setting-name">Theme</span>
+                    <span class="setting-desc">Switch between dark and light mode</span>
+                </div>
+                <div class="theme-toggle-group">
+                    <button class="theme-btn active" id="theme-dark" data-theme="dark">
+                        <i class="fa-solid fa-moon"></i> Dark
+                    </button>
+                    <button class="theme-btn" id="theme-light" data-theme="light">
+                        <i class="fa-solid fa-sun"></i> Light
+                    </button>
+                </div>
+            </div>
+
+            <div class="settings-divider"></div>
+            <div class="settings-section-label">About</div>
+            <div class="setting-row about-row">
+                <i class="fa-solid fa-atom about-icon"></i>
+                <div>
+                    <div class="setting-name">WebPilot AI</div>
+                    <div class="setting-desc">Explore large contents in seconds</div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- ── Header ───────────────────────────────────────────────────────── -->
+    <div id="header-container">
+        <div class="brand">
+            <div class="brand-icon">
+                <i class="fa-solid fa-atom" id="brand-atom"></i>
+            </div>
+            <span class="brand-name">WebPilot<span class="brand-accent">.AI</span></span>
+        </div>
+        <div id="action-btn-container">
+            <button id="settings-btn" class="icon-btn" title="Settings">
+                <i class="fa-solid fa-gear"></i>
+            </button>
+            <button id="clear-chat-btn" class="icon-btn" title="Clear chat">
+                <i class="fa-solid fa-broom"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- ── URL Bar ───────────────────────────────────────────────────────── -->
+    <div id="url-bar">
+        <i class="fa-solid fa-link"></i>
+        <span id="web-link">Loading page...</span>
+    </div>
+
+    <!-- ── Chat Area ─────────────────────────────────────────────────────── -->
     <div id="chat-container">
-        <div id="url-link">
-            <i class="fas fa-link"></i>
-            <span id="web-link">Website Link</span>
-        </div>
         <div id="chat-messages">
-            <div id="title">
-                <i class="fa-solid fa-atom"></i><br>
-                <span id="sub-title">Explore Large Contents in Seconds &#10024;</span>
+
+            <!-- Welcome screen -->
+            <div id="welcome-screen">
+                <div class="welcome-icon-wrap">
+                    <i class="fa-solid fa-atom welcome-icon"></i>
+                    <div class="welcome-glow"></div>
+                </div>
+                <h2 class="welcome-title">WebPilot AI</h2>
+                <p class="welcome-sub">Explore large contents in seconds ✨</p>
+
+                <div id="example-prompt-pill" class="prompt-pill">
+                    <i class="fa-regular fa-lightbulb pill-icon" id="pill-icon"></i>
+                    <span id="pill-text">Brain Storming</span>
+                </div>
             </div>
-            <div id="example-prompts" class="example-prompts">
-                <i class="fa-regular fa-lightbulb"></i>
-                <span id="exmaple_1">Brain Storming</span>
-            </div>
+
         </div>
     </div>
+
+    <!-- ── Input Area ────────────────────────────────────────────────────── -->
     <div class="input-container">
-        <textarea id="user-input" placeholder="Ask me anything..." rows="1"></textarea>
-        <button id="send-btn" title="Send message">
-            <i class="fa fa-paper-plane"></i>
-        </button>
+        <div class="input-wrap">
+            <textarea id="user-input" placeholder="Ask me anything..." rows="1"></textarea>
+            <button id="send-btn" title="Send message">
+                <i class="fa fa-paper-plane"></i>
+            </button>
+        </div>
     </div>
-    <div id="spinner" class="spinner hidden"></div>
 
-    
-    <!-- <script src="https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js"></script> -->
-
-    <!-- Include your own JavaScript file after markdown-it -->
     <script src="popup.js"></script>
 </body>
+
 </html>

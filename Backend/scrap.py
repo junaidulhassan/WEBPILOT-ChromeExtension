@@ -10,7 +10,7 @@ class Scraper:
     
     def __write_txt_file(self, text):
         # Define the file path
-        file_path = "/media/junaid-ul-hassan/248ac48e-ccd4-4707-a28b-33cb7a46e6dc/WEB-Programming/WEBPILOT-ChromeExtension/Scraped_data/data.txt"
+        file_path = "/media/junaid-ul-hassan/NewVolume/WEBPILOT-ChromeExtension/Scraped_data/data.txt"
         line_length = 20
         
         # Format the text
@@ -96,7 +96,7 @@ class Scraper:
     def Tab_data(self, text):
         
         print("Data Scrapping function called...")
-        data_dir = "/media/junaid-ul-hassan/248ac48e-ccd4-4707-a28b-33cb7a46e6dc1/WEB-Programming/WEBPILOT-ChromeExtension/Scraped_data/data.txt"
+        data_dir = "/media/junaid-ul-hassan/NewVolume/WEBPILOT-ChromeExtension/Scraped_data/data.txt"
         # Create a new file and save data into new file.
         with open(data_dir, 'w') as file:
             file.write(text)
