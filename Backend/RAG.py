@@ -2,20 +2,29 @@ import warnings as wn
 # Ignore warning messages
 wn.filterwarnings('ignore')
 import os
+import re
 import shutil
+from urllib.parse import urlparse, parse_qs
 from dotenv import load_dotenv
 
 from langchain.prompts import PromptTemplate
 from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
-from langchain.embeddings import HuggingFaceEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_google_genai.embeddings import GoogleGenerativeAIEmbeddings
-from langchain.vectorstores import FAISS
+from langchain_community.vectorstores import FAISS
 
-from langchain.document_loaders import PyPDFLoader, TextLoader,YoutubeLoader
+from langchain_community.document_loaders import PyPDFLoader, TextLoader
 
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.schema import Document
+
+from youtube_transcript_api import YouTubeTranscriptApi
+from youtube_transcript_api._errors import (
+    TranscriptsDisabled,
+    NoTranscriptFound,
+    VideoUnavailable,
+)
 
 # Load environment variables
 load_dotenv()
@@ -25,8 +34,9 @@ GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 class Retrieval_Augmented_Generation:
     
     # Define the path for the database
-    __DB_path = "/Docs/Chroma"
-    __store_text_file ="/media/junaid-ul-hassan/NewVolume/WEBPILOT-ChromeExtension/Scraped_data/data.txt"
+    __PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    __DB_path = os.path.join(__PROJECT_ROOT, "Docs", "Chroma")
+    __store_text_file = os.path.join(__PROJECT_ROOT, "Scraped_data", "data.txt")
     
     def __init__(self):
         # Initialize the embedding model
@@ -118,21 +128,46 @@ class Retrieval_Augmented_Generation:
             
         return split
 
+    @staticmethod
+    def __extract_video_id(youtube_url):
+        """Extract the 11-character video ID from any common YouTube URL format."""
+        parsed = urlparse(youtube_url)
+        hostname = (parsed.hostname or "").lower()
+
+        if hostname in ("youtu.be",):
+            return parsed.path.lstrip("/").split("/")[0] or None
+
+        if "youtube" in hostname:
+            if parsed.path == "/watch":
+                return parse_qs(parsed.query).get("v", [None])[0]
+            for prefix in ("/embed/", "/v/", "/shorts/", "/live/"):
+                if parsed.path.startswith(prefix):
+                    return parsed.path[len(prefix):].split("/")[0]
+
+        match = re.search(r"([0-9A-Za-z_-]{11})", youtube_url)
+        return match.group(1) if match else None
+
     def __load_youtube_transcript(self,youtube_url):
-        
+
         error_text = """
             Please Show this Error message in easy way to user if user Ask about context or video context.
             We could not retrieve a transcript for the requested video URL. This is likely due to the following reasons:
             No transcripts were found for any of the requested language codes: ['english'].
             As a result, this video does not have an English transcript. To chat about the video, you must have a transcript available in English.
         """
-        
+
         error_text_2 ="""
             Please Show this Error message in easy way to user if user Ask about context or video context.
-            Sorry I can't describe this video because We couldn't retrieve the transcript for this video.This might be because the video doesn't have subtitles or transcripts in English. 
+            Sorry I can't describe this video because We couldn't retrieve the transcript for this video.This might be because the video doesn't have subtitles or transcripts in English.
             Please check if the video includes an English transcript and try again.
         """
-        
+
+        error_text_3 = """
+            Please Show this Error message in easy way to user if user Ask about context or video context.
+            Sorry, this YouTube link doesn't look valid, or the video is unavailable/private, so we
+            couldn't retrieve its transcript. Please check the link and try again.
+        """
+
         # define the spilter docs properties
         chunks_size = 1500
         chunks_overlap = 40
@@ -143,33 +178,48 @@ class Retrieval_Augmented_Generation:
             length_function=len,
             is_separator_regex=False
         )
+
+        def _error_docs(text):
+            return splitter.split_documents(
+                [Document(page_content=x) for x in splitter.split_text(text)]
+            )
+
+        video_id = self.__extract_video_id(youtube_url)
+        if not video_id:
+            print("Could not extract a YouTube video ID from URL:", youtube_url)
+            return _error_docs(error_text_3)
+
         try:
-            loader = YoutubeLoader.from_youtube_url(
-                youtube_url=youtube_url
-            )
-            docs = loader.load()
+            ytt_api = YouTubeTranscriptApi()
+            transcript_list = ytt_api.list(video_id)
+
+            try:
+                transcript = transcript_list.find_transcript(["en", "en-US", "en-GB"])
+            except NoTranscriptFound:
+                # Fall back to any available transcript, translating to English if possible.
+                transcript = next(iter(transcript_list))
+                if transcript.is_translatable:
+                    transcript = transcript.translate("en")
+
+            fetched = transcript.fetch()
+            text = " ".join(snippet.text for snippet in fetched).strip()
+
+            if not text:
+                print("Video transcript was empty")
+                return _error_docs(error_text_2)
+
+            docs = [Document(page_content=text, metadata={"source": youtube_url})]
+            return splitter.split_documents(docs)
+
+        except (TranscriptsDisabled, NoTranscriptFound):
+            print("Video does not have an available transcript")
+            return _error_docs(error_text)
+        except VideoUnavailable:
+            print("Video is unavailable")
+            return _error_docs(error_text_3)
         except Exception as e:
-            # if error occure then this code with run
-            print("Video Transcript Error Occure....")
-            docs = [Document(page_content=x) for x in splitter.split_text(error_text)]
-            split = splitter.split_documents(
-                documents=docs
-            )
-        
-        if len(docs) == 0:
-            # if no transcript found then this code will run
-            print("Video Don't have Transcript")
-            docs = [Document(page_content=x) for x in splitter.split_text(error_text_2)]
-            split = splitter.split_documents(
-                documents=docs
-            )
-        else:
-            # if transcript found then this code will run
-            split = splitter.split_documents(
-                documents=docs
-            )
-            
-        return split
+            print(f"Video Transcript Error Occurred: {e}")
+            return _error_docs(error_text)
     
     def __text_spliter(self, chunks_size=500, chunks_overlap=50):
         # Define the chunks and overlap
@@ -178,7 +228,7 @@ class Retrieval_Augmented_Generation:
 
         # Use RecursiveCharacterTextSplitter to split documents into chunks
         rec_splitter = RecursiveCharacterTextSplitter(
-            separators=["\n\n", "\n", "(?<=\. )", " ", ""],
+            separators=["\n\n", "\n", r"(?<=\. )", " ", ""],
             chunk_size=chunks_size,
             chunk_overlap=chunks_overlap,
             length_function=len,

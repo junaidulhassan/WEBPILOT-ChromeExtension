@@ -4,6 +4,7 @@ langchain_community==0.3.8
 langchain_core==0.3.21
 langchain_huggingface==0.1.2
 langchain_google_genai==1.0.7
+youtube-transcript-api==1.2.4
 Pillow==11.0.0
 Requests==2.32.3
 faiss-cpu==1.9.0

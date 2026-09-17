@@ -1,0 +1,20 @@
+# Environment / secrets
+.env
+*.env
+!.env.example
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Node
+node_modules/
+
+# Scraped data / runtime artifacts
+Scraped_data/*.txt
+
+# Editor / OS
+.DS_Store

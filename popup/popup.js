@@ -90,6 +90,8 @@ async function processPage() {
     const url   = tab.url;
     document.getElementById('web-link').textContent = url;
 
+    loadChatHistory(tab.id);
+
     if (isIrrelevantTab(url)) {
         showError("This tab can't be analysed. Please open a website, PDF, or YouTube video.");
         return;

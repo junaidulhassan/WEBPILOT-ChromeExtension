@@ -1,16 +1,20 @@
+import os
 import requests
 from bs4 import BeautifulSoup
 import re
+
+_PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_DATA_FILE = os.path.join(_PROJECT_ROOT, "Scraped_data", "data.txt")
 
 
 class Scraper:
     def __init__(self):
         self.previous_url = None
-        
-    
+
+
     def __write_txt_file(self, text):
         # Define the file path
-        file_path = "/media/junaid-ul-hassan/NewVolume/WEBPILOT-ChromeExtension/Scraped_data/data.txt"
+        file_path = _DATA_FILE
         line_length = 20
         
         # Format the text
@@ -86,8 +90,7 @@ class Scraper:
         )
         
         self.__write_txt_file(
-            text=formatted_text,
-            string = result_string
+            text=formatted_text
         )
         
         return response.status_code
@@ -96,7 +99,7 @@ class Scraper:
     def Tab_data(self, text):
         
         print("Data Scrapping function called...")
-        data_dir = "/media/junaid-ul-hassan/NewVolume/WEBPILOT-ChromeExtension/Scraped_data/data.txt"
+        data_dir = _DATA_FILE
         # Create a new file and save data into new file.
         with open(data_dir, 'w') as file:
             file.write(text)
