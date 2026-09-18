@@ -17,7 +17,7 @@
     <div id="settings-drawer" class="hidden">
         <div class="settings-header">
             <span class="settings-title"><i class="fa-solid fa-sliders"></i> Settings</span>
-            <button id="settings-close-btn" title="Close settings"><i class="fa-solid fa-xmark"></i></button>
+            <button id="settings-close-btn" class="drawer-close-btn" title="Close settings"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="settings-body">
             <div class="settings-section-label">Appearance</div>
@@ -48,6 +48,27 @@
         </div>
     </div>
 
+    <!-- ── History Drawer ───────────────────────────────────────────────── -->
+    <div id="history-overlay" class="hidden"></div>
+    <div id="history-drawer" class="hidden">
+        <div class="settings-header">
+            <span class="settings-title"><i class="fa-solid fa-clock-rotate-left"></i> History</span>
+            <button id="history-close-btn" class="drawer-close-btn" title="Close history"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="history-body">
+            <div id="history-list"></div>
+            <div id="history-empty" class="history-empty hidden">
+                <i class="fa-regular fa-comments"></i>
+                <p>No saved conversations yet.<br>Chat about a page and it'll show up here.</p>
+            </div>
+        </div>
+        <div class="history-footer">
+            <button id="history-clear-all-btn" class="history-clear-btn">
+                <i class="fa-solid fa-trash"></i> Clear All History
+            </button>
+        </div>
+    </div>
+
     <!-- ── Header ───────────────────────────────────────────────────────── -->
     <div id="header-container">
         <div class="brand">
@@ -60,7 +81,10 @@
             <button id="settings-btn" class="icon-btn" title="Settings">
                 <i class="fa-solid fa-gear"></i>
             </button>
-            <button id="clear-chat-btn" class="icon-btn" title="Clear chat">
+            <button id="history-btn" class="icon-btn" title="Conversation history">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+            </button>
+            <button id="clear-chat-btn" class="icon-btn" title="New chat">
                 <i class="fa-solid fa-broom"></i>
             </button>
         </div>
@@ -70,6 +94,7 @@
     <div id="url-bar">
         <i class="fa-solid fa-link"></i>
         <span id="web-link">Loading page...</span>
+        <div id="url-progress-bar"></div>
     </div>
 
     <!-- ── Chat Area ─────────────────────────────────────────────────────── -->
@@ -104,6 +129,7 @@
         </div>
     </div>
 
+    <script src="storage.js"></script>
     <script src="popup.js"></script>
 </body>
 

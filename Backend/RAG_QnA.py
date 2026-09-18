@@ -95,29 +95,64 @@ class RAG_Model:
         )
     
     def load_Database(self,pdf_url=None,is_pdf = False,
-                      pdf_text = None, is_pdf_file=False,
+                      text = None, is_raw_text=False,
                       youtube_url=None, is_youtube_url=False):
-        
+
         # create vector database for fetch knowledge from database
         self.database = self.rag.VectorDatabase(
-            text=pdf_text,
-            is_pdf_file=is_pdf_file,
+            text=text,
+            is_raw_text=is_raw_text,
             pdf_file=pdf_url,
             is_pdf=is_pdf,
             is_youtube_url=is_youtube_url,
             youtube_url=youtube_url
-        ) 
-        
+        )
+
+    def reset_memory(self):
+        # Wipe conversational memory so a newly loaded source starts with a
+        # clean slate and never bleeds context from a previous conversation.
+        self.mem.clear()
+        self.window_mem.clear()
+
+    def seed_memory(self, history):
+        # Replay a previously saved conversation's turns into memory so the
+        # LLM has continuity when the user resumes an old chat. `history` is
+        # a list of {"question": ..., "answer": ...} dicts, oldest first.
+        self.reset_memory()
+        for turn in history:
+            question = (turn.get('question') or '').strip()
+            answer = (turn.get('answer') or '').strip()
+            if question and answer:
+                self.window_mem.save_context({'question': question}, {'result': answer})
 
 
     def __PromptEngineering(self):
         # Define the prompt template
         template = """
-        Your name is WEB-PILOT(Created by Web-pilot team), a chatbot that answers user questions based on provided scraped context. 
-        Keep answers under 100 words, in simple and clear English.
-        
+        Your name is WEB-PILOT (created by the WebPilot team). You help the user chat about a webpage, PDF, or
+        YouTube video they have loaded, and you can also hold a normal conversation with them. Keep answers under
+        100 words, in simple and clear English, unless a shorter reply fits better.
+
+        How to decide what kind of reply to give:
+        - If the message is small talk, a greeting, thanks, or an acknowledgement (e.g. "okay", "thanks", "hello",
+          "got it", "cool") or a general question that isn't about the loaded content, reply naturally like a normal
+          assistant would. Do not mention "the content" or "the context" for these, and never say the information
+          is unavailable for a message like this.
+        - If the message is about the loaded content, answer it using the Context below as your primary source.
+        - If the Context doesn't explicitly say the answer but the question is clearly still about the loaded
+          content, use sensible reasoning and general knowledge to give the most helpful answer you can — but make
+          it clear that this part is inferred/general knowledge rather than stated in the content. Never present
+          inferred or general-knowledge information as if it were directly written in the content.
+        - Only say a question can't be answered, or is unrelated to the loaded content, when it truly cannot be
+          answered from the Context and reasoning about it does not help either. When you do say this, phrase it
+          naturally instead of a canned refusal.
+        - Never invent facts and attribute them to the content. If you are unsure whether something is in the
+          content, say so honestly instead of guessing.
+        - Use the chat history to follow the conversation naturally, including follow-up questions that refer back
+          to earlier turns.
+
         ##Chat History
-        
+
         {chat_history}
         Context: {context}
         Question: {question}

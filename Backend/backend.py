@@ -8,8 +8,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
+from typing import List
+
 from RAG_QnA import RAG_Model
-from scrap import Scraper
 
 app = FastAPI()
 
@@ -23,9 +24,16 @@ app.add_middleware(
 )
 
 # ── Request models ────────────────────────────────────────────────────────────
+class ChatTurn(BaseModel):
+    question: str
+    answer: str
+
 class ProcessPageRequest(BaseModel):
     url: str
     text: str
+    # Prior turns of a conversation being resumed (oldest first). When empty,
+    # the backend starts with a clean conversational memory for this source.
+    history: List[ChatTurn] = []
 
 class GenerateResponseRequest(BaseModel):
     message: str
@@ -64,7 +72,6 @@ def is_youtube_url(url: str) -> bool:
 
 
 # ── Startup: initialise heavy models once ────────────────────────────────────
-scrp = Scraper()
 rag  = RAG_Model()
 
 
@@ -93,8 +100,13 @@ async def process_page(request_data: ProcessPageRequest):
 
         else:
             print("This is Website URL")
-            scrp.Tab_data(text=text)
-            rag.load_Database()
+            rag.load_Database(text=text, is_raw_text=True)
+
+        history = [turn.model_dump() for turn in request_data.history]
+        if history:
+            rag.seed_memory(history)
+        else:
+            rag.reset_memory()
 
         return JSONResponse(content={'message': 'Page processed successfully'})
 

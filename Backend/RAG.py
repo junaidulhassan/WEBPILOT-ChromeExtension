@@ -254,28 +254,28 @@ class Retrieval_Augmented_Generation:
     
     def VectorDatabase(self, is_pdf=False,
                        text=None,
-                       pdf_file=None, 
-                       is_pdf_file=False,
+                       pdf_file=None,
+                       is_raw_text=False,
                        youtube_url = None,
                        is_youtube_url = False
         ):
         # Define chunk size and overlap for splitting
         chunk_size = 1500
         chunk_overlap = 50
-        
-        if is_pdf and is_pdf_file and is_youtube_url:
+
+        if is_pdf and is_raw_text and is_youtube_url:
            raise ValueError("You cannot load two pdf files or Urls. Please specify only one.")
-        
+
         if is_pdf:
             split = self.__load_pdf(
                 file_path=pdf_file
             )
             print("Load Pdf data Done...")
-        elif is_pdf_file:
+        elif is_raw_text:
             split = self.__load_text(
                 text=text
             )
-            print("Load File..")
+            print("Load Text Done...")
         elif is_youtube_url:
             split = self.__load_youtube_transcript(
                 youtube_url=youtube_url

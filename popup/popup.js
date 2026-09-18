@@ -37,6 +37,16 @@ document.getElementById('settings-btn').addEventListener('click', openSettings);
 document.getElementById('settings-close-btn').addEventListener('click', closeSettings);
 document.getElementById('settings-overlay').addEventListener('click', closeSettings);
 
+document.getElementById('history-btn').addEventListener('click', openHistoryDrawer);
+document.getElementById('history-close-btn').addEventListener('click', closeHistoryDrawer);
+document.getElementById('history-overlay').addEventListener('click', closeHistoryDrawer);
+document.getElementById('history-clear-all-btn').addEventListener('click', async () => {
+    if (confirm('Clear all saved conversations? This cannot be undone.')) {
+        await wpClearAllConversations();
+        renderHistoryList();
+    }
+});
+
 document.querySelectorAll('.theme-btn').forEach(btn => {
     btn.addEventListener('click', () => applyTheme(btn.dataset.theme));
 });
@@ -85,27 +95,41 @@ function updatePromptPill() {
 setInterval(updatePromptPill, 2800);
 
 // ─── Page Processing ──────────────────────────────────────────────────────────
+let currentTab = null;
+let currentConversation = null;
+
 async function processPage() {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    const url   = tab.url;
+    currentTab = tab;
+    const url  = tab.url;
     document.getElementById('web-link').textContent = url;
-
-    loadChatHistory(tab.id);
 
     if (isIrrelevantTab(url)) {
         showError("This tab can't be analysed. Please open a website, PDF, or YouTube video.");
         return;
     }
 
+    const sourceType = detectSourceType(url);
+
+    // Resume the conversation already tied to this tab if it's still the same page.
+    const tabMap   = await wpGetTabMap();
+    const allConvs = await wpGetAllConversations();
+    const mappedId = tabMap[tab.id];
+    const resuming = !!(mappedId && allConvs[mappedId] && allConvs[mappedId].url === url);
+
+    currentConversation = resuming ? allConvs[mappedId] : createConversation(tab, sourceType);
+    renderConversationMessages(currentConversation);
+
     showLoading(true);
+    showUrlLoading(true);
     disableChatInput(true, "Loading page content...");
 
     try {
         let payload;
 
-        if (url.endsWith('.pdf')) {
+        if (sourceType === 'pdf') {
             payload = { url, text: "PDF file" };
-        } else if (isYouTubeUrl(url)) {
+        } else if (sourceType === 'youtube') {
             payload = { url, text: "YouTube video" };
         } else {
             const [result] = await chrome.scripting.executeScript({
@@ -115,17 +139,9 @@ async function processPage() {
             payload = { url, text: result.result };
         }
 
-        const response = await fetch('http://127.0.0.1:8000/process_page', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        });
+        payload.history = resuming ? toBackendHistory(currentConversation.messages) : [];
 
-        if (!response.ok) {
-            const err = await response.json().catch(() => ({}));
-            throw new Error(err.detail || `Server error ${response.status}`);
-        }
-
+        await postProcessPage(payload);
         disableChatInput(false, "");
 
     } catch (error) {
@@ -133,7 +149,23 @@ async function processPage() {
         showError("Could not connect to backend. Make sure the server is running.");
     } finally {
         showLoading(false);
+        showUrlLoading(false);
     }
+}
+
+async function postProcessPage(payload) {
+    const response = await fetch('http://127.0.0.1:8000/process_page', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) {
+        const err = await response.json().catch(() => ({}));
+        throw new Error(err.detail || `Server error ${response.status}`);
+    }
+
+    return response;
 }
 
 function isIrrelevantTab(url) {
@@ -142,6 +174,90 @@ function isIrrelevantTab(url) {
 
 function isYouTubeUrl(url) {
     return /^https?:\/\/(www\.)?(youtube|youtu|youtube-nocookie)\.(com|be)\/.+/i.test(url);
+}
+
+function detectSourceType(url) {
+    if (url.endsWith('.pdf')) return 'pdf';
+    if (isYouTubeUrl(url)) return 'youtube';
+    return 'website';
+}
+
+function sourceIcon(sourceType) {
+    return {
+        pdf: 'fa-solid fa-file-pdf',
+        youtube: 'fa-brands fa-youtube',
+        website: 'fa-solid fa-globe'
+    }[sourceType] || 'fa-solid fa-globe';
+}
+
+function deriveTitle(tabTitle, url) {
+    if (tabTitle && tabTitle.trim()) return tabTitle.trim().slice(0, 80);
+    try { return new URL(url).hostname; } catch { return url.slice(0, 80); }
+}
+
+function createConversation(tab, sourceType) {
+    return {
+        id: crypto.randomUUID(),
+        url: tab.url,
+        sourceType,
+        title: deriveTitle(tab.title, tab.url),
+        createdAt: Date.now(),
+        updatedAt: Date.now(),
+        messages: []
+    };
+}
+
+// Convert stored {role, text} messages into oldest-first {question, answer}
+// pairs the backend can replay into its conversational memory.
+function toBackendHistory(messages) {
+    const pairs = [];
+    let pendingQuestion = null;
+    for (const msg of messages) {
+        if (msg.role === 'user') {
+            pendingQuestion = msg.text;
+        } else if (msg.role === 'assistant' && pendingQuestion !== null) {
+            pairs.push({ question: pendingQuestion, answer: msg.text });
+            pendingQuestion = null;
+        }
+    }
+    return pairs;
+}
+
+function appendMessageToConversation(role, text) {
+    if (!currentConversation) return;
+    currentConversation.messages.push({ role, text, timestamp: Date.now() });
+    currentConversation.updatedAt = Date.now();
+}
+
+async function persistCurrentConversation() {
+    if (!currentConversation || !currentTab) return;
+    await wpSaveConversation(currentConversation);
+    await wpSetTabConversation(currentTab.id, currentConversation.id);
+}
+
+function renderConversationMessages(conversation) {
+    const chatMessages = document.getElementById('chat-messages');
+    chatMessages.innerHTML = '';
+
+    if (!conversation.messages.length) {
+        chatMessages.appendChild(buildWelcomeScreen());
+        isFirstMessage = true;
+        return;
+    }
+
+    isFirstMessage = false;
+    for (const msg of conversation.messages) {
+        if (msg.role === 'user') {
+            chatMessages.appendChild(createUserMessage(msg.text));
+        } else if (msg.role === 'assistant') {
+            const botEl = createBotMessage();
+            botEl.querySelector('.message-bubble').innerHTML = convertToMarkdown(msg.text);
+            chatMessages.appendChild(botEl);
+        } else if (msg.role === 'error') {
+            chatMessages.appendChild(createErrorMessage(msg.text));
+        }
+    }
+    scrollToBottom();
 }
 
 // ─── Messaging ────────────────────────────────────────────────────────────────
@@ -160,6 +276,7 @@ async function sendMessage() {
 
     // Render user message
     chatMessages.appendChild(createUserMessage(userInput));
+    appendMessageToConversation('user', userInput);
 
     // Reset input
     const inputEl = document.getElementById("user-input");
@@ -187,18 +304,18 @@ async function sendMessage() {
         const botEl = createBotMessage();
         chatMessages.appendChild(botEl);
         await typewriterRender(botResponse, botEl.querySelector('.message-bubble'));
+        appendMessageToConversation('assistant', botResponse);
 
     } catch (error) {
         console.error('sendMessage error:', error);
         removeTypingDots();
         chatMessages.appendChild(createErrorMessage("Error retrieving response. Please check your connection."));
+        appendMessageToConversation('error', "Error retrieving response. Please check your connection.");
     } finally {
         showLoading(false);
         disableChatInput(false, "Ask me anything...");
         scrollToBottom();
-
-        const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-        saveChatHistory(tab.id, chatMessages.innerHTML);
+        await persistCurrentConversation();
     }
 }
 
@@ -247,37 +364,157 @@ function createErrorMessage(text) {
 }
 
 // ─── Chat History ─────────────────────────────────────────────────────────────
-function saveChatHistory(tabId, html) {
-    chrome.storage.local.set({ [tabId]: html }, () => {
-        console.log('Chat history saved for tab:', tabId);
-    });
+// Starts a fresh conversation thread for the current tab. The old thread is
+// NOT deleted — it stays saved and browsable from the History drawer.
+async function clearChatHistory() {
+    if (!currentTab) return;
+
+    currentConversation = createConversation(currentTab, detectSourceType(currentTab.url));
+    renderConversationMessages(currentConversation);
 }
 
-function loadChatHistory(tabId) {
-    chrome.storage.local.get([String(tabId)], (result) => {
-        if (result[String(tabId)]) {
-            const chatMessages = document.getElementById("chat-messages");
-            chatMessages.innerHTML = result[String(tabId)];
-            scrollToBottom();
-            isFirstMessage = false;
+// ─── Conversation History Drawer ───────────────────────────────────────────────
+async function renderHistoryList() {
+    const listEl  = document.getElementById('history-list');
+    const emptyEl = document.getElementById('history-empty');
+    const all     = await wpGetAllConversations();
+    const items   = Object.values(all).sort((a, b) => b.updatedAt - a.updatedAt);
+
+    listEl.innerHTML = '';
+
+    if (!items.length) {
+        emptyEl.classList.remove('hidden');
+        return;
+    }
+    emptyEl.classList.add('hidden');
+
+    for (const conv of items) {
+        listEl.appendChild(buildHistoryItem(conv));
+    }
+}
+
+function buildHistoryItem(conv) {
+    const item = document.createElement('div');
+    item.classList.add('history-item');
+
+    const lastMsg = [...conv.messages].reverse().find((m) => m.role !== 'error');
+    let hostname = conv.url;
+    try { hostname = new URL(conv.url).hostname; } catch { /* keep raw url */ }
+
+    item.innerHTML = `
+        <div class="history-item-icon"><i class="${sourceIcon(conv.sourceType)}"></i></div>
+        <div class="history-item-body">
+            <div class="history-item-title">${escapeHtml(conv.title)}</div>
+            <div class="history-item-meta">
+                <span>${formatHistoryDate(conv.updatedAt)}</span>
+                <span class="history-item-dot">•</span>
+                <span class="history-item-source">${escapeHtml(hostname)}</span>
+            </div>
+            ${lastMsg ? `<div class="history-item-snippet">${escapeHtml(lastMsg.text.slice(0, 90))}</div>` : ''}
+        </div>
+        <button class="history-item-delete" title="Delete conversation"><i class="fa-solid fa-trash"></i></button>
+    `;
+
+    item.querySelector('.history-item-body').addEventListener('click', () => openConversationFromHistory(conv.id));
+    item.querySelector('.history-item-delete').addEventListener('click', async (e) => {
+        e.stopPropagation();
+        if (confirm(`Delete "${conv.title}"? This can't be undone.`)) {
+            await wpDeleteConversation(conv.id);
+            renderHistoryList();
         }
     });
+
+    return item;
 }
 
-function clearChatHistory() {
-    const chatMessages = document.getElementById("chat-messages");
-    chatMessages.innerHTML = '';
-    isFirstMessage = true;
+function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str ?? '';
+    return div.innerHTML;
+}
 
-    // Re-inject welcome screen
-    const welcome = buildWelcomeScreen();
-    chatMessages.appendChild(welcome);
+function formatHistoryDate(ts) {
+    const d   = new Date(ts);
+    const now = new Date();
+    const yesterday = new Date(now);
+    yesterday.setDate(now.getDate() - 1);
 
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-        chrome.storage.local.remove([String(tabs[0].id)], () => {
-            console.log("Chat history cleared for tab:", tabs[0].id);
-        });
-    });
+    const time = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    if (d.toDateString() === now.toDateString()) return `Today, ${time}`;
+    if (d.toDateString() === yesterday.toDateString()) return `Yesterday, ${time}`;
+
+    const dateOpts = { month: 'short', day: 'numeric' };
+    if (d.getFullYear() !== now.getFullYear()) dateOpts.year = 'numeric';
+    return `${d.toLocaleDateString([], dateOpts)}, ${time}`;
+}
+
+function openHistoryDrawer() {
+    renderHistoryList();
+    document.getElementById('history-overlay').classList.remove('hidden');
+    document.getElementById('history-drawer').classList.remove('hidden');
+}
+
+function closeHistoryDrawer() {
+    document.getElementById('history-overlay').classList.add('hidden');
+    document.getElementById('history-drawer').classList.add('hidden');
+}
+
+// Reopens a saved conversation: restores its messages instantly, then tries
+// to reload its source content into the backend (re-fetching PDF/YouTube by
+// URL, or re-scraping the matching open tab for a website) so the model has
+// the right context and the chat can continue naturally.
+async function openConversationFromHistory(id) {
+    const all = await wpGetAllConversations();
+    const conversation = all[id];
+    if (!conversation) return;
+
+    closeHistoryDrawer();
+
+    currentConversation = conversation;
+    document.getElementById('web-link').textContent = conversation.url;
+    renderConversationMessages(conversation);
+
+    if (currentTab) {
+        await wpSetTabConversation(currentTab.id, conversation.id);
+    }
+
+    showLoading(true);
+    showUrlLoading(true);
+    disableChatInput(true, "Reloading conversation context...");
+
+    try {
+        const history = toBackendHistory(conversation.messages);
+
+        if (conversation.sourceType === 'pdf') {
+            await postProcessPage({ url: conversation.url, text: "PDF file", history });
+            disableChatInput(false, "");
+        } else if (conversation.sourceType === 'youtube') {
+            await postProcessPage({ url: conversation.url, text: "YouTube video", history });
+            disableChatInput(false, "");
+        } else {
+            const matchTabs = await chrome.tabs.query({ url: conversation.url }).catch(() => []);
+            const matchTab  = matchTabs && matchTabs[0];
+
+            if (matchTab) {
+                const [result] = await chrome.scripting.executeScript({
+                    target: { tabId: matchTab.id },
+                    func: () => document.body.innerText
+                });
+                await postProcessPage({ url: conversation.url, text: result.result, history });
+                disableChatInput(false, "");
+            } else {
+                let hostname = conversation.url;
+                try { hostname = new URL(conversation.url).hostname; } catch { /* keep raw url */ }
+                disableChatInput(true, `Open ${hostname} in a tab to continue this conversation`);
+            }
+        }
+    } catch (error) {
+        console.error('openConversationFromHistory error:', error);
+        disableChatInput(true, "Could not reload this conversation's content.");
+    } finally {
+        showLoading(false);
+        showUrlLoading(false);
+    }
 }
 
 function buildWelcomeScreen() {
@@ -345,6 +582,10 @@ function showLoading(on) {
     } else {
         icon.classList.remove('spinning');
     }
+}
+
+function showUrlLoading(on) {
+    document.getElementById('url-bar')?.classList.toggle('loading', on);
 }
 
 function scrollToBottom() {

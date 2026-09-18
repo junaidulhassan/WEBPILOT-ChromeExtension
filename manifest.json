@@ -3,7 +3,7 @@
   "name": "Web Pilot",
   "version": "1.0",
   "description": "Chat with any website.",
-  "permissions": ["activeTab", "storage", "scripting"],
+  "permissions": ["activeTab", "storage", "scripting", "tabs"],
   "background": {
     "service_worker": "background.js"
   },
