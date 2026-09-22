@@ -1,3 +1,5 @@
-chrome.runtime.onInstalled.addListener(() => {
-    console.log('Web Pilot extension installed');
+importScripts('popup/logger.js');
+
+chrome.runtime.onInstalled.addListener((details) => {
+    WPLog.info('extension_installed', { reason: details.reason, previousVersion: details.previousVersion || null });
 });

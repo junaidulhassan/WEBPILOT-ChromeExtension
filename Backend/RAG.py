@@ -26,6 +26,8 @@ from youtube_transcript_api._errors import (
     VideoUnavailable,
 )
 
+from logging_config import logger
+
 # Load environment variables
 load_dotenv()
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
@@ -51,11 +53,11 @@ class Retrieval_Augmented_Generation:
             
             # Load documents using the loader
             docs = loader.load()
-            print("Docs load from file...")
+            logger.debug("Docs loaded from file")
             return docs
-        
-        except Exception as e:
-            print(f"Error loading documents: {e}")
+
+        except Exception:
+            logger.exception("Error loading documents")
             return None
     
     def __load_pdf(self,file_path):
@@ -86,16 +88,15 @@ class Retrieval_Augmented_Generation:
             # Attempt to load the PDF
             loader = PyPDFLoader(file_path=file_path)
             docs = loader.load()
-            print("PDF loaded successfully!")
-        except Exception as e:
-            print(f"Error loading PDF file")
-            # Return error_text in a Document object
+            logger.info("PDF loaded successfully")
+        except Exception:
+            logger.exception(f"Error loading PDF file: {file_path}")
             docs = [Document(page_content=error_text)]
             return docs
 
         # Check if the document contains data
         if len(docs) == 0 or not all(doc.page_content.strip() for doc in docs):
-            print("PDF file has no readable text or data...")
+            logger.warning(f"PDF file has no readable text or data: {file_path}")
             docs = [Document(page_content=error_text_2)]
     
         # Split documents into chunks
@@ -119,9 +120,9 @@ class Retrieval_Augmented_Generation:
         )
         try:
             docs = [Document(page_content=x) for x in splitter.split_text(text)]
-        except Exception as e:
-            print("Error to load files")
-            
+        except Exception:
+            logger.exception("Error splitting raw text into documents")
+
         split = splitter.split_documents(
             documents=docs
         )
@@ -186,7 +187,7 @@ class Retrieval_Augmented_Generation:
 
         video_id = self.__extract_video_id(youtube_url)
         if not video_id:
-            print("Could not extract a YouTube video ID from URL:", youtube_url)
+            logger.warning(f"Could not extract a YouTube video ID from URL: {youtube_url}")
             return _error_docs(error_text_3)
 
         try:
@@ -205,20 +206,20 @@ class Retrieval_Augmented_Generation:
             text = " ".join(snippet.text for snippet in fetched).strip()
 
             if not text:
-                print("Video transcript was empty")
+                logger.warning(f"Video transcript was empty: {youtube_url}")
                 return _error_docs(error_text_2)
 
             docs = [Document(page_content=text, metadata={"source": youtube_url})]
             return splitter.split_documents(docs)
 
         except (TranscriptsDisabled, NoTranscriptFound):
-            print("Video does not have an available transcript")
+            logger.warning(f"Video does not have an available transcript: {youtube_url}")
             return _error_docs(error_text)
         except VideoUnavailable:
-            print("Video is unavailable")
+            logger.warning(f"Video is unavailable: {youtube_url}")
             return _error_docs(error_text_3)
-        except Exception as e:
-            print(f"Video Transcript Error Occurred: {e}")
+        except Exception:
+            logger.exception(f"Video transcript error occurred: {youtube_url}")
             return _error_docs(error_text)
     
     def __text_spliter(self, chunks_size=500, chunks_overlap=50):
@@ -248,8 +249,8 @@ class Retrieval_Augmented_Generation:
             model="models/gemini-embedding-001",
             google_api_key=GOOGLE_API_KEY
         )
-        print("Embedding Runnings...")
-        
+        logger.info("Embedding model initialised")
+
         return embeddings
     
     def VectorDatabase(self, is_pdf=False,
@@ -270,12 +271,12 @@ class Retrieval_Augmented_Generation:
             split = self.__load_pdf(
                 file_path=pdf_file
             )
-            print("Load Pdf data Done...")
+            logger.info("PDF data loaded")
         elif is_raw_text:
             split = self.__load_text(
                 text=text
             )
-            print("Load Text Done...")
+            logger.info("Raw text loaded")
         elif is_youtube_url:
             split = self.__load_youtube_transcript(
                 youtube_url=youtube_url
@@ -285,8 +286,8 @@ class Retrieval_Augmented_Generation:
                 chunks_size=chunk_size,
                 chunks_overlap=chunk_overlap
             )
-        
-        print("Database Running..")
+
+        logger.info(f"Building vector database from {len(split)} chunks")
         # Create a vector database using the split documents and embeddings
         db = FAISS.from_documents(
             documents=split,
@@ -300,7 +301,7 @@ class Retrieval_Augmented_Generation:
         directory_path = self.__DB_path
     
         if not os.path.exists(directory_path):
-            print(f"The directory {directory_path} does not exist.")
+            logger.warning(f"The directory {directory_path} does not exist.")
             return
         else:
             # Delete the collection in the vector database

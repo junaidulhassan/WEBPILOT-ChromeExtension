@@ -15,6 +15,7 @@ node_modules/
 
 # Scraped data / runtime artifacts
 Scraped_data/*.txt
+Backend/logs/
 
 # Editor / OS
 .DS_Store

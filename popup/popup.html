@@ -20,6 +20,23 @@
             <button id="settings-close-btn" class="drawer-close-btn" title="Close settings"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="settings-body">
+            <div class="settings-section-label">Model</div>
+            <div class="setting-row">
+                <div class="setting-info">
+                    <span class="setting-name">AI Model</span>
+                    <span class="setting-desc">Switch AI Model</span>
+                </div>
+                <div class="model-toggle-group" id="model-toggle-group">
+                    <button class="model-btn active" data-model="gemini">
+                        <i class="fa-solid fa-star"></i> Gemini
+                    </button>
+                    <button class="model-btn" data-model="llama-3.3-70b-versatile">
+                        <i class="fa-solid fa-bolt"></i> Llama 3.3
+                    </button>
+                </div>
+            </div>
+
+            <div class="settings-divider"></div>
             <div class="settings-section-label">Appearance</div>
             <div class="setting-row">
                 <div class="setting-info">
@@ -78,6 +95,24 @@
             <span class="brand-name">WebPilot<span class="brand-accent">.AI</span></span>
         </div>
         <div id="action-btn-container">
+            <div class="tone-btn-wrap">
+                <button id="tone-btn" class="icon-btn" title="Response style">
+                    <i class="fa-solid fa-masks-theater"></i>
+                </button>
+                <div id="tone-dropdown" class="tone-dropdown hidden">
+                    <div class="tone-dropdown-title">Response Style</div>
+                    <div class="tone-grid" id="tone-grid">
+                        <button class="tone-chip active" data-tone="detailed">Detailed</button>
+                        <button class="tone-chip" data-tone="concise">Concise</button>
+                        <button class="tone-chip" data-tone="creative">Creative</button>
+                        <button class="tone-chip" data-tone="welcoming">Welcoming</button>
+                        <button class="tone-chip" data-tone="professional">Professional</button>
+                        <button class="tone-chip" data-tone="assertive">Assertive</button>
+                        <button class="tone-chip" data-tone="strict_to_data">Strict to Data</button>
+                        <button class="tone-chip" data-tone="critical">Critical</button>
+                    </div>
+                </div>
+            </div>
             <button id="settings-btn" class="icon-btn" title="Settings">
                 <i class="fa-solid fa-gear"></i>
             </button>
@@ -129,6 +164,7 @@
         </div>
     </div>
 
+    <script src="logger.js"></script>
     <script src="storage.js"></script>
     <script src="popup.js"></script>
 </body>

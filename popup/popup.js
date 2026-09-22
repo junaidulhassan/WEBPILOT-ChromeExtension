@@ -13,6 +13,92 @@ function applyTheme(theme) {
     });
 }
 
+// ─── Model Management ─────────────────────────────────────────────────────────
+const DEFAULT_MODEL_ID = 'gemini';
+
+function getSelectedModel() {
+    return localStorage.getItem('wp-model') || DEFAULT_MODEL_ID;
+}
+
+function applyModelSelection(modelId) {
+    localStorage.setItem('wp-model', modelId);
+    document.querySelectorAll('.model-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.model === modelId);
+    });
+}
+
+// Tells the backend which model to answer with from now on. This only swaps
+// the LLM instance — conversation memory and the loaded page's retriever are
+// untouched — so switching models never interrupts or resets the ongoing chat.
+async function syncModelToBackend(modelId) {
+    try {
+        await fetch('http://127.0.0.1:8000/set_model', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ model: modelId })
+        });
+    } catch (error) {
+        WPLog.error('set_model_request_failed', { modelId, error: String(error) });
+    }
+}
+
+async function selectModel(modelId) {
+    const previous = getSelectedModel();
+    applyModelSelection(modelId);
+    WPLog.info('model_switched', { from: previous, to: modelId });
+    await syncModelToBackend(modelId);
+}
+
+// ─── Personality / Tone Management ─────────────────────────────────────────────
+const DEFAULT_TONE_ID = 'detailed';
+
+function getSelectedTone() {
+    return localStorage.getItem('wp-tone') || DEFAULT_TONE_ID;
+}
+
+function applyToneSelection(toneId) {
+    localStorage.setItem('wp-tone', toneId);
+    document.querySelectorAll('.tone-chip').forEach(chip => {
+        chip.classList.toggle('active', chip.dataset.tone === toneId);
+    });
+}
+
+// Tells the backend which response style to use from now on. This only
+// changes how the next reply is phrased — conversation memory and the loaded
+// page's retriever are untouched — so switching tones never interrupts or
+// resets the ongoing chat.
+async function syncToneToBackend(toneId) {
+    try {
+        await fetch('http://127.0.0.1:8000/set_tone', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ tone: toneId })
+        });
+    } catch (error) {
+        WPLog.error('set_tone_request_failed', { toneId, error: String(error) });
+    }
+}
+
+async function selectTone(toneId) {
+    const previous = getSelectedTone();
+    applyToneSelection(toneId);
+    WPLog.info('tone_switched', { from: previous, to: toneId });
+    await syncToneToBackend(toneId);
+}
+
+function openToneDropdown() {
+    document.getElementById('tone-dropdown').classList.remove('hidden');
+}
+
+function closeToneDropdown() {
+    document.getElementById('tone-dropdown').classList.add('hidden');
+}
+
+function toggleToneDropdown(event) {
+    event.stopPropagation();
+    document.getElementById('tone-dropdown').classList.toggle('hidden');
+}
+
 // ─── Settings Drawer ──────────────────────────────────────────────────────────
 function openSettings() {
     document.getElementById('settings-overlay').classList.remove('hidden');
@@ -26,7 +112,12 @@ function closeSettings() {
 
 // ─── Event Listeners ─────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
+    WPLog.info('popup_opened');
     applyTheme(getTheme());
+    applyModelSelection(getSelectedModel());
+    syncModelToBackend(getSelectedModel());
+    applyToneSelection(getSelectedTone());
+    syncToneToBackend(getSelectedTone());
     processPage();
 });
 
@@ -37,18 +128,42 @@ document.getElementById('settings-btn').addEventListener('click', openSettings);
 document.getElementById('settings-close-btn').addEventListener('click', closeSettings);
 document.getElementById('settings-overlay').addEventListener('click', closeSettings);
 
+document.getElementById('tone-btn').addEventListener('click', toggleToneDropdown);
+document.addEventListener('click', (event) => {
+    const dropdown = document.getElementById('tone-dropdown');
+    const btn = document.getElementById('tone-btn');
+    if (!dropdown.contains(event.target) && !btn.contains(event.target)) {
+        closeToneDropdown();
+    }
+});
+
 document.getElementById('history-btn').addEventListener('click', openHistoryDrawer);
 document.getElementById('history-close-btn').addEventListener('click', closeHistoryDrawer);
 document.getElementById('history-overlay').addEventListener('click', closeHistoryDrawer);
 document.getElementById('history-clear-all-btn').addEventListener('click', async () => {
     if (confirm('Clear all saved conversations? This cannot be undone.')) {
         await wpClearAllConversations();
+        WPLog.info('history_cleared_all');
         renderHistoryList();
     }
 });
 
 document.querySelectorAll('.theme-btn').forEach(btn => {
-    btn.addEventListener('click', () => applyTheme(btn.dataset.theme));
+    btn.addEventListener('click', () => {
+        WPLog.info('theme_changed', { theme: btn.dataset.theme });
+        applyTheme(btn.dataset.theme);
+    });
+});
+
+document.querySelectorAll('.model-btn').forEach(btn => {
+    btn.addEventListener('click', () => selectModel(btn.dataset.model));
+});
+
+document.querySelectorAll('.tone-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+        selectTone(chip.dataset.tone);
+        closeToneDropdown();
+    });
 });
 
 // Auto-resize textarea
@@ -105,11 +220,13 @@ async function processPage() {
     document.getElementById('web-link').textContent = url;
 
     if (isIrrelevantTab(url)) {
+        WPLog.warn('page_irrelevant_tab', { url });
         showError("This tab can't be analysed. Please open a website, PDF, or YouTube video.");
         return;
     }
 
     const sourceType = detectSourceType(url);
+    WPLog.info('page_process_start', { url, sourceType });
 
     // Resume the conversation already tied to this tab if it's still the same page.
     const tabMap   = await wpGetTabMap();
@@ -142,10 +259,11 @@ async function processPage() {
         payload.history = resuming ? toBackendHistory(currentConversation.messages) : [];
 
         await postProcessPage(payload);
+        WPLog.info('page_process_success', { url, sourceType, resuming });
         disableChatInput(false, "");
 
     } catch (error) {
-        console.error('processPage error:', error);
+        WPLog.error('page_process_failed', { url, sourceType, error: String(error) });
         showError("Could not connect to backend. Make sure the server is running.");
     } finally {
         showLoading(false);
@@ -277,6 +395,7 @@ async function sendMessage() {
     // Render user message
     chatMessages.appendChild(createUserMessage(userInput));
     appendMessageToConversation('user', userInput);
+    WPLog.info('message_sent', { length: userInput.length, model: getSelectedModel(), tone: getSelectedTone() });
 
     // Reset input
     const inputEl = document.getElementById("user-input");
@@ -285,7 +404,14 @@ async function sendMessage() {
 
     disableChatInput(true, "Generating response...");
     showLoading(true);
-    showTypingDots();
+
+    // Show the bot's reply bubble right away with a pulsing "Thinking…"
+    // placeholder, so the slot is never left blank while the model works —
+    // it gets overwritten by the real answer as soon as it starts streaming in.
+    const botEl = createBotMessage();
+    chatMessages.appendChild(botEl);
+    const bubble = botEl.querySelector('.message-bubble');
+    bubble.innerHTML = '<span class="thinking-text">Thinking…</span>';
     scrollToBottom();
 
     try {
@@ -295,20 +421,15 @@ async function sendMessage() {
             body: JSON.stringify({ message: userInput })
         });
 
-        if (!response.ok) throw new Error(`Server error ${response.status}`);
+        if (!response.ok || !response.body) throw new Error(`Server error ${response.status}`);
 
-        const result      = await response.json();
-        const botResponse = result.response || "Sorry, I couldn't generate a response. Please try again.";
-
-        removeTypingDots();
-        const botEl = createBotMessage();
-        chatMessages.appendChild(botEl);
-        await typewriterRender(botResponse, botEl.querySelector('.message-bubble'));
-        appendMessageToConversation('assistant', botResponse);
+        const botResponse = await streamRenderResponse(response.body, bubble);
+        appendMessageToConversation('assistant', botResponse || "Sorry, I couldn't generate a response. Please try again.");
+        WPLog.info('message_response_success', { responseLength: botResponse.length });
 
     } catch (error) {
-        console.error('sendMessage error:', error);
-        removeTypingDots();
+        WPLog.error('message_response_failed', { error: String(error) });
+        botEl.remove();
         chatMessages.appendChild(createErrorMessage("Error retrieving response. Please check your connection."));
         appendMessageToConversation('error', "Error retrieving response. Please check your connection.");
     } finally {
@@ -420,6 +541,7 @@ function buildHistoryItem(conv) {
         e.stopPropagation();
         if (confirm(`Delete "${conv.title}"? This can't be undone.`)) {
             await wpDeleteConversation(conv.id);
+            WPLog.info('history_conversation_deleted', { id: conv.id });
             renderHistoryList();
         }
     });
@@ -468,6 +590,7 @@ async function openConversationFromHistory(id) {
     const conversation = all[id];
     if (!conversation) return;
 
+    WPLog.info('history_conversation_opened', { id, sourceType: conversation.sourceType });
     closeHistoryDrawer();
 
     currentConversation = conversation;
@@ -509,7 +632,7 @@ async function openConversationFromHistory(id) {
             }
         }
     } catch (error) {
-        console.error('openConversationFromHistory error:', error);
+        WPLog.error('history_reload_failed', { id, error: String(error) });
         disableChatInput(true, "Could not reload this conversation's content.");
     } finally {
         showLoading(false);
@@ -552,26 +675,6 @@ function disableChatInput(disable, placeholder) {
     if (placeholder !== undefined) {
         inputField.placeholder = disable ? (placeholder || "") : (placeholder || "Ask me anything...");
     }
-}
-
-function showTypingDots() {
-    const chatMessages = document.getElementById("chat-messages");
-    const indicator = document.createElement('div');
-    indicator.classList.add('typing-indicator');
-    indicator.innerHTML = `
-        <div class="bot-avatar"><i class="fa-solid fa-atom"></i></div>
-        <div class="typing-bubble">
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-        </div>
-    `;
-    chatMessages.appendChild(indicator);
-    scrollToBottom();
-}
-
-function removeTypingDots() {
-    document.querySelector('.typing-indicator')?.remove();
 }
 
 function showLoading(on) {
@@ -645,56 +748,36 @@ function convertToMarkdown(text) {
     return html.trim();
 }
 
-// ─── Typewriter Effect ────────────────────────────────────────────────────────
-// Strategy: parse the markdown into real HTML, then animate each text node
-// word-by-word so HTML structure is always valid and never shows raw tags.
-async function typewriterRender(text, element) {
-    const chatMessages = document.getElementById("chat-messages");
+// ─── Streaming Render ─────────────────────────────────────────────────────────
+// Reads the response body as it arrives from the backend and renders it into
+// the bubble progressively, so the answer appears as soon as the model
+// produces it instead of waiting for the whole response then faking a delay.
+async function streamRenderResponse(body, bubble) {
+    const reader  = body.getReader();
+    const decoder = new TextDecoder();
+    let fullText  = '';
+    let chunkCount = 0;
 
-    // 1. Render markdown into a detached container
-    const rendered = convertToMarkdown(text);
-    const temp = document.createElement('div');
-    temp.innerHTML = rendered;
+    while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
 
-    // 2. Clone the structure into the target but hide all text nodes
-    element.innerHTML = '';
-    const clone = temp.cloneNode(true);
-    element.appendChild(clone);
+        fullText += decoder.decode(value, { stream: true });
+        chunkCount++;
 
-    // 3. Collect every text node inside the bubble
-    const textNodes = [];
-    const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null);
-    let node;
-    while ((node = walker.nextNode())) {
-        textNodes.push(node);
-    }
-
-    // 4. Hide all text by replacing each text node with a span-wrapped version
-    //    where words start invisible and reveal one by one
-    const wordSpans = [];
-    for (const tn of textNodes) {
-        const words = tn.textContent.split(/(\s+)/); // keep whitespace tokens
-        const frag = document.createDocumentFragment();
-        for (const word of words) {
-            const span = document.createElement('span');
-            span.textContent = word;
-            span.style.opacity = '0';
-            span.style.transition = 'opacity 0.12s ease';
-            frag.appendChild(span);
-            if (word.trim()) wordSpans.push(span); // only animate non-whitespace
-            else span.style.opacity = '1'; // show whitespace immediately
-        }
-        tn.parentNode.replaceChild(frag, tn);
-    }
-
-    // 5. Reveal words with a small stagger
-    for (let i = 0; i < wordSpans.length; i++) {
-        wordSpans[i].style.opacity = '1';
-        if (i % 4 === 0) {
+        // Render on the very first chunk so the "Thinking…" placeholder is
+        // replaced the instant real content starts arriving; after that,
+        // re-parsing markdown on every single chunk is wasted work once
+        // chunks arrive in a tight burst, so throttle the DOM update.
+        if (chunkCount === 1 || chunkCount % 3 === 0) {
+            bubble.innerHTML = convertToMarkdown(fullText);
             scrollToBottom();
-            await new Promise(resolve => setTimeout(resolve, 18));
         }
     }
 
+    fullText += decoder.decode();
+    bubble.innerHTML = convertToMarkdown(fullText);
     scrollToBottom();
+
+    return fullText.trim();
 }
