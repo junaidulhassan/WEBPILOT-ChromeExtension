@@ -86,6 +86,48 @@ async function selectTone(toneId) {
     await syncToneToBackend(toneId);
 }
 
+// ─── Embedding Model Management ────────────────────────────────────────────────
+const DEFAULT_EMBEDDING_ID = 'gemini-embedding';
+
+function getSelectedEmbedding() {
+    return localStorage.getItem('wp-embedding') || DEFAULT_EMBEDDING_ID;
+}
+
+function applyEmbeddingSelection(embeddingId) {
+    localStorage.setItem('wp-embedding', embeddingId);
+    document.querySelectorAll('.embedding-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.embedding === embeddingId);
+    });
+}
+
+function setEmbeddingButtonsDisabled(disabled) {
+    document.querySelectorAll('.embedding-btn').forEach(btn => {
+        btn.disabled = disabled;
+    });
+}
+
+async function syncEmbeddingToBackend(embeddingId) {
+    try {
+        const response = await fetch('http://127.0.0.1:8000/set_embedding', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ embedding: embeddingId })
+        });
+        if (!response.ok) throw new Error(`Server error ${response.status}`);
+    } catch (error) {
+        WPLog.error('set_embedding_request_failed', { embeddingId, error: String(error) });
+    }
+}
+
+async function selectEmbedding(embeddingId) {
+    const previous = getSelectedEmbedding();
+    applyEmbeddingSelection(embeddingId);
+    WPLog.info('embedding_switched', { from: previous, to: embeddingId });
+    setEmbeddingButtonsDisabled(true);
+    await syncEmbeddingToBackend(embeddingId);
+    setEmbeddingButtonsDisabled(false);
+}
+
 function openToneDropdown() {
     document.getElementById('tone-dropdown').classList.remove('hidden');
 }
@@ -118,6 +160,8 @@ document.addEventListener('DOMContentLoaded', () => {
     syncModelToBackend(getSelectedModel());
     applyToneSelection(getSelectedTone());
     syncToneToBackend(getSelectedTone());
+    applyEmbeddingSelection(getSelectedEmbedding());
+    syncEmbeddingToBackend(getSelectedEmbedding());
     processPage();
 });
 
@@ -157,6 +201,10 @@ document.querySelectorAll('.theme-btn').forEach(btn => {
 
 document.querySelectorAll('.model-btn').forEach(btn => {
     btn.addEventListener('click', () => selectModel(btn.dataset.model));
+});
+
+document.querySelectorAll('.embedding-btn').forEach(btn => {
+    btn.addEventListener('click', () => selectEmbedding(btn.dataset.embedding));
 });
 
 document.querySelectorAll('.tone-chip').forEach(chip => {

@@ -17,7 +17,7 @@
   ],
   "icons": {
     "16": "icons/webpilot-16.png",
-    "48": "icons/webpilot-16.png",
-    "128": "icons/webpilot-16.png"
+    "48": "icons/webpilot-48.png",
+    "128": "icons/webpilot-148.png"
   }
 }

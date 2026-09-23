@@ -24,7 +24,7 @@
             <div class="setting-row">
                 <div class="setting-info">
                     <span class="setting-name">AI Model</span>
-                    <span class="setting-desc">Switch AI Model</span>
+                    <span class="setting-desc">Chat model</span>
                 </div>
                 <div class="model-toggle-group" id="model-toggle-group">
                     <button class="model-btn active" data-model="gemini">
@@ -37,11 +37,28 @@
             </div>
 
             <div class="settings-divider"></div>
+            <div class="settings-section-label">Embedding</div>
+            <div class="setting-row">
+                <div class="setting-info">
+                    <span class="setting-name">Embedding Model</span>
+                    <span class="setting-desc">Applies on next load</span>
+                </div>
+                <div class="embedding-toggle-group" id="embedding-toggle-group">
+                    <button class="embedding-btn active" data-embedding="gemini-embedding">
+                        <i class="fa-solid fa-cloud"></i> Gemini
+                    </button>
+                    <button class="embedding-btn" data-embedding="local-embedding">
+                        <i class="fa-solid fa-microchip"></i> Local
+                    </button>
+                </div>
+            </div>
+
+            <div class="settings-divider"></div>
             <div class="settings-section-label">Appearance</div>
             <div class="setting-row">
                 <div class="setting-info">
                     <span class="setting-name">Theme</span>
-                    <span class="setting-desc">Switch between dark and light mode</span>
+                    <span class="setting-desc">Dark / Light</span>
                 </div>
                 <div class="theme-toggle-group">
                     <button class="theme-btn active" id="theme-dark" data-theme="dark">
@@ -59,7 +76,7 @@
                 <i class="fa-solid fa-atom about-icon"></i>
                 <div>
                     <div class="setting-name">WebPilot AI</div>
-                    <div class="setting-desc">Explore large contents in seconds</div>
+                    <div class="setting-desc">v1.0</div>
                 </div>
             </div>
         </div>

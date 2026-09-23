@@ -665,6 +665,9 @@ a { text-decoration: none; }
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
 }
 
 .settings-section-label {
@@ -707,9 +710,10 @@ a { text-decoration: none; }
     color: var(--text-muted);
 }
 
-/* Theme toggle / Model toggle */
+/* Theme toggle / Model toggle / Embedding toggle */
 .theme-toggle-group,
-.model-toggle-group {
+.model-toggle-group,
+.embedding-toggle-group {
     display: flex;
     background: var(--bg-page);
     border-radius: var(--radius-sm);
@@ -720,7 +724,8 @@ a { text-decoration: none; }
 }
 
 .theme-btn,
-.model-btn {
+.model-btn,
+.embedding-btn {
     padding: 5px 10px;
     border-radius: 7px;
     border: none;
@@ -737,10 +742,16 @@ a { text-decoration: none; }
 }
 
 .theme-btn.active,
-.model-btn.active {
+.model-btn.active,
+.embedding-btn.active {
     background: var(--grad-metal);
     color: var(--on-metal);
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+}
+
+.embedding-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .tone-btn-wrap {

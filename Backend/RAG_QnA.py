@@ -7,8 +7,9 @@ from dotenv import load_dotenv
 from langchain.prompts import PromptTemplate
 from langchain.memory import ConversationBufferWindowMemory
 from RAG import Retrieval_Augmented_Generation
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings
 from langchain_groq import ChatGroq
+from langchain_huggingface import HuggingFaceEmbeddings
 import io
 import os
 from PIL import Image
@@ -92,6 +93,21 @@ TONE_REGISTRY = {
 
 DEFAULT_TONE_KEY = "detailed"
 
+EMBEDDING_REGISTRY = {
+    "gemini-embedding": {
+        "label":    "Gemini Embedding",
+        "provider": "google",
+        "model":    "models/gemini-embedding-001",
+    },
+    "local-embedding": {
+        "label":    "Local Embedding",
+        "provider": "local",
+        "model":    "BAAI/bge-small-en-v1.5",
+    },
+}
+
+DEFAULT_EMBEDDING_KEY = "gemini-embedding"
+
 
 # Define RAG_Model class
 class RAG_Model: 
@@ -102,7 +118,8 @@ class RAG_Model:
         self.google_api_key = os.getenv('GOOGLE_API_KEY', '')
         
         # Initialize Retrieval Augmented Generation (RAG)
-        self.rag = Retrieval_Augmented_Generation()
+        self.current_embedding_key = DEFAULT_EMBEDDING_KEY
+        self.rag = Retrieval_Augmented_Generation(self._build_embedding_model(DEFAULT_EMBEDDING_KEY))
 
         # database / retriever populated once a page is loaded
         self.database = None
@@ -152,6 +169,35 @@ class RAG_Model:
             raise ValueError(f"Unknown tone: {tone_key}")
         self.current_tone_key = tone_key
         logger.info(f"Tone set: {TONE_REGISTRY[tone_key]['label']}")
+
+    @staticmethod
+    def list_embeddings():
+        return [
+            {"id": key, "label": cfg["label"]}
+            for key, cfg in EMBEDDING_REGISTRY.items()
+        ]
+
+    @staticmethod
+    def _build_embedding_model(embedding_key):
+        config = EMBEDDING_REGISTRY.get(embedding_key)
+        if config is None:
+            raise ValueError(f"Unknown embedding model: {embedding_key}")
+
+        if config["provider"] == "google":
+            return GoogleGenerativeAIEmbeddings(
+                model=config["model"],
+                google_api_key=GOOGLE_API_KEY,
+            )
+        if config["provider"] == "local":
+            return HuggingFaceEmbeddings(model_name=config["model"])
+
+        raise ValueError(f"Unsupported embedding provider: {config['provider']}")
+
+    def load_embedding_model(self, embedding_key):
+        embedding_model = self._build_embedding_model(embedding_key)
+        self.rag.embedding_model = embedding_model
+        self.current_embedding_key = embedding_key
+        logger.info(f"Embedding model set: {EMBEDDING_REGISTRY[embedding_key]['label']}")
 
     def Load_llm(self, model_key, temperature=None, max_tokens=None):
         # Swaps out the chat model only. Conversation memory (window_mem) and

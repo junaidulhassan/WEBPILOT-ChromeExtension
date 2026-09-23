@@ -5,13 +5,10 @@ import os
 import re
 import shutil
 from urllib.parse import urlparse, parse_qs
-from dotenv import load_dotenv
 
 from langchain.prompts import PromptTemplate
 from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
-from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_google_genai.embeddings import GoogleGenerativeAIEmbeddings
 from langchain_community.vectorstores import FAISS
 
 from langchain_community.document_loaders import PyPDFLoader, TextLoader
@@ -28,21 +25,16 @@ from youtube_transcript_api._errors import (
 
 from logging_config import logger
 
-# Load environment variables
-load_dotenv()
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
-
 # Define the Retrieval_Augmented_Generation class
 class Retrieval_Augmented_Generation:
-    
+
     # Define the path for the database
     __PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     __DB_path = os.path.join(__PROJECT_ROOT, "Docs", "Chroma")
     __store_text_file = os.path.join(__PROJECT_ROOT, "Scraped_data", "data.txt")
-    
-    def __init__(self):
-        # Initialize the embedding model
-        self.embedding_model = self.__embed()
+
+    def __init__(self, embedding_model):
+        self.embedding_model = embedding_model
     
     def __load_docs(self):
         try:
@@ -242,16 +234,6 @@ class Retrieval_Augmented_Generation:
         )
         
         return split
-    
-    def __embed(self):
-        # Create an embedding model using Google Generative AI
-        embeddings = GoogleGenerativeAIEmbeddings(
-            model="models/gemini-embedding-001",
-            google_api_key=GOOGLE_API_KEY
-        )
-        logger.info("Embedding model initialised")
-
-        return embeddings
     
     def VectorDatabase(self, is_pdf=False,
                        text=None,

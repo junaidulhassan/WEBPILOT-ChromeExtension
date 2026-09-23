@@ -67,6 +67,9 @@ class SetModelRequest(BaseModel):
 class SetToneRequest(BaseModel):
     tone: str
 
+class SetEmbeddingRequest(BaseModel):
+    embedding: str
+
 # ── URL helpers ───────────────────────────────────────────────────────────────
 def get_file_url(file_url: str) -> str:
     """Return a usable file path or HTTPS URL from any URL format."""
@@ -250,6 +253,35 @@ async def set_tone(request_data: SetToneRequest):
 
     activity_logger.info(f"tone_switched from={previous_tone} to={rag.current_tone_key}")
     return JSONResponse(content={'tone': rag.current_tone_key})
+
+
+@app.get('/embeddings')
+async def list_embeddings():
+    return JSONResponse(content={
+        'embeddings': rag.list_embeddings(),
+        'current': rag.current_embedding_key,
+    })
+
+
+@app.post('/set_embedding')
+async def set_embedding(request_data: SetEmbeddingRequest):
+    embedding_key = request_data.embedding.strip()
+
+    if not embedding_key:
+        raise HTTPException(status_code=400, detail="Missing embedding")
+
+    previous_embedding = rag.current_embedding_key
+    try:
+        await run_in_threadpool(rag.load_embedding_model, embedding_key)
+    except ValueError as e:
+        logger.warning(f"set_embedding rejected: {e}")
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        logger.exception(f"set_embedding failed to load {embedding_key}")
+        raise HTTPException(status_code=500, detail=f"Failed to load embedding model: {e}")
+
+    activity_logger.info(f"embedding_switched from={previous_embedding} to={rag.current_embedding_key}")
+    return JSONResponse(content={'embedding': rag.current_embedding_key})
 
 
 # ── Entry point ───────────────────────────────────────────────────────────────
