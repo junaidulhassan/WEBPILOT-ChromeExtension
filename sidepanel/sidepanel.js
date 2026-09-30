@@ -154,7 +154,7 @@ function closeSettings() {
 
 // ─── Event Listeners ─────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-    WPLog.info('popup_opened');
+    WPLog.info('sidepanel_opened');
     applyTheme(getTheme());
     applyModelSelection(getSelectedModel());
     syncModelToBackend(getSelectedModel());
@@ -163,11 +163,16 @@ document.addEventListener('DOMContentLoaded', () => {
     applyEmbeddingSelection(getSelectedEmbedding());
     syncEmbeddingToBackend(getSelectedEmbedding());
     processPage();
+    watchActiveTab();
 });
 
 document.getElementById('send-btn').addEventListener('click', sendMessage);
 document.getElementById('user-input').addEventListener('keypress', checkEnter);
 document.getElementById('clear-chat-btn').addEventListener('click', clearChatHistory);
+document.getElementById('close-panel-btn').addEventListener('click', () => {
+    WPLog.info('sidepanel_closed_by_user');
+    window.close();
+});
 document.getElementById('settings-btn').addEventListener('click', openSettings);
 document.getElementById('settings-close-btn').addEventListener('click', closeSettings);
 document.getElementById('settings-overlay').addEventListener('click', closeSettings);
@@ -235,21 +240,32 @@ const wordsAndIcons = [
 ];
 
 let currentIndex = 0;
-const pillText = document.getElementById('pill-text');
-const pillIcon = document.getElementById('pill-icon');
 
+// The welcome screen (and its #pill-text/#pill-icon) gets torn down and
+// rebuilt from scratch every time renderConversationMessages() runs — on
+// load, on "New chat", and now on every tab switch — so the elements must be
+// looked up fresh on each tick instead of cached once, or the interval keeps
+// animating detached nodes while the visible pill stays frozen.
 function updatePromptPill() {
+    const pillText = document.getElementById('pill-text');
+    const pillIcon = document.getElementById('pill-icon');
+    if (!pillText || !pillIcon) return;
+
     pillText.style.opacity = '0';
     pillIcon.style.opacity = '0';
 
     setTimeout(() => {
-        const item = wordsAndIcons[currentIndex];
-        pillText.textContent = item.text;
-        pillIcon.className   = item.icon + ' pill-icon';
-        pillIcon.style.color = item.color;
+        const freshText = document.getElementById('pill-text');
+        const freshIcon = document.getElementById('pill-icon');
+        if (!freshText || !freshIcon) return;
 
-        pillText.style.opacity = '1';
-        pillIcon.style.opacity = '1';
+        const item = wordsAndIcons[currentIndex];
+        freshText.textContent = item.text;
+        freshIcon.className   = item.icon + ' pill-icon';
+        freshIcon.style.color = item.color;
+
+        freshText.style.opacity = '1';
+        freshIcon.style.opacity = '1';
 
         currentIndex = (currentIndex + 1) % wordsAndIcons.length;
     }, 350);
@@ -257,18 +273,59 @@ function updatePromptPill() {
 
 setInterval(updatePromptPill, 2800);
 
+// ─── Active Tab Tracking ────────────────────────────────────────────────────────
+// Unlike a popup (a fresh document per click), the side panel document stays
+// alive across tab switches and navigations within its window. These
+// listeners keep it in sync with whatever page the user is currently on,
+// reusing the same tab-scoped conversation lookup processPage() already does.
+let myWindowId = null;
+
+async function getMyWindowId() {
+    if (myWindowId === null) {
+        const win = await chrome.windows.getCurrent();
+        myWindowId = win.id;
+    }
+    return myWindowId;
+}
+
+async function handlePossibleTabChange(tab) {
+    if (!tab || !tab.url) return;
+    if (currentTab && currentTab.id === tab.id && currentTab.url === tab.url) return;
+    await processPage(tab);
+}
+
+function watchActiveTab() {
+    chrome.tabs.onActivated.addListener(async ({ tabId, windowId }) => {
+        const myId = await getMyWindowId();
+        if (windowId !== myId) return;
+        const tab = await chrome.tabs.get(tabId).catch(() => null);
+        await handlePossibleTabChange(tab);
+    });
+
+    chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+        if (changeInfo.status !== 'complete' || !tab.active) return;
+        const myId = await getMyWindowId();
+        if (tab.windowId !== myId) return;
+        await handlePossibleTabChange(tab);
+    });
+}
+
 // ─── Page Processing ──────────────────────────────────────────────────────────
 let currentTab = null;
 let currentConversation = null;
 
-async function processPage() {
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+async function processPage(tab) {
+    if (!tab) {
+        [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    }
     currentTab = tab;
     const url  = tab.url;
-    document.getElementById('web-link').textContent = url;
+    renderUrlBar(tab);
 
     if (isIrrelevantTab(url)) {
         WPLog.warn('page_irrelevant_tab', { url });
+        currentConversation = null;
+        document.getElementById('chat-messages').innerHTML = '';
         showError("This tab can't be analysed. Please open a website, PDF, or YouTube video.");
         return;
     }
@@ -289,9 +346,8 @@ async function processPage() {
     showUrlLoading(true);
     disableChatInput(true, "Loading page content...");
 
+    let payload;
     try {
-        let payload;
-
         if (sourceType === 'pdf') {
             payload = { url, text: "PDF file" };
         } else if (sourceType === 'youtube') {
@@ -303,7 +359,15 @@ async function processPage() {
             });
             payload = { url, text: result.result };
         }
+    } catch (error) {
+        WPLog.error('page_content_extraction_failed', { url, sourceType, error: String(error) });
+        showError("Couldn't read this page's content. Try reloading the tab, or check the extension's site access in chrome://extensions.");
+        showLoading(false);
+        showUrlLoading(false);
+        return;
+    }
 
+    try {
         payload.history = resuming ? toBackendHistory(currentConversation.messages) : [];
 
         await postProcessPage(payload);
@@ -365,6 +429,7 @@ function createConversation(tab, sourceType) {
     return {
         id: crypto.randomUUID(),
         url: tab.url,
+        favIconUrl: tab.favIconUrl || null,
         sourceType,
         title: deriveTitle(tab.title, tab.url),
         createdAt: Date.now(),
@@ -642,7 +707,7 @@ async function openConversationFromHistory(id) {
     closeHistoryDrawer();
 
     currentConversation = conversation;
-    document.getElementById('web-link').textContent = conversation.url;
+    renderUrlBar(conversation);
     renderConversationMessages(conversation);
 
     if (currentTab) {
@@ -693,7 +758,8 @@ function buildWelcomeScreen() {
     div.id = 'welcome-screen';
     div.innerHTML = `
         <div class="welcome-icon-wrap">
-            <i class="fa-solid fa-atom welcome-icon"></i>
+            <img src="../icons/webpilot-logo-black-theme-148.png" alt="" class="welcome-logo welcome-logo-for-dark">
+            <img src="../icons/webpilot-logo-black-white-theme-148.png" alt="" class="welcome-logo welcome-logo-for-light">
             <div class="welcome-glow"></div>
         </div>
         <h2 class="welcome-title">WebPilot AI</h2>
@@ -707,6 +773,45 @@ function buildWelcomeScreen() {
 }
 
 // ─── UI Helpers ───────────────────────────────────────────────────────────────
+// Renders the url-bar from a tab or a saved conversation: the favicon (with a
+// graceful fallback), the hostname kept fully visible for an at-a-glance
+// "where am I", and the path/query truncated after it. The full URL always
+// stays available as a hover tooltip for the exact location.
+function renderUrlBar({ url, favIconUrl }) {
+    const urlBar    = document.getElementById('url-bar');
+    const favicon   = document.getElementById('url-favicon');
+    const fallback  = document.getElementById('url-fallback-icon');
+    const hostEl    = document.getElementById('url-host');
+    const pathEl    = document.getElementById('url-path');
+
+    urlBar.title = url;
+
+    if (favIconUrl) {
+        favicon.onerror = () => {
+            favicon.classList.add('hidden');
+            fallback.classList.remove('hidden');
+        };
+        favicon.onload = () => {
+            favicon.classList.remove('hidden');
+            fallback.classList.add('hidden');
+        };
+        favicon.src = favIconUrl;
+    } else {
+        favicon.classList.add('hidden');
+        fallback.classList.remove('hidden');
+    }
+
+    try {
+        const parsed = new URL(url);
+        hostEl.textContent = parsed.hostname || url;
+        const rest = parsed.pathname + parsed.search;
+        pathEl.textContent = rest === '/' ? '' : rest;
+    } catch {
+        hostEl.textContent = url;
+        pathEl.textContent = '';
+    }
+}
+
 function showError(message) {
     const chatMessages = document.getElementById("chat-messages");
     document.querySelector('.message.error')?.remove();

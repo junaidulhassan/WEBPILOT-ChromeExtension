@@ -1,23 +1,26 @@
 {
   "manifest_version": 3,
   "name": "Web Pilot",
-  "version": "1.0",
+  "version": "1.1",
   "description": "Chat with any website.",
-  "permissions": ["activeTab", "storage", "scripting", "tabs"],
+  "minimum_chrome_version": "114",
+  "permissions": ["activeTab", "storage", "scripting", "tabs", "sidePanel"],
   "background": {
     "service_worker": "background.js"
   },
   "action": {
-    "default_popup": "popup/popup.html"
+    "default_title": "Open WebPilot AI"
+  },
+  "side_panel": {
+    "default_path": "sidepanel/sidepanel.html"
   },
   "host_permissions": [
-    "http://127.0.0.1/*",
-    "https://www.googleapis.com/*",
-    "http://ec2-13-60-182-253.eu-north-1.compute.amazonaws.com:5000/*"
+    "http://*/*",
+    "https://*/*"
   ],
   "icons": {
-    "16": "icons/webpilot-16.png",
-    "48": "icons/webpilot-48.png",
-    "128": "icons/webpilot-148.png"
+    "16": "icons/webpilot-logo-black-white-theme-16.png",
+    "48": "icons/webpilot-logo-black-white-theme-48.png",
+    "128": "icons/webpilot-logo-black-white-theme-148.png"
   }
 }

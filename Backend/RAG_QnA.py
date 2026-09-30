@@ -194,6 +194,10 @@ class RAG_Model:
         raise ValueError(f"Unsupported embedding provider: {config['provider']}")
 
     def load_embedding_model(self, embedding_key):
+        if embedding_key == self.current_embedding_key:
+            logger.info(f"Embedding model already set: {EMBEDDING_REGISTRY[embedding_key]['label']}")
+            return
+
         embedding_model = self._build_embedding_model(embedding_key)
         self.rag.embedding_model = embedding_model
         self.current_embedding_key = embedding_key
