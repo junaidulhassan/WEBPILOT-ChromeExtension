@@ -161,42 +161,6 @@ A missing key does not stop the server. It starts in a degraded mode, `/health` 
 - **Start a new chat** with the broom button. The old chat stays in History.
 - **Reopen an old chat** from the History drawer. Websites need to be open in a tab to be re-read. PDFs and videos are fetched again by URL.
 
-## Project structure
-
-```
-manifest.json
-icons/
-docs/
-├── workflow.svg                    the diagram above
-└── screenshots/
-src/                                the extension (ES modules, no bundler)
-├── background/service-worker.js    side-panel behaviour and tab-mapping cleanup
-├── core/                           constants, structured logger, error types, preferences
-├── api/                            http-client (timeouts, retries, cancellation, streaming)
-│                                   plus one small module per resource
-├── storage/                        chrome.storage wrapper and the conversation store
-├── tabs/                           page-text extraction and active-tab watching
-├── utils/                          pure helpers: source detection, formatting, DOM, conversations
-└── sidepanel/
-    ├── index.html, main.js         entry point and startup
-    ├── state.js                    shared UI state
-    ├── controllers/                page, chat, history, settings, load-session
-    ├── ui/                         views: messages, markdown, composer, drawers, toasts, ...
-    └── styles/                     CSS split by concern (tokens, layout, components, animations)
-
-Backend/
-├── app/
-│   ├── main.py                     application factory and startup
-│   ├── core/                       config, logging, exceptions, error handlers, middleware
-│   ├── api/                        router, dependencies, routes (pages, chat, models,
-│   │                               tones, embeddings, health)
-│   ├── schemas/                    pydantic request and response models
-│   ├── domain/                     source types and the model, tone and embedding registries
-│   └── services/                   rag_service, loaders (text, pdf, youtube), model factories,
-│                                   vector store, conversation memory, prompts
-└── tests/
-tests/frontend/                     extension unit tests (node:test)
-```
 
 ## API reference
 
@@ -226,17 +190,6 @@ Every error uses the same envelope, and every response carries an `X-Request-ID`
 - **Extension**: structured events go to the console and are kept (the latest 300) under `wp_activity_log` in `chrome.storage.local`.
 - **Failures are always visible**: network errors, timeouts, rejected API keys and rate limits each produce a specific message in the panel, and failed page loads offer a **Try again** button.
 
-## Testing
-
-```bash
-# Backend: API and services, using fake models (no API keys needed)
-cd Backend
-pip install -r requirements-dev.txt
-pytest
-
-# Extension: markdown rendering, the HTTP client, utilities, storage fallback
-npm test
-```
 
 ## Troubleshooting
 
@@ -248,7 +201,3 @@ npm test
 | "Browser storage isn't working" or `LOCK: Access denied` | The browser's extension storage is locked. This usually happens after a browser (or snap) update while it was running. Fully quit and reopen the browser. Chat still works until then, but history is not saved. |
 | A PDF or video answers with an explanation of a problem | The PDF has no selectable text (it is probably a scan), or the video has no English transcript. |
 | The first page is slow with **Local** embeddings | The local model is downloaded on first use. Later pages are quick. |
-
-## Privacy
-
-WebPilot has no server of its own. The backend runs on your machine, and saved conversations stay in your browser. Page text is sent to the model providers you select: Google for Gemini, and Groq for GPT-OSS. Choosing **Local** embeddings keeps page text away from the embedding API, but questions and retrieved passages still go to the chat model's provider.
