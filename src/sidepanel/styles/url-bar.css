@@ -1,0 +1,102 @@
+#url-bar {
+    position: relative;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.55rem 1.1rem;
+    background: var(--url-bar-bg);
+    border-bottom: 1px solid var(--border);
+    font-size: 11.5px;
+    color: var(--text-secondary);
+    overflow: hidden;
+    transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+#url-bar.is-switching #url-text-wrap,
+#url-bar.is-switching #url-favicon-wrap {
+    animation: urlSwitch 0.4s var(--ease) both;
+}
+
+#url-favicon-wrap {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    border-radius: 6px;
+    background: var(--bg-pill);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+#url-bar.loading #url-favicon-wrap { animation: softPulse 1.2s ease-in-out infinite; }
+
+#url-favicon {
+    width: 13px;
+    height: 13px;
+    object-fit: contain;
+    border-radius: 2px;
+}
+
+#url-fallback-icon {
+    color: var(--text-muted);
+    font-size: 10px;
+}
+
+#url-text-wrap {
+    display: flex;
+    align-items: baseline;
+    min-width: 0;
+    flex: 1;
+}
+
+#url-host {
+    color: var(--text-primary);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    flex-shrink: 0;
+    max-width: 70%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#url-path {
+    color: var(--text-muted);
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#url-progress-bar {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--dur-fast) var(--ease);
+}
+
+#url-bar.loading #url-progress-bar { opacity: 1; }
+
+#url-progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -35%;
+    width: 35%;
+    height: 100%;
+    background: var(--success);
+    border-radius: 2px;
+    animation: progressSlide 1.1s ease-in-out infinite;
+    animation-play-state: paused;
+}
+
+#url-bar.loading #url-progress-bar::after { animation-play-state: running; }

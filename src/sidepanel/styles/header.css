@@ -1,0 +1,89 @@
+#header-container {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.85rem 1.1rem;
+    background-color: var(--bg-header);
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    z-index: var(--z-header);
+    transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    min-width: 0;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-width: 0;
+}
+
+.brand-icon {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.brand-logo { width: 30px; height: 30px; object-fit: contain; }
+.brand-logo-for-light { display: none; }
+[data-theme="light"] .brand-logo-for-dark { display: none; }
+[data-theme="light"] .brand-logo-for-light { display: block; }
+
+.brand-name {
+    font-family: var(--font-brand);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.2px;
+}
+
+.brand-accent { color: var(--text-muted); font-weight: 500; }
+
+#action-btn-container {
+    display: flex;
+    gap: 0.4rem;
+}
+
+.icon-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--bg-assistant);
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease),
+        border-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease-spring),
+        box-shadow var(--dur) var(--ease);
+}
+
+.icon-btn:hover {
+    background: var(--grad-metal);
+    color: var(--on-metal);
+    border-color: transparent;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.icon-btn:active { transform: translateY(0) scale(0.94); box-shadow: none; }
+.icon-btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+.icon-btn[aria-expanded="true"] { background: var(--grad-metal); color: var(--on-metal); border-color: transparent; }
+
+#clear-chat-btn:hover i { animation: sweep 0.5s var(--ease); }
+#settings-btn:hover i { animation: spinOnce 0.6s var(--ease); }
+#history-btn:hover i { animation: spinBack 0.6s var(--ease); }
+
+.spinning { animation: spinSlow 1s linear infinite !important; }

@@ -20,19 +20,24 @@ ENV PATH="/opt/venv/bin:$PATH" \
     HF_HOME=/app/.cache/huggingface \
     TOKENIZERS_PARALLELISM=false \
     OMP_NUM_THREADS=1 \
-    MALLOC_ARENA_MAX=2
+    MALLOC_ARENA_MAX=2 \
+    HOST=0.0.0.0 \
+    PORT=8000
 
 RUN useradd --system --uid 1000 --home-dir /app --shell /usr/sbin/nologin app
 
 COPY --from=builder /opt/venv /opt/venv
 
 WORKDIR /app/Backend
-COPY --chown=app:app Backend/*.py ./
-RUN mkdir -p logs /app/Scraped_data /app/Docs /app/.cache \
+COPY --chown=app:app Backend/app ./app
+RUN mkdir -p logs /app/.cache \
  && chown -R app:app /app
 
 USER app
 
 EXPOSE 8000
 
-CMD ["uvicorn", "backend:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1", "--no-server-header"]
+HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
+    CMD python -c "import os, urllib.request as u; u.urlopen('http://127.0.0.1:%s/health' % os.environ['PORT'], timeout=4)"
+
+CMD ["python", "-m", "app"]

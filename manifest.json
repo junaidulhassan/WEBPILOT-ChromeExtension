@@ -1,18 +1,19 @@
 {
   "manifest_version": 3,
   "name": "Web Pilot",
-  "version": "1.1",
+  "version": "2.0",
   "description": "Chat with any website.",
   "minimum_chrome_version": "114",
   "permissions": ["activeTab", "storage", "scripting", "tabs", "sidePanel"],
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "src/background/service-worker.js",
+    "type": "module"
   },
   "action": {
     "default_title": "Open WebPilot AI"
   },
   "side_panel": {
-    "default_path": "sidepanel/sidepanel.html"
+    "default_path": "src/sidepanel/index.html"
   },
   "host_permissions": [
     "http://*/*",

@@ -1,0 +1,71 @@
+.tone-btn-wrap { position: relative; }
+
+.tone-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 220px;
+    background: var(--bg-settings);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    box-shadow: -6px 10px 30px rgba(0, 0, 0, 0.35);
+    padding: 0.75rem;
+    z-index: var(--z-dropdown);
+    transform-origin: top right;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px) scale(0.94);
+    transition: opacity var(--dur-fast) var(--ease), transform var(--dur) var(--ease-spring),
+        visibility 0s linear var(--dur), background-color var(--dur) var(--ease);
+}
+
+.tone-dropdown.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition-delay: 0s;
+}
+
+.tone-dropdown-title {
+    font-size: 10.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--text-muted);
+    padding-bottom: 0.5rem;
+}
+
+.tone-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.tone-chip {
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--bg-page);
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 11.5px;
+    font-weight: 500;
+    transition: background var(--dur) var(--ease), color var(--dur) var(--ease),
+        border-color var(--dur) var(--ease), transform var(--dur-fast) var(--ease-spring),
+        box-shadow var(--dur) var(--ease);
+}
+
+.tone-dropdown.is-open .tone-chip {
+    animation: chipIn 0.35s var(--ease) backwards;
+    animation-delay: calc(var(--i, 0) * 25ms + 40ms);
+}
+
+.tone-chip:hover:not(.active) { border-color: var(--border-input); color: var(--text-primary); transform: translateY(-1px); }
+.tone-chip:active { transform: scale(0.94); }
+
+.tone-chip.active {
+    background: var(--grad-metal);
+    color: var(--on-metal);
+    border-color: transparent;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+}
