@@ -1,0 +1,31 @@
+const byId = (id) => document.getElementById(id);
+
+export const refs = Object.freeze({
+    chatMessages: byId('chat-messages'),
+    scrollBottomBtn: byId('scroll-bottom-btn'),
+    userInput: byId('user-input'),
+    sendBtn: byId('send-btn'),
+    brandAtom: byId('brand-atom'),
+    urlBar: byId('url-bar'),
+    urlFavicon: byId('url-favicon'),
+    urlFallbackIcon: byId('url-fallback-icon'),
+    urlHost: byId('url-host'),
+    urlPath: byId('url-path'),
+    closePanelBtn: byId('close-panel-btn'),
+    clearChatBtn: byId('clear-chat-btn'),
+    settingsBtn: byId('settings-btn'),
+    settingsDrawer: byId('settings-drawer'),
+    settingsOverlay: byId('settings-overlay'),
+    settingsCloseBtn: byId('settings-close-btn'),
+    historyBtn: byId('history-btn'),
+    historyDrawer: byId('history-drawer'),
+    historyOverlay: byId('history-overlay'),
+    historyCloseBtn: byId('history-close-btn'),
+    historyList: byId('history-list'),
+    historyEmpty: byId('history-empty'),
+    historyClearAllBtn: byId('history-clear-all-btn'),
+    toneBtn: byId('tone-btn'),
+    toneDropdown: byId('tone-dropdown'),
+    toastRegion: byId('toast-region'),
+    appVersion: byId('app-version')
+});

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WebPilot AI</title>
+
+    <script src="theme-init.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="stylesheet" href="styles/tokens.css">
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/url-bar.css">
+    <link rel="stylesheet" href="styles/chat.css">
+    <link rel="stylesheet" href="styles/messages.css">
+    <link rel="stylesheet" href="styles/composer.css">
+    <link rel="stylesheet" href="styles/drawers.css">
+    <link rel="stylesheet" href="styles/dropdown.css">
+    <link rel="stylesheet" href="styles/history.css">
+    <link rel="stylesheet" href="styles/toast.css">
+    <link rel="stylesheet" href="styles/animations.css">
+</head>
+
+<body>
+
+    <div id="settings-overlay" class="overlay" aria-hidden="true"></div>
+    <aside id="settings-drawer" class="drawer" role="dialog" aria-modal="true" aria-label="Settings" aria-hidden="true" inert>
+        <div class="drawer-header">
+            <span class="drawer-title"><i class="fa-solid fa-sliders" aria-hidden="true"></i> Settings</span>
+            <button id="settings-close-btn" class="drawer-close-btn" type="button" aria-label="Close settings">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+        </div>
+        <div class="settings-body">
+            <div class="settings-section-label">Model</div>
+            <div class="setting-row">
+                <div class="setting-info">
+                    <span class="setting-name">AI Model</span>
+                    <span class="setting-desc">Chat model</span>
+                </div>
+                <div class="segmented" id="model-group" data-setting="model" role="radiogroup" aria-label="AI model" style="--count: 2; --index: 0">
+                    <button class="segmented-item active" type="button" role="radio" aria-checked="true" data-value="gemini">
+                        Gemini
+                    </button>
+                    <button class="segmented-item" type="button" role="radio" aria-checked="false" data-value="gpt-oss-120b">
+                        GPT-OSS
+                    </button>
+                </div>
+            </div>
+
+            <div class="settings-divider"></div>
+            <div class="settings-section-label">Embedding</div>
+            <div class="setting-row">
+                <div class="setting-info">
+                    <span class="setting-name">Embedding Model</span>
+                    <span class="setting-desc">Applies on next load</span>
+                </div>
+                <div class="segmented" id="embedding-group" data-setting="embedding" role="radiogroup" aria-label="Embedding model" style="--count: 2; --index: 0">
+                    <button class="segmented-item active" type="button" role="radio" aria-checked="true" data-value="gemini-embedding">
+                        <i class="fa-solid fa-cloud" aria-hidden="true"></i> Gemini
+                    </button>
+                    <button class="segmented-item" type="button" role="radio" aria-checked="false" data-value="local-embedding">
+                        <i class="fa-solid fa-microchip" aria-hidden="true"></i> Local
+                    </button>
+                </div>
+            </div>
+
+            <div class="settings-divider"></div>
+            <div class="settings-section-label">Appearance</div>
+            <div class="setting-row">
+                <div class="setting-info">
+                    <span class="setting-name">Theme</span>
+                    <span class="setting-desc">Dark / Light</span>
+                </div>
+                <div class="segmented" id="theme-group" data-setting="theme" role="radiogroup" aria-label="Theme" style="--count: 2; --index: 0">
+                    <button class="segmented-item active" type="button" role="radio" aria-checked="true" data-value="dark">
+                        <i class="fa-solid fa-moon" aria-hidden="true"></i> Dark
+                    </button>
+                    <button class="segmented-item" type="button" role="radio" aria-checked="false" data-value="light">
+                        <i class="fa-solid fa-sun" aria-hidden="true"></i> Light
+                    </button>
+                </div>
+            </div>
+
+            <div class="settings-divider"></div>
+            <div class="settings-section-label">About</div>
+            <div class="setting-row about-row">
+                <i class="fa-solid fa-atom about-icon" aria-hidden="true"></i>
+                <div>
+                    <div class="setting-name">WebPilot AI</div>
+                    <div class="setting-desc" id="app-version">v—</div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <div id="history-overlay" class="overlay" aria-hidden="true"></div>
+    <aside id="history-drawer" class="drawer drawer-wide" role="dialog" aria-modal="true" aria-label="Conversation history" aria-hidden="true" inert>
+        <div class="drawer-header">
+            <span class="drawer-title"><i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i> History</span>
+            <button id="history-close-btn" class="drawer-close-btn" type="button" aria-label="Close history">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+        </div>
+        <div class="history-body">
+            <div id="history-list"></div>
+            <div id="history-empty" class="history-empty hidden">
+                <i class="fa-regular fa-comments" aria-hidden="true"></i>
+                <p>No saved conversations yet.<br>Chat about a page and it'll show up here.</p>
+            </div>
+        </div>
+        <div class="history-footer">
+            <button id="history-clear-all-btn" class="history-clear-btn" type="button">
+                <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                <span class="confirm-label">Clear All History</span>
+            </button>
+        </div>
+    </aside>
+
+    <header id="header-container">
+        <div class="header-left">
+            <button id="close-panel-btn" class="icon-btn" type="button" title="Close side panel" aria-label="Close side panel">
+                <i class="fa-solid fa-angles-left" aria-hidden="true"></i>
+            </button>
+            <div class="brand">
+                <div class="brand-icon" id="brand-atom">
+                    <img src="../../icons/webpilot-logo-black-theme-48.png" alt="" class="brand-logo brand-logo-for-dark">
+                    <img src="../../icons/webpilot-logo-black-white-theme-48.png" alt="" class="brand-logo brand-logo-for-light">
+                </div>
+                <span class="brand-name">WebPilot<span class="brand-accent">.AI</span></span>
+            </div>
+        </div>
+        <div id="action-btn-container">
+            <div class="tone-btn-wrap">
+                <button id="tone-btn" class="icon-btn" type="button" title="Response style" aria-label="Response style" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa-solid fa-masks-theater" aria-hidden="true"></i>
+                </button>
+                <div id="tone-dropdown" class="tone-dropdown" role="menu" aria-hidden="true" inert>
+                    <div class="tone-dropdown-title">Response Style</div>
+                    <div class="tone-grid" id="tone-grid" data-setting="tone">
+                        <button class="tone-chip active" type="button" role="menuitemradio" aria-checked="true" data-value="detailed" style="--i: 0">Detailed</button>
+                        <button class="tone-chip" type="button" role="menuitemradio" aria-checked="false" data-value="concise" style="--i: 1">Concise</button>
+                        <button class="tone-chip" type="button" role="menuitemradio" aria-checked="false" data-value="creative" style="--i: 2">Creative</button>
+                        <button class="tone-chip" type="button" role="menuitemradio" aria-checked="false" data-value="welcoming" style="--i: 3">Welcoming</button>
+                        <button class="tone-chip" type="button" role="menuitemradio" aria-checked="false" data-value="professional" style="--i: 4">Professional</button>
+                        <button class="tone-chip" type="button" role="menuitemradio" aria-checked="false" data-value="assertive" style="--i: 5">Assertive</button>
+                        <button class="tone-chip" type="button" role="menuitemradio" aria-checked="false" data-value="strict_to_data" style="--i: 6">Strict to Data</button>
+                        <button class="tone-chip" type="button" role="menuitemradio" aria-checked="false" data-value="critical" style="--i: 7">Critical</button>
+                    </div>
+                </div>
+            </div>
+            <button id="settings-btn" class="icon-btn" type="button" title="Settings" aria-label="Settings">
+                <i class="fa-solid fa-gear" aria-hidden="true"></i>
+            </button>
+            <button id="history-btn" class="icon-btn" type="button" title="Conversation history" aria-label="Conversation history">
+                <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+            </button>
+            <button id="clear-chat-btn" class="icon-btn" type="button" title="New chat" aria-label="New chat">
+                <i class="fa-solid fa-broom" aria-hidden="true"></i>
+            </button>
+        </div>
+    </header>
+
+    <div id="url-bar">
+        <div id="url-favicon-wrap">
+            <img id="url-favicon" class="hidden" alt="">
+            <i class="fa-solid fa-globe" id="url-fallback-icon" aria-hidden="true"></i>
+        </div>
+        <div id="url-text-wrap">
+            <span id="url-host">Loading page…</span><span id="url-path"></span>
+        </div>
+        <div id="url-progress-bar"></div>
+    </div>
+
+    <main id="chat-container">
+        <div id="chat-messages" role="log" aria-live="polite"></div>
+        <button id="scroll-bottom-btn" class="scroll-bottom-btn" type="button" aria-label="Scroll to latest message" tabindex="-1">
+            <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
+        </button>
+    </main>
+
+    <div class="input-container">
+        <div class="input-wrap">
+            <textarea id="user-input" placeholder="Ask me anything..." rows="1" maxlength="8000" aria-label="Message"></textarea>
+            <button id="send-btn" type="button" title="Send message" aria-label="Send message">
+                <i class="fa-solid fa-paper-plane send-icon" aria-hidden="true"></i>
+                <i class="fa-solid fa-stop stop-icon" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+
+    <div id="toast-region" aria-live="polite" aria-atomic="false"></div>
+
+    <script type="module" src="main.js"></script>
+</body>
+
+</html>
