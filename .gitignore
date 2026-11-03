@@ -20,3 +20,4 @@ Backend/logs/
 
 # Editor / OS
 .DS_Store
+/vscode
