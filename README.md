@@ -4,11 +4,6 @@
 
 **Chat with any web page, PDF or YouTube video, right from your browser's side panel.**
 
-![Manifest V3](https://img.shields.io/badge/Chrome-Manifest%20V3-4285F4?logo=googlechrome&logoColor=white)
-![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688?logo=fastapi&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
-![LangChain](https://img.shields.io/badge/RAG-LangChain%20%2B%20FAISS-1C3C3C)
-![Models](https://img.shields.io/badge/LLM-Gemini%20%7C%20GPT--OSS%20(Groq)-8A8A8A)
 
 <br>
 
